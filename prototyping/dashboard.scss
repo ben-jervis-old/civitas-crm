@@ -89,6 +89,29 @@ a>li.sidebar-list-item.active {
 		color: white;
 	}
 }
+
+.glyphicon-huge {
+	font-size: 4em;
+	margin: auto auto;
+}
+
+.card-holder {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	.panel {
+		display: inline-block;
+		width: 20%;
+		min-width: 200px;
+		margin: 10px 15px;
+		.panel-body {
+			text-align: center;
+			height: 150px;
+			line-height: 150px;
+		}
+	}
+}
+
 @media(min-width: 768px) {
 	#content-div {
 		padding-left: 260px;
