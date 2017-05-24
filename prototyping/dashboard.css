@@ -4,8 +4,32 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
+.navbar-inverse {
+	height: 70px;
+	padding-top: 12px;
+	border-radius: 0;
+}
+
+.navbar-inverse .action-icon-holder {
+	padding-top: 8px;
+}
+
+.navbar-inverse .action-icon-holder a {
+	color: white;
+	font-size: 1.8em;
+	padding: 0 5px;
+}
+
 .navbar-inverse .navbar-brand {
 	font-family: 'Signika', sans-serif;
+	color: white;
+	padding-top: 0;
+	font-size: 1.6em;
+}
+
+.navbar-inverse .navbar-brand img {
+	display: inline-block;
+	padding-right: 5px;
 }
 
 .navbar {
@@ -47,6 +71,10 @@ body {
 	font-size: 1.5em;
 }
 
+#tab-menu small {
+	display: block;
+}
+
 #content-div {
 	padding-left: 10px;
 	padding-top: 20px;
@@ -72,7 +100,7 @@ table {
 
 table td {
 	width: 20%;
-	padding: 15px 0;
+	padding: 10px 0;
 }
 
 a > li.sidebar-list-item.active {

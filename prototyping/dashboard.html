@@ -11,7 +11,20 @@
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">civitasCRM</a>
+					<a class="navbar-brand" href="#">
+						<img src="logo.svg" height="45px">civitasCRM
+					</a>
+				</div>
+				<div class="pull-right action-icon-holder">
+					<!-- <a href="#MyAccount"> Settings
+						<i class="glyphicon glyphicon-cog"></i>
+					</a>
+					<a href="#Logout"><span class="visible-xs-inline">Log Out</span>
+						<i class="glyphicon glyphicon-log-out"></i>
+					</a> -->
+					<a href="#">
+						<i class="glyphicon glyphicon-option-vertical"></i>
+					</a>
 				</div>
 			</div>
 		</nav>
@@ -65,12 +78,14 @@
 						<div class="row hidden-xs">
 							<div class="card-holder">
 								<div class="panel panel-default">
-									<div class="panel-body">
-										<i class="glyphicon glyphicon-user glyphicon-huge"></i>
-									</div>
-									<div class="panel-footer">
-										<div class="panel-title">Member Database</div>
-									</div>
+									<a href="#Members">
+										<div class="panel-body">
+											<i class="glyphicon glyphicon-user glyphicon-huge"></i>
+										</div>
+										<div class="panel-footer">
+											<div class="panel-title">Member Database</div>
+										</div>
+									</a>
 								</div>
 								<div class="panel panel-default">
 									<a href="#Roster">
@@ -82,21 +97,25 @@
 										</div>
 									</a>
 								</div>
-								<div class="panel panel-primary">
-									<div class="panel-body">
-										<i class="glyphicon glyphicon-check glyphicon-huge"></i>
-									</div>
-									<div class="panel-footer panel-heading">
-										<div class="panel-title">Attendance</div>
-									</div>
+								<div class="panel panel-default">
+									<a href="#Attendance">
+										<div class="panel-body">
+											<i class="glyphicon glyphicon-check glyphicon-huge"></i>
+										</div>
+										<div class="panel-footer">
+											<div class="panel-title">Attendance</div>
+										</div>
+									</a>
 								</div>
-								<div class="panel panel-primary">
-									<div class="panel-body">
-										<i class="glyphicon glyphicon-envelope glyphicon-huge"></i>
-									</div>
-									<div class="panel-footer">
-										<div class="panel-title">Contact</div>
-									</div>
+								<div class="panel panel-default">
+									<a href="#Contact">
+										<div class="panel-body">
+											<i class="glyphicon glyphicon-envelope glyphicon-huge"></i>
+										</div>
+										<div class="panel-footer">
+											<div class="panel-title">Contact</div>
+										</div>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -126,19 +145,34 @@
 				<div id="tab-menu" class="visible-xs-block">
 					<table>
 						<td class="active">
-							<a href="#Link1"><i class="glyphicon glyphicon-dashboard"></i></a>
+							<a href="#Link1">
+								<i class="glyphicon glyphicon-dashboard"></i>
+								<small>Dashboard</small>
+							</a>
 						</td>
 						<td>
-							<a href="#Link2"><i class="glyphicon glyphicon-user"></i></a>
+							<a href="#Link2">
+								<i class="glyphicon glyphicon-user"></i>
+								<small>Users</small>
+							</a>
 						</td>
 						<td>
-							<a href="#Link3"><i class="glyphicon glyphicon-calendar"></i></a>
+							<a href="#Link3">
+								<i class="glyphicon glyphicon-calendar"></i>
+								<small>Rostering</small>
+							</a>
 						</td>
 						<td>
-							<a href="#Link4"><i class="glyphicon glyphicon-check"></i></a>
+							<a href="#Link4">
+								<i class="glyphicon glyphicon-check"></i>
+								<small>Attendance</small>
+							</a>
 						</td>
 						<td>
-							<a href="#Link5"><i class="glyphicon glyphicon-envelope"></i></a>
+							<a href="#Link5">
+								<i class="glyphicon glyphicon-envelope"></i>
+								<small>Contact</small>
+							</a>
 						</td>
 					</table>
 				</div>

@@ -8,9 +8,28 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-.navbar-inverse .navbar-brand {
-	font-family: 'Signika', sans-serif;
-	// color: $theme-highlight;
+.navbar-inverse {
+	height: 70px;
+	padding-top: 12px;
+	border-radius: 0;
+	.action-icon-holder {
+		padding-top: 8px;
+		a {
+			color: white;
+			font-size: 1.8em;
+			padding: 0 5px;
+		}
+	}
+	.navbar-brand {
+		font-family: 'Signika', sans-serif;
+		color: white;
+		padding-top: 0;
+		font-size: 1.6em;
+		img {
+			display: inline-block;
+			padding-right: 5px;
+		}
+	}
 }
 
 .navbar {
@@ -49,6 +68,9 @@ body {
 	.glyphicon {
 		font-size: 1.5em;
 	}
+	small {
+		display: block;
+	}
 }
 
 #content-div {
@@ -74,7 +96,7 @@ table {
 	bottom: 0;
 	td {
 		width: 20%;
-		padding: 15px 0;
+		padding: 10px 0;
 	}
 }
 
