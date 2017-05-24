@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Signika');
+$theme-background: #2c3d4f;
+$theme-highlight: #1bbc9b;
+$plain-background: #f5f5f5;
+
+body {
+	height: 100%;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-inverse .navbar-brand {
+	font-family: 'Signika', sans-serif;
+	// color: $theme-highlight;
+}
+
+.navbar {
+	background-color: $theme-background;
+}
+
+#sidebar {
+	padding: 20px 0 0 0;
+	width: 250px;
+	position: fixed;
+	background-color: $plain-background;
+	height: 100%;
+
+	.sidebar-list {
+		.sidebar-list-item {
+			padding: 15px 25px;
+			.glyphicon {
+				font-size: 1.3em;
+			}
+		}
+		list-style-type: none;
+		padding: 10px 0px;
+	}
+
+	#user-info-card {
+		padding: 0 25px 25px 25px;
+		border-bottom: 1px solid #ddd;
+	}
+}
+
+#tab-menu {
+	li {
+		display: table-cell;
+		float: none;
+	}
+	.glyphicon {
+		font-size: 1.5em;
+	}
+}
+
+#content-div {
+	padding-left: 10px;
+	padding-top: 20px;
+	padding-right: 10px;
+}
+
+#main-body-div {
+	height: 100%;
+}
+
+nav.navbar {
+	margin-bottom: 0;
+}
+
+table {
+	table-layout: fixed;
+	width: 100%;
+	text-align: center;
+	background-color: $plain-background;
+	position: fixed;
+	bottom: 0;
+	td {
+		width: 20%;
+		padding: 15px 0;
+	}
+}
+
+a>li.sidebar-list-item.active {
+	background-color: #337ab7;
+	color: white;
+}
+
+#tab-menu td.active {
+	background-color: #337ab7;
+	a {
+		color: white;
+	}
+}
+@media(min-width: 768px) {
+	#content-div {
+		padding-left: 260px;
+	}
+}
