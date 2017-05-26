@@ -17,7 +17,10 @@
 							<h1>Rostering</h1>
 						</div>
 						<div class="row padded-row">
-							<button class="btn btn-primary btn-block">
+							<button class="btn btn-primary btn-block visible-xs-block">
+								<i class="glyphicon glyphicon-plus"></i> New Roster
+							</button>
+							<button class="btn btn-primary pull-right hidden-xs">
 								<i class="glyphicon glyphicon-plus"></i> New Roster
 							</button>
 						</div>
