@@ -1,7 +1,22 @@
 @import url("https://fonts.googleapis.com/css?family=Signika");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 body {
 	height: 100%;
 	font-family: 'Open Sans', sans-serif;
+}
+
+.padded-row {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-bottom: 20px;
+}
+
+.spaced {
+	margin-right: 5px;
+}
+
+.bounded-row {
+	margin-bottom: 20px;
 }
 
 .navbar-inverse {
@@ -77,16 +92,21 @@ body {
 
 #content-div {
 	padding-left: 10px;
-	padding-top: 20px;
+	padding-top: 6px;
 	padding-right: 10px;
 }
 
 #main-body-div {
 	height: 100%;
+	margin-top: 70px;
 }
 
 nav.navbar {
 	margin-bottom: 0;
+}
+
+nav.navbar .navbar-header {
+	float: left;
 }
 
 table {
@@ -100,7 +120,11 @@ table {
 
 table td {
 	width: 20%;
+}
+
+table td a {
 	padding: 10px 0;
+	display: block;
 }
 
 a > li.sidebar-list-item.active {
@@ -142,12 +166,40 @@ a > li.sidebar-list-item.active {
 	width: 20%;
 	min-width: 200px;
 	margin: 10px 15px;
+	border-color: #2c3d4f;
+	color: white;
 }
 
 .card-holder .panel .panel-body {
 	text-align: center;
 	height: 150px;
 	line-height: 150px;
+}
+
+.card-holder .panel .panel-body .glyphicon {
+	color: #2c3d4f;
+}
+
+.card-holder .panel .panel-footer {
+	background-color: #2c3d4f;
+	color: white;
+}
+
+#action-menu {
+	position: absolute;
+	display: none;
+	top: 50px;
+	right: 45px;
+	z-index: 2000;
+	width: 200px;
+}
+
+#action-menu a {
+	display: block;
+}
+
+.action-icon-holder a {
+	text-decoration: none;
 }
 
 @media (min-width: 768px) {
