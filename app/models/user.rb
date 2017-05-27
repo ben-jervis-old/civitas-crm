@@ -1,8 +1,16 @@
 class User < ApplicationRecord
+	has_many :memberships
+	has_many :groups, through: :memberships
+	has_many :tasks
+	has_many :rosters, through: :tasks
 
-	validates :first_name, 	presence: true
-	validates :last_name, 	presence: true
-	validates :email, 			presence: true
+	validates :first_name, 	presence: true, length: { maximum: 50 }
+	validates :last_name, 	presence: true, length: { maximum: 50 }
+	validates :email, 			presence: true, length: { maximum: 255 }
+	validate 	:level_must_be_valid
+
+	before_save :check_level
+	before_save :check_birthdate
 
 	# TODO has_secure_password
 
@@ -34,16 +42,33 @@ class User < ApplicationRecord
 		self.level == "visitor"
 	end
 
-	# TODO Uncomment these once groups are implemented
-	# def add_to(*groups)
-	# 	groups.each{ |grp_num| self.memberships.create(group_id: grp_num) }
-	# end
-	#
-	# def leader_of
-	# 	self.groups.select{ |grp| grp.leader_id == self.id }
-	# end
-	#
-	# def leader_of?(grp)
-	# 	grp.leader_id == self.id
+	def admin_of
+		self.memberships.select(&:trusted).collect(&:group_id)
 	end
+
+	def admin_of?(group)
+		self.admin_of.include?(group.to_i)
+	end
+
+	def add_to(groups)
+		groups.each do |group|
+			self.memberships.create(group_id: group.to_i, trusted: false)
+		end
+	end
+
+	private
+		def check_level
+			self.level.downcase!
+		end
+
+		def check_birthdate
+		end
+
+		def level_must_be_valid
+			if self.level.nil?
+				errors.add(:level, "can't be blank")
+			elsif !(%w(staff leader trusted member visitor).include?(self.level.downcase))
+				errors.add(:level, "must be one of [staff, leader, trusted, member, visitor]")
+			end
+		end
 end
