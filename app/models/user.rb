@@ -50,10 +50,22 @@ class User < ApplicationRecord
 		self.admin_of.include?(group.to_i)
 	end
 
-	def add_to(groups)
+	def add_to(groups, opts = { trusted: false })
+		groups = [groups] unless groups.is_a?(Array)
 		groups.each do |group|
-			self.memberships.create(group_id: group.to_i, trusted: false)
+			self.memberships.create(group_id: group.to_i, trusted: opts[:trusted])
 		end
+	end
+
+	def remove_from(groups)
+		groups = [groups] unless groups.is_a?(Array)
+		groups.each do |group|
+			self.memberships.select{ |mem| mem.group_id ==  group.to_i }.first.destroy
+		end
+	end
+
+	def make_admin(group)
+		self.memberships.select{ |mem| mem.group_id == group.to_i }.first.update_attributes(trusted: true)
 	end
 
 	private
