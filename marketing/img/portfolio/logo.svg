@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="250" height="250">
+	<!-- Created with Vector Paint - http://www.vectorpaint.yaks.com/ https://chrome.google.com/webstore/detail/hnbpdiengicdefcjecjbnjnoifekhgdo -->
+	<g class="currentLayer">
+		<path fill="#000000" stroke="#2C3E50" stroke-width="20" stroke-linejoin="round" stroke-dashoffset="" fill-rule="nonzero" marker-start="" marker-mid="" marker-end="" d="M9.455970320186452,125.00000232671209 L58.97484639866815,25.9622656790242 L191.02517226843133,25.9622656790242 L240.54403283763202,125.00000232671209 L191.02517226843133,224.03773897439947 L58.97484639866815,224.03773897439947 L9.455970320186452,125.00000232671209 z" style="color: rgb(0, 0, 0);" class="" id="svg_6" fill-opacity="0" opacity="1" stroke-opacity="1" filter="" transform="rotate(90 125,125) "/></g><defs><filter id="f003" inkscape:label="Metal casting" x="0" y="0" width="1" height="1" inkscape:menu="Bevels" inkscape:menu-tooltip="Smooth drop-like bevel with metallic finish" color-interpolation-filters="sRGB">
+            <feColorMatrix values=".37" type="saturate" in="SourceGraphic" result="result1"/>
+            <feGaussianBlur stdDeviation="7" id="feGaussianBlur2470" in="SourceAlpha"/>
+            <feSpecularLighting specularExponent="8" specularConstant="3.88" surfaceScale="10">
+                <feDistantLight azimuth="225" elevation="17"/>
+            </feSpecularLighting>
+            <feComposite in2="result1" operator="atop"/>
+        </filter></defs></svg>
