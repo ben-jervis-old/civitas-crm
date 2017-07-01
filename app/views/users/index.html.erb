@@ -2,6 +2,11 @@
 
 <% @users = User.all %>
 <% @users.each do |user| %>
-  <%= user.name %><br/>
-  <%= user.email %><br/>
+  <div class="List-group-row">
+  	<div class="col-md-4">
+		  <div class="list-group-item">
+		  	<p><a href="<%=user_path(user)%>"><%= user.name %></a></p>
+	  	</div>
+  	</div>
+  </div>
 <% end %>
