@@ -13,6 +13,11 @@ class UsersController < ApplicationController
 
 	def show
     @user = User.find(params[:id])
+
+		phone_num = @user.phone_number.to_s.rjust(10, '0')
+		@formatted_phone = "#{phone_num[0..3]} #{phone_num[4..6]} #{phone_num[7..9]}"
+
+		@address_link = "https://www.google.com.au/maps/place/#{CGI::escape(@user.address)}"
 	end
 
 	def update

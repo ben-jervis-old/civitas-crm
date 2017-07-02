@@ -1,4 +1,6 @@
-<h1>Profile Page</h1>
+<div class="page-header">
+		<h1>Profile Page</h1>
+</div>
 
 <h2><a href="<%=user_path(@user)%>/edit">edit</a></h2>
 <h2><%= link_to "delete", @user, method: :delete, data: { confirm: "You sure?" } %></h2>
@@ -13,9 +15,13 @@
 	</div>
 	<div class="col-md-6">
 		<h3><%= @user.name %></h3>
-		<h3><%= @user.email %></h3>
-		<h3><%= @user.address %></h3>
-		<h3><%= @user.phone_number %></h3>
-		<h3><%= @user.phone_number %></h3>
+		<h3><%= mail_to @user.email %></h3>
+		<h3><%= @user.address %>
+			<%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
+				<i class="fa fa-map-marker" aria-hidden="true"></i>
+			<% end %>
+		</h3>
+		<h3><%= @formatted_phone %> </h3>
+		<h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
 	</div>
 </div>

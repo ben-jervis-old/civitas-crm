@@ -12,24 +12,43 @@ User.create(first_name: "Ben",
 						address: "U4 22-24 New Dapto Road, Wollongong, NSW",
 						email: "ben@jervis.net.au",
 						dob: Date.parse("1993-02-12"),
-						level: "staff");
+						level: "staff")
 
-User.create(first_name: "Test",
- 						last_name: "User 1",
+User.create(first_name: "James",
+ 						last_name: "Nicholls",
 						phone_number: "0412345678".to_i,
 						address: "123 Test Street, Keiraville, Wollongong, NSW",
-						email: "testuser1@example.com",
+						email: "james@civitascrm.com.au",
 						dob: Date.parse("1993-05-10"),
-						level: "visitor");
+						level: "leader")
+
+User.create(first_name: "Hayden",
+ 						last_name: "McWilliams",
+						phone_number: "0434567891".to_i,
+						address: "7 Crown Street, Wollongong, NSW",
+						email: "hayden@civitascrm.com.au",
+						dob: Date.parse("1991-06-30"),
+						level: "trusted")
+
+User.create(first_name: "Matthew",
+ 						last_name: "Moore",
+						phone_number: "0498765432".to_i,
+						address: "34 Keira Street, Wollongong, NSW",
+						email: "matt@civitascrm.com.au",
+						dob: Date.parse("1995-11-05"),
+						level: "visitor")
 
 Group.create(	name: "Test Group 1",
-							group_type: "Family");
+							group_type: "Family")
 
 Group.create(	name: "Test Group 2",
-							group_type: "Study Group");
+							group_type: "Study Group")
 
 Group.create(	name: "Children's Ministry",
-							group_type: "Staff Group");
+							group_type: "Staff Group")
+
+Group.create( name: "Development Team",
+              group_type: "Staff Group")
 
 
 User.first.add_to([1, 2])
