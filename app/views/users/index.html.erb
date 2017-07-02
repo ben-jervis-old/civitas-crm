@@ -1,18 +1,41 @@
-<h1>Users</h1>
-
-<div class="col-md-12">
-	<div class="input-group">
-		<input type="text" name="user-search" value class="form-control" placeholder="Search">
-	</div>
+<div class="page-header">
+	<h1>Member Database</h1>
 </div>
 
-<% @users = User.all %>
-<% @users.each do |user| %>
-  <div class="List-group-row">
-  	<div class="col-md-4">
-		  <div class="list-group-item">
-		  	<p><a href="<%=user_path(user)%>"><%= user.name %></a></p>
-	  	</div>
-  	</div>
-  </div>
-<% end %>
+<div class="row bounded-row">
+	<div class="col-md-1 visible-xs-block">
+		<button class="btn btn-primary btn-block">
+			<i class="glyphicon glyphicon-plus"></i> New Member
+		</button>
+		<br>
+	</div>
+	<div class="col-md-4">
+		<div class="input-group">
+			<input type="text" name="user-search" value="" class="form-control" placeholder="Search">
+			<span class="input-group-btn">
+				<button class="btn btn-default">
+					<i class="glyphicon glyphicon-search"></i>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-md-1 col-md-offset-7 hidden-xs">
+		<button class="btn btn-primary pull-right">
+			<i class="glyphicon glyphicon-plus"></i> New Member
+		</button>
+	</div>
+</div>
+	<div class="list-group row ">
+		<% @users.each do |user| %>
+			<div class="col-md-3">
+				<div class="list-group-item">
+					<h4>
+						<%= link_to user.name, user %>
+						<%= link_to '#Show' do %>
+							<i class="glyphicon glyphicon-picture pull-right"></i>
+						<% end %>
+					</h4>
+				</div>
+			</div>
+		<% end %>
+	</div>
