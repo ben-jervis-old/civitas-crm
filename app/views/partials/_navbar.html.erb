@@ -15,9 +15,10 @@
 			<a href="#MyAccount" class="hidden-xs" data-toggle="tooltip" data-placement="bottom" title="Settings">
 				<i class="glyphicon glyphicon-cog"></i>
 			</a>
-			<a href="#Logout" class="hidden-xs" data-toggle="tooltip" data-placement="bottom" title="Log Out">
+			<%= link_to logout_path, method: :delete, class: 'hidden-xs', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: 'Log Out' do %>
+			<!-- <a href="#Logout" class="hidden-xs" data-toggle="tooltip" data-placement="bottom" title="Log Out"> -->
 				<i class="glyphicon glyphicon-log-out"></i>
-			</a>
+			<% end %>
 			<a href="#" id="action-menu-button" class="visible-xs-inline">
 				<i class="glyphicon glyphicon-option-vertical"></i>
 			</a>

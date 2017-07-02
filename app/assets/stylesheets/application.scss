@@ -126,6 +126,17 @@ nav.navbar {
 	}
 }
 
+#login-page-wrapper {
+	max-width: 600px;
+	margin: 0 auto;
+	input[type='submit'] {
+		margin: 0 auto;
+		margin-top: 10px;
+		padding-left: 25px;
+		padding-right: 25px;
+	}
+}
+
 table {
 	table-layout: fixed;
 	width: 100%;

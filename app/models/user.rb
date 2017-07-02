@@ -12,7 +12,7 @@ class User < ApplicationRecord
 	before_save :check_level
 	before_save :check_birthdate
 
-	# TODO has_secure_password
+	has_secure_password
 
 	def to_i
 		self.id
@@ -66,6 +66,11 @@ class User < ApplicationRecord
 
 	def make_admin(group)
 		self.memberships.select{ |mem| mem.group_id == group.to_i }.first.update_attributes(trusted: true)
+	end
+
+	def User.digest(string)
+		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+		BCrypt::Password.create(string, cost: cost)
 	end
 
 	private

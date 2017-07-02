@@ -2,7 +2,7 @@
 	<div id="user-info-card">
 		<%= image_tag 'usericon.png', class: 'pull-right', width: 50, height: 50 %>
 		<div >
-			<h4><%= link_to 'User Name', '#MyProfile' %></h4>
+			<h4><%= link_to current_user.name, current_user %></h4>
 			<%= link_to 'My Account', '#MySettings' %>
 		</div>
 	</div>
@@ -37,6 +37,6 @@
 					title: 'Contact',
 					link_path: '#Contact',
 					icon: 'envelope' %>
-					
+
 	</ul>
 </div>

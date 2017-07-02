@@ -12,7 +12,9 @@ User.create(first_name: "Ben",
 						address: "U4 22-24 New Dapto Road, Wollongong, NSW",
 						email: "ben@jervis.net.au",
 						dob: Date.parse("1993-02-12"),
-						level: "staff")
+						level: "staff",
+            password: 'password',
+            password_confirmation: 'password')
 
 User.create(first_name: "James",
  						last_name: "Nicholls",
@@ -20,7 +22,9 @@ User.create(first_name: "James",
 						address: "123 Test Street, Keiraville, Wollongong, NSW",
 						email: "james@civitascrm.com.au",
 						dob: Date.parse("1993-05-10"),
-						level: "leader")
+						level: "leader",
+            password: 'password',
+            password_confirmation: 'password')
 
 User.create(first_name: "Hayden",
  						last_name: "McWilliams",
@@ -28,7 +32,9 @@ User.create(first_name: "Hayden",
 						address: "7 Crown Street, Wollongong, NSW",
 						email: "hayden@civitascrm.com.au",
 						dob: Date.parse("1991-06-30"),
-						level: "trusted")
+						level: "trusted",
+            password: 'password',
+            password_confirmation: 'password')
 
 User.create(first_name: "Matthew",
  						last_name: "Moore",
@@ -36,7 +42,9 @@ User.create(first_name: "Matthew",
 						address: "34 Keira Street, Wollongong, NSW",
 						email: "matt@civitascrm.com.au",
 						dob: Date.parse("1995-11-05"),
-						level: "visitor")
+						level: "visitor",
+            password: 'password',
+            password_confirmation: 'password')
 
 Group.create(	name: "Test Group 1",
 							group_type: "Family")
