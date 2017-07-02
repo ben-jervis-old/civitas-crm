@@ -9,11 +9,16 @@
   </head>
 
   <body>
-		<!-- Include the navbar -->
-		<!-- Include the sidebar -->
-		<div class="container">
-			<%= yield %>
-		</div>
-
+    <%= render 'partials/navbar' %>
+    <div class="container-fluid">
+      <div class="row" id="main-body-div">
+        <%= render 'partials/sidebar' %>
+        <div id="content-div">
+          <div class="container-fluid">
+            <%= yield %>
+		      </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
