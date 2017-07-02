@@ -172,6 +172,9 @@ a>li.sidebar-list-item.active {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
+	a:hover {
+		color: white;
+	}
 	.panel {
 		display: inline-block;
 		width: 20%;

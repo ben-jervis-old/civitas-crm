@@ -2,48 +2,41 @@
 	<div id="user-info-card">
 		<%= image_tag 'usericon.png', class: 'pull-right', width: 50, height: 50 %>
 		<div >
-			<h4><a href="#Profile">User Name</a></h4>
-			<a href="#Settings">
-				My Account
-			</a>
+			<h4><%= link_to 'User Name', '#MyProfile' %></h4>
+			<%= link_to 'My Account', '#MySettings' %>
 		</div>
 	</div>
 	<ul class="list-group sidebar-list">
-		<a href="/demopage" class="">
-			<li class="sidebar-list-item">
-				Dashboard
-				<i class="glyphicon glyphicon-dashboard pull-right"></i>
-			</li>
-		</a>
-		<a href="/demopage/members">
-			<li class="sidebar-list-item">
-				Members
-				<i class="glyphicon glyphicon-user pull-right"></i>
-			</li>
-		</a>
-		<a href="/demopage/rosters">
-			<li class="sidebar-list-item">
-				Rosters
-				<i class="glyphicon glyphicon-calendar pull-right"></i>
-			</li>
-		</a>
-		<a href="/demopage/groups">
-			<li class="sidebar-list-item">
-				Groups
-				<i class="glyphicon glyphicon-list pull-right"></i>
-			</li>
-		</a>
-		<a href="#Link4">
-			<li class="sidebar-list-item">
-				Attendance
-				<i class="glyphicon glyphicon-check pull-right"></i>
-			</li>
-		</a>
-		<a href="#Link5">
-			<li class="sidebar-list-item">
-				Contact
-				<i class="glyphicon glyphicon-envelope pull-right"></i>
-			</li>
-		</a>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Dashboard',
+					link_path: root_path,
+					icon: 'dashboard' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Members',
+					link_path: users_path,
+					icon: 'user' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Rosters',
+					link_path: '#Rosters',
+					icon: 'calendar' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Groups',
+					link_path: '#Groups',
+					icon: 'list' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Attendance',
+					link_path: '#Attendance',
+					icon: 'check' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Contact',
+					link_path: '#Contact',
+					icon: 'envelope' %>
+					
 	</ul>
 </div>
