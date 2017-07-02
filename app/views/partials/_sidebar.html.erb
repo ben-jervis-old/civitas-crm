@@ -1,0 +1,42 @@
+<div id="sidebar" class="hidden-xs">
+	<div id="user-info-card">
+		<%= image_tag 'usericon.png', class: 'pull-right', width: 50, height: 50 %>
+		<div >
+			<h4><%= link_to 'User Name', '#MyProfile' %></h4>
+			<%= link_to 'My Account', '#MySettings' %>
+		</div>
+	</div>
+	<ul class="list-group sidebar-list">
+
+		<%= render 'partials/sidebar_link',
+					title: 'Dashboard',
+					link_path: root_path,
+					icon: 'dashboard' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Members',
+					link_path: users_path,
+					icon: 'user' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Rosters',
+					link_path: '#Rosters',
+					icon: 'calendar' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Groups',
+					link_path: '#Groups',
+					icon: 'list' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Attendance',
+					link_path: '#Attendance',
+					icon: 'check' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Contact',
+					link_path: '#Contact',
+					icon: 'envelope' %>
+					
+	</ul>
+</div>
