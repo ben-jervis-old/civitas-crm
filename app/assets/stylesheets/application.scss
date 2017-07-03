@@ -242,6 +242,10 @@ a>li.sidebar-list-item.active {
 	}
 }
 
+label.checkbox.inline {
+	padding-left: 20px;
+}
+
 @media(min-width: 768px) {
 	#content-div {
 		padding-left: 260px;
