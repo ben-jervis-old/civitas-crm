@@ -1,0 +1,22 @@
+<div class="page-header">
+	<h1>Rostering</h1>
+</div>
+
+<div class="row padded-row">
+
+	<%= link_to new_roster_path, class: "btn btn-primary btn-lg btn-block visible-xs-block" do %>
+		<i class="glyphicon glyphicon-plus"></i> New Roster
+	<% end %>
+
+	<%= link_to new_roster_path, class: "btn btn-primary pull-right hidden-xs" do %>
+		<i class="glyphicon glyphicon-plus"></i> New Roster
+	<% end %>
+
+</div>
+
+<div class="row padded-row">
+
+	<div class="panel panel-default list-group">
+    <%= render @rosters %>
+	</div>
+</div>

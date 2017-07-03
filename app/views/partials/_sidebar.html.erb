@@ -11,7 +11,8 @@
 		<%= render 'partials/sidebar_link',
 					title: 'Dashboard',
 					link_path: root_path,
-					icon: 'dashboard' %>
+					icon: 'dashboard',
+					link_type: :exclusive %>
 
 		<%= render 'partials/sidebar_link',
 					title: 'Members',
@@ -19,14 +20,14 @@
 					icon: 'user' %>
 
 		<%= render 'partials/sidebar_link',
-					title: 'Rosters',
-					link_path: '#Rosters',
-					icon: 'calendar' %>
-
-		<%= render 'partials/sidebar_link',
 					title: 'Groups',
 					link_path: '#Groups',
 					icon: 'list' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Rosters',
+					link_path: rosters_path,
+					icon: 'calendar' %>
 
 		<%= render 'partials/sidebar_link',
 					title: 'Attendance',

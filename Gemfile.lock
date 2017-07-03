@@ -24,6 +24,9 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_link_to (1.0.4)
+      actionpack
+      addressable
     activejob (5.0.4)
       activesupport (= 5.0.4)
       globalid (>= 0.3.6)
@@ -44,6 +47,7 @@ GEM
     autoprefixer-rails (7.1.1.2)
       execjs
     bcrypt (3.1.11)
+    bcrypt (3.1.11-x64-mingw32)
     bindex (0.5.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -197,6 +201,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  active_link_to
   bcrypt (~> 3.1.7)
   bootstrap-sass
   byebug

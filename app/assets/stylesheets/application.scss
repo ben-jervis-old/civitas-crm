@@ -156,13 +156,20 @@ table {
 a>li.sidebar-list-item.active {
 	background-color: #337ab7;
 	color: white;
-}
-
-#tab-menu td.active {
-	background-color: #337ab7;
-	a {
+	&:hover {
 		color: white;
 	}
+}
+
+.list-group.sidebar-list a.active {
+	color: white;
+}
+
+#tab-menu a.active {
+	background-color: #337ab7;
+	// a {
+		color: white;
+	// }
 }
 
 .glyphicon-huge {

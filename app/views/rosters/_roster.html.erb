@@ -1,0 +1,8 @@
+<div class="list-group-item">
+  <%= link_to roster do %>
+    <h4><%= roster.title %>
+      <span class="label label-default pull-right"><%= pluralize(14, 'Member') %></span>
+    </h4>
+  <% end %>
+  <%= roster.description %>
+</div>

@@ -60,3 +60,18 @@ Group.create( name: "Development Team",
 
 
 User.first.add_to([1, 2])
+
+Roster.create(  title: 'Grounds keeping',
+                start_date: Date.parse('29/07/2017'),
+                duration: 7,
+                description: 'Church grounds maintenance roster for the week 29/05 to 04/06')
+
+Roster.create(  title: 'Readings - 9:30 Service',
+                start_date: Date.parse('04/07/2017'),
+                duration: 1,
+                description: 'Verse readings for the 9:30am service of 04/06')
+
+Roster.create(  title: 'Home Visits',
+                start_date: Date.parse('05/07/2017'),
+                duration: 31,
+                description: 'Ministry outreach roster 05/06 to 05/07')

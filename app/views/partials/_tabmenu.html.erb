@@ -1,0 +1,34 @@
+<div id="tab-menu" class="visible-xs-block">
+	<table>
+		<td class="">
+			<%= active_link_to root_path, active: :exclusive do %>
+				<i class="glyphicon glyphicon-dashboard"></i>
+				<small>Dashboard</small>
+			<% end %>
+		</td>
+		<td class="">
+			<%= active_link_to users_path do %>
+				<i class="glyphicon glyphicon-user"></i>
+				<small>Members</small>
+			<% end %>
+		</td>
+		<td class="">
+			<%= active_link_to rosters_path do %>
+				<i class="glyphicon glyphicon-calendar"></i>
+				<small>Rostering</small>
+			<% end %>
+		</td>
+		<td>
+			<%= link_to '#Attendance' do %>
+				<i class="glyphicon glyphicon-check"></i>
+				<small>Attendance</small>
+			<% end %>
+		</td>
+		<td>
+			<%= link_to '#Contact' do %>
+				<i class="glyphicon glyphicon-envelope"></i>
+				<small>Contact</small>
+			<% end %>
+		</td>
+	</table>
+</div>

@@ -35,6 +35,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 
+gem 'active_link_to'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  resources :rosters
   resources :users
 
 	root 'dashboard#index'
