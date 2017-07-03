@@ -9,6 +9,8 @@ class UsersController < ApplicationController
 
 	def edit
     @user = User.find(params[:id])
+    phone_num = @user.phone_number.to_s.rjust(10, '0')
+		@formatted_phone = "#{phone_num[0..3]} #{phone_num[4..6]} #{phone_num[7..9]}"
 	end
 
 	def show
@@ -23,7 +25,7 @@ class UsersController < ApplicationController
 	def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      render 'show'
+      redirect_to @user
     else
       render 'edit'
     end
@@ -49,6 +51,7 @@ class UsersController < ApplicationController
 	private
 
     def user_params
+    	params[:user][:phone_number] = params[:user][:phone_number].split.join('').to_i
       params.require(:user).permit(:first_name, :last_name, :email, :address,
                                    :phone_number, :dob)
     end

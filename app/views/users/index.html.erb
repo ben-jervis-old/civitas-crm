@@ -4,9 +4,9 @@
 
 <div class="row bounded-row">
 	<div class="col-md-1 visible-xs-block">
-		<button class="btn btn-primary btn-block">
-			<i class="glyphicon glyphicon-plus"></i> New Member
-		</button>
+		<%= link_to new_user_path, class: 'btn btn-primary btn-block' do %>
+			<i class="glyphicon glyphicon-plus"></i> New Member 5
+		<% end %>
 		<br>
 	</div>
 	<div class="col-md-4">
@@ -20,9 +20,9 @@
 		</div>
 	</div>
 	<div class="col-md-1 col-md-offset-7 hidden-xs">
-		<button class="btn btn-primary pull-right">
+		<%= link_to new_user_path, class: "btn btn-primary pull-right" do %>
 			<i class="glyphicon glyphicon-plus"></i> New Member
-		</button>
+		<% end %>
 	</div>
 </div>
 	<div class="list-group row ">

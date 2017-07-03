@@ -24,7 +24,7 @@
 
 			<div class="form-group row">
 				<%= f.label :phone_number %>
-				<%= f.number_field :phone_number, class: 'form-control' %>
+				<%= f.telephone_field :phone_number, class: 'form-control', value: @formatted_phone %>
 			</div>
 
 			<div class="form-group row">
