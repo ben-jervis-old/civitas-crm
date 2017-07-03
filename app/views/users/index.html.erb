@@ -27,11 +27,23 @@
 </div>
 	<div class="list-group row ">
 		<% @users.each do |user| %>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<div class="list-group-item">
 					<h4>
 						<%= link_to user.name, user %>
-						<%= link_to '#Show' do %>
+						<%= link_to '#Show', class: 'picture-sym' do %>
+							<i class="glyphicon glyphicon-picture pull-right"></i>
+						<% end %>
+					</h4>
+				</div>
+			</div>
+		<% end %>
+		<% (1..15).each do |num| %>
+			<div class="col-md-4">
+				<div class="list-group-item">
+					<h4>
+						<%= link_to "Test User #{num}", '#' %>
+						<%= link_to '#Show', class: 'picture-sym' do %>
 							<i class="glyphicon glyphicon-picture pull-right"></i>
 						<% end %>
 					</h4>

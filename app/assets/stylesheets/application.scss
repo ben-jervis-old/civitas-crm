@@ -180,6 +180,14 @@ a>li.sidebar-list-item.active {
 	right: 10px;
 }
 
+.list-group.row .list-group-item {
+	margin-bottom: 10px;
+	a.picture-sym {
+		position: absolute;
+		right: 15px;
+	}
+}
+
 .card-holder {
 	display: flex;
 	justify-content: space-around;
