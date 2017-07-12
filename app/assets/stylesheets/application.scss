@@ -32,6 +32,10 @@ body {
 .padded-row {
 	padding-left: 15px;
 	padding-right: 15px;
+	//
+}
+
+.btn.pull-right.hidden-xs {
 	margin-bottom: 20px;
 }
 
@@ -222,6 +226,22 @@ a>li.sidebar-list-item.active {
 			color: white;
 		}
 	}
+}
+
+.user-details {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid grey;
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      padding-top: 5px;
+      // &:first-child {
+      //   padding-top: 0;
+      // }
+    }
+  }
 }
 
 #action-menu {
