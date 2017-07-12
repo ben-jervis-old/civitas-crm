@@ -69,7 +69,8 @@
       <div class="user-details">
         <ul>
           <li>
-            Privacy Details will go here
+            <h4>User Level</h4>
+            <h3><%= @user.level.capitalize %></h3>
           </li>
         </ul>
       </div>
@@ -77,10 +78,10 @@
   </div>
 </div>
 
-<h2><a href="<%=user_path(@user)%>/edit">edit</a></h2>
-<h2><%= link_to "delete", @user, method: :delete, data: { confirm: "You sure?" } %></h2>
+<!-- <h2><a href="<%=user_path(@user)%>/edit">edit</a></h2>
+<h2><%= link_to "delete", @user, method: :delete, data: { confirm: "You sure?" } %></h2> -->
 
-<div class="row">
+<!-- <div class="row">
 	<div class="col-xs-3">
 		<h3>Name</h3>
 		<h3>Email</h3>
@@ -99,4 +100,4 @@
 		<h3><%= @formatted_phone %> </h3>
 		<h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
 	</div>
-</div>
+</div> -->

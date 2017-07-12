@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-	attr_accessor :remember_token
+	attr_accessor :remember_token, :activation_token
 
 	has_many :memberships
 	has_many :groups, through: :memberships
@@ -19,6 +19,7 @@ class User < ApplicationRecord
 	before_save :check_level
 	before_save :check_birthdate
 	before_save { self.email = email.downcase }
+	before_create :create_activation_digest
 
 	def to_i
 		self.id
@@ -111,5 +112,10 @@ class User < ApplicationRecord
 			elsif !(%w(staff leader trusted member visitor).include?(self.level.downcase))
 				errors.add(:level, "must be one of [staff, leader, trusted, member, visitor]")
 			end
+		end
+
+		def create_activation_digest
+			self.activation_token = User.new_token
+			self.activation_digest = User.digest(activation_token)
 		end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703104647) do
+ActiveRecord::Schema.define(version: 20170712084236) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
@@ -69,11 +69,14 @@ ActiveRecord::Schema.define(version: 20170703104647) do
     t.boolean  "privacy_consent"
     t.string   "main_service"
     t.text     "special_needs"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "occupation"
     t.text     "notes"
     t.string   "remember_digest"
+    t.string   "activation_digest"
+    t.boolean  "activated",         default: false
+    t.datetime "activated_at"
   end
 
 end
