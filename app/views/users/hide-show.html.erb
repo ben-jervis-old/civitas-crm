@@ -1,0 +1,87 @@
+<div class="page-header">
+		<h1><%= @user.name %></h1>
+</div>
+
+<div class="row">
+	<ul class="nav nav-tabs" role='tablist'>
+
+		<li role="presentation" class="active">
+			<a href="#personal" aria-controls="account" role="tab" data-toggle="tab">Personal Information</a>
+		</li>
+
+		<li role="presentation">
+			<a href="#contact" aria-controls="expenses" role="tab" data-toggle="tab">Contact Details</a>
+		</li>
+
+		<li role="presentation">
+			<a href="#security" aria-controls="contacts" role="tab" data-toggle="tab">Privacy and Security</a>
+		</li>
+
+	</ul>
+</div>
+
+<div class='row tab-content'>
+  <div id="account" role='tabpanel' class='tab-pane active fade in'>
+    <div class="col-md-8">
+      <div class="user-details">
+        <ul>
+          <li>
+            <h4>Name</h4>
+            <p><%= @user.name %></p>
+          </li>
+          <li>
+            <h4>Email</h4>
+            <p><%= @user.email %></p>
+          </li>
+        </ul>
+      </div>
+      <%= link_to 'Update my details', '#'  %> | <%= link_to 'Change Password', '#'  %>
+    </div>
+  </div>
+  <div id="expenses"  role='tabpanel' class='tab-pane fade'>
+    <div class="col-md-8">
+      <div class="user-details">
+        <ul>
+          <li>
+            <h4>Pay Period:</h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="contacts"  role='tabpanel' class='tab-pane fade'>
+    <div class="col-md-8">
+      <br>
+      <table class="table table-hover">
+        <tr><td>Primary Email</td></tr>
+        <tr><td>Backup Email</td></tr>
+        <tr><td>Mobile</td></tr>
+        <tr><td>Twitter</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<h2><a href="<%=user_path(@user)%>/edit">edit</a></h2>
+<h2><%= link_to "delete", @user, method: :delete, data: { confirm: "You sure?" } %></h2>
+
+<div class="row">
+	<div class="col-xs-3">
+		<h3>Name</h3>
+		<h3>Email</h3>
+		<h3>Address</h3>
+		<h3>Phone Number</h3>
+		<h3>Date of Birth</h3>
+	</div>
+	<div class="col-md-6">
+		<h3><%= @user.name %></h3>
+		<h3><%= mail_to @user.email %></h3>
+		<h3><%= @user.address %>
+			<%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
+				<i class="fa fa-map-marker" aria-hidden="true"></i>
+			<% end %>
+		</h3>
+		<h3><%= @formatted_phone %> </h3>
+		<h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
+	</div>
+</div>

@@ -40,9 +40,11 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
+			@user.send_activation_email
+			#TODO Setup heroku email sending https://www.railstutorial.org/book/account_activation#sec-activation_email_in_production
 			log_in @user
-			flash[:success] = "Welcome to civitasCRM"
-			redirect_to @user
+			flash[:success] = "Please check your email to activate your account"
+			redirect_to root_url
 		else
 			render 'new'
 		end
@@ -52,7 +54,7 @@ class UsersController < ApplicationController
 
     def user_params
     	params[:user][:phone_number] = params[:user][:phone_number].split.join('').to_i
-      params.require(:user).permit(:first_name, :last_name, :email, :address,
-                                   :phone_number, :dob)
+			params[:user][:level] ||= 'visitor'
+      params.require(:user).permit(:first_name, :last_name, :email, :address, :phone_number, :dob, :password, :password_confirmation, :level)
     end
 end

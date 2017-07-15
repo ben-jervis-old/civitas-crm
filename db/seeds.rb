@@ -14,7 +14,9 @@ User.create(first_name: "Ben",
 						dob: Date.parse("1993-02-12"),
 						level: "staff",
             password: 'password',
-            password_confirmation: 'password')
+            password_confirmation: 'password',
+            activated: true,
+            activated_at: Time.zone.now)
 
 User.create(first_name: "James",
  						last_name: "Nicholls",
@@ -24,7 +26,9 @@ User.create(first_name: "James",
 						dob: Date.parse("1993-05-10"),
 						level: "leader",
             password: 'password',
-            password_confirmation: 'password')
+            password_confirmation: 'password',
+            activated: true,
+            activated_at: Time.zone.now)
 
 User.create(first_name: "Hayden",
  						last_name: "McWilliams",
@@ -34,7 +38,9 @@ User.create(first_name: "Hayden",
 						dob: Date.parse("1991-06-30"),
 						level: "trusted",
             password: 'password',
-            password_confirmation: 'password')
+            password_confirmation: 'password',
+            activated: true,
+            activated_at: Time.zone.now)
 
 User.create(first_name: "Matthew",
  						last_name: "Moore",
@@ -44,7 +50,9 @@ User.create(first_name: "Matthew",
 						dob: Date.parse("1995-11-05"),
 						level: "visitor",
             password: 'password',
-            password_confirmation: 'password')
+            password_confirmation: 'password',
+            activated: true,
+            activated_at: Time.zone.now)
 
 Group.create(	name: "Test Group 1",
 							group_type: "Family")

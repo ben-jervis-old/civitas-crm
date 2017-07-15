@@ -1,11 +1,87 @@
-<div class="page-header">
-		<h1>Profile Page</h1>
+<div id="user-details-top-row">
+  <div class="page-header">
+    <h1><%= @user.name %></h1>
+  </div>
+  <%= image_tag 'usericon.png', class: '', width: 150, height: 150 %>
 </div>
 
-<h2><a href="<%=user_path(@user)%>/edit">edit</a></h2>
-<h2><%= link_to "delete", @user, method: :delete, data: { confirm: "You sure?" } %></h2>
+<div class="row padded-row">
+	<ul class="nav nav-tabs" role='tablist'>
 
-<div class="row">
+		<li role="presentation" class="active">
+			<a href="#personal" aria-controls="account" role="tab" data-toggle="tab">Personal Information</a>
+		</li>
+
+		<li role="presentation">
+			<a href="#contact" aria-controls="expenses" role="tab" data-toggle="tab">Contact Details</a>
+		</li>
+
+		<li role="presentation">
+			<a href="#security" aria-controls="contacts" role="tab" data-toggle="tab">Privacy and Security</a>
+		</li>
+
+	</ul>
+</div>
+
+<div class='row tab-content padded-row'>
+  <div id="personal" role='tabpanel' class='tab-pane active fade in'>
+    <div class="col-md-8">
+      <div class="user-details">
+        <ul>
+          <li>
+            <h4>Name</h4>
+            <h3><%= @user.name %></h3>
+          </li>
+          <li>
+            <h4>Date of Birth</h4>
+            <h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
+          </li>
+        </ul>
+      </div>
+      <%= link_to 'Update my details', edit_user_path  %> | <%= link_to 'Change Password', '#'  %>
+    </div>
+  </div>
+  <div id="contact"  role='tabpanel' class='tab-pane fade'>
+    <div class="col-md-8">
+      <div class="user-details">
+        <ul>
+          <li>
+            <h4>Address</h4>
+            <h3><%= @user.address %>
+        			<%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
+        				<i class="fa fa-map-marker" aria-hidden="true"></i>
+        			<% end %></h3>
+          </li>
+          <li>
+            <h4>Email Address</h4>
+            <h3><%= mail_to @user.email %></h3>
+          </li>
+          <li>
+            <h4>Phone Number</h4>
+            <h3><%= @formatted_phone %></h3>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="security"  role='tabpanel' class='tab-pane fade'>
+    <div class="col-md-8">
+      <div class="user-details">
+        <ul>
+          <li>
+            <h4>User Level</h4>
+            <h3><%= @user.level.capitalize %></h3>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <h2><a href="<%=user_path(@user)%>/edit">edit</a></h2>
+<h2><%= link_to "delete", @user, method: :delete, data: { confirm: "You sure?" } %></h2> -->
+
+<!-- <div class="row">
 	<div class="col-xs-3">
 		<h3>Name</h3>
 		<h3>Email</h3>
@@ -24,4 +100,4 @@
 		<h3><%= @formatted_phone %> </h3>
 		<h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
 	</div>
-</div>
+</div> -->

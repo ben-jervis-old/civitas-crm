@@ -32,6 +32,10 @@ body {
 .padded-row {
 	padding-left: 15px;
 	padding-right: 15px;
+	//
+}
+
+.btn.pull-right.hidden-xs {
 	margin-bottom: 20px;
 }
 
@@ -224,6 +228,22 @@ a>li.sidebar-list-item.active {
 	}
 }
 
+.user-details {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid grey;
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      padding-top: 5px;
+      // &:first-child {
+      //   padding-top: 0;
+      // }
+    }
+  }
+}
+
 #action-menu {
 	position: absolute;
 	display: none;
@@ -240,6 +260,25 @@ a>li.sidebar-list-item.active {
 	a {
 		text-decoration: none;
 	}
+}
+
+label.checkbox.inline {
+	padding-left: 20px;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
 }
 
 @media(min-width: 768px) {
