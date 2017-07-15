@@ -97,7 +97,7 @@
 				<i class="fa fa-map-marker" aria-hidden="true"></i>
 			<% end %>
 		</h3>
-		<h3><%= @formatted_phone %> </h3>
+		<a href="tel:+<%= pad_number(@user.phone_number) %>"> <%= format_number(@user.phone_number) %> </a>
 		<h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
 	</div>
 </div> -->
