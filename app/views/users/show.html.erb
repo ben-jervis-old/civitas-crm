@@ -38,7 +38,6 @@
           </li>
         </ul>
       </div>
-      <%= link_to 'Update my details', edit_user_path  %> | <%= link_to 'Change Password', '#'  %>
     </div>
   </div>
   <div id="contact"  role='tabpanel' class='tab-pane fade'>
@@ -58,7 +57,7 @@
           </li>
           <li>
             <h4>Phone Number</h4>
-            <h3><%= @formatted_phone %></h3>
+            <h3><a href="tel:+<%= pad_number(@user.phone_number) %>"> <%= format_number(@user.phone_number) %> </a></h3>
           </li>
         </ul>
       </div>
@@ -76,6 +75,9 @@
       </div>
     </div>
   </div>
+</div>
+<div class="row double-padded-row col-md-8">
+    <%= link_to 'Update my details', edit_user_path  %> | <%= link_to 'Change Password', '#'  %>
 </div>
 
 <!-- <h2><a href="<%=user_path(@user)%>/edit">edit</a></h2>

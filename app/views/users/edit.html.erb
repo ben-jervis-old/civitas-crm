@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="row bounded-row">
+<div class="row bounded-row padded-row">
   <div class="col-md-8">
     <%= form_for(@user) do |f| %>
 
@@ -34,8 +34,10 @@
 				<%= f.label :dob, "Date of Birth" %>
 				<%= f.date_field :dob, class: 'form-control' %>
 			</div>
-
-      <%= f.submit "Save changes", class: "btn btn-primary" %>
+			<div class="row">
+				<%= f.submit "Save changes", class: "btn btn-primary" %>
+				<%= link_to 'Cancel', @user, class: 'btn btn-default pull-right' %>
+			</div>
     <% end %>
   </div>
 </div>
