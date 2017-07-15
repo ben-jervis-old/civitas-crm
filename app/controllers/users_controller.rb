@@ -40,7 +40,8 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			UserMailer.account_activation(@user).deliver_now
+			@user.send_activation_email
+			#TODO Setup heroku email sending https://www.railstutorial.org/book/account_activation#sec-activation_email_in_production
 			log_in @user
 			flash[:success] = "Please check your email to activate your account"
 			redirect_to root_url
