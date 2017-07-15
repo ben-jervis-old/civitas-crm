@@ -56,8 +56,8 @@
             <h3><%= mail_to @user.email %></h3>
           </li>
           <li>
-            <h4>Phone Number</h4>
-            <h3><a href="tel:+<%= pad_number(@user.phone_number) %>"> <%= format_number(@user.phone_number) %> </a></h3>
+            <h4>Phone Number </h4>
+            <h3> <%= number_link(@user.phone_number) %> </h3>
           </li>
         </ul>
       </div>
@@ -99,7 +99,7 @@
 				<i class="fa fa-map-marker" aria-hidden="true"></i>
 			<% end %>
 		</h3>
-		<a href="tel:+<%= pad_number(@user.phone_number) %>"> <%= format_number(@user.phone_number) %> </a>
+		<%= number_link(@user.phone_number) %>
 		<h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
 	</div>
 </div> -->
