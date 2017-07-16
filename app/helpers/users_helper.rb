@@ -2,11 +2,11 @@ module UsersHelper
   def pad_number (num = 0)
     if num.to_s.length == 9
       "0" + num.to_s
-    elsif
+    else
       num.to_s
     end
   end
-  
+
   def format_number (num = 0)
     num = pad_number(num)
     if num.to_s.length == 8
@@ -19,9 +19,9 @@ module UsersHelper
       end
     end
   end
-  
-  def number_link (num = 0) 
-    raw("<a href=\"tel:+" + pad_number(@user.phone_number) + "\">" + format_number(@user.phone_number) + "</a>")
+
+  def number_link (num = 0)
+    link_to format_number(@user.phone_number), "tel:+#{pad_number(@user.phone_number)}"
   end
-  
+
 end
