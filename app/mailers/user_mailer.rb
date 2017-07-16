@@ -3,12 +3,12 @@ class UserMailer < ApplicationMailer
   def account_activation(user)
     @user = user
 
-    mail to: user.email, subject: "Welcome to CivitasCRM"
+    mail to: user.email, subject: 'Welcome to CivitasCRM'
   end
 
-  def password_reset
-    @greeting = "Hi"
+  def password_reset(user)
+    @user = user
 
-    mail to: "to@example.org"
+    mail to: user.email, subject: 'Password Reset'
   end
 end
