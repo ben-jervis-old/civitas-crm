@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
 	def edit
     @user = User.find(params[:id])
-    
+
 	end
 
 	def show
@@ -20,11 +20,24 @@ class UsersController < ApplicationController
 
 	def update
     @user = User.find(params[:id])
+
     if @user.update_attributes(user_params)
       redirect_to @user
     else
       render 'edit'
     end
+	end
+
+	def update_password
+		@user = User.find(params[:id])
+
+		if @user.update_attributes(password_params_only)
+			flash[:success] = "Your password has been updated"
+			#TODO email password update notification
+			redirect_to @user
+		else
+			render 'update_password'
+		end
 	end
 
 	def destroy

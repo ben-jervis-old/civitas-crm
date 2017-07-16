@@ -14,7 +14,8 @@ class User < ApplicationRecord
 	validates :last_name, 	presence: true, length: { maximum: 50 }
 	validates :email, 			presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 	validate 	:level_must_be_valid
-	validates :password, presence: true, length: { minimum: 8 }
+	validates :password, length: { minimum: 8 }, on: [:create, :update_password]
+	validates :password_confirmation, presence: true, on: [:create, :update_password]
 
 	before_save :check_level
 	before_save :check_birthdate
