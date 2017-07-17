@@ -32,6 +32,7 @@ body {
 .padded-row {
 	padding-left: 15px;
 	padding-right: 15px;
+	padding-bottom: 20px;
 }
 
 .double-padded-row {
@@ -76,6 +77,10 @@ body {
 
 .navbar {
 	background-color: $theme-background;
+}
+
+.flash-alert {
+	margin-top: 10px;
 }
 
 #sidebar {
@@ -124,6 +129,7 @@ body {
 #main-body-div {
 	height: 100%;
 	margin-top: 70px;
+	margin-bottom: 62px;
 }
 
 nav.navbar {
@@ -287,5 +293,9 @@ label.checkbox.inline {
 @media(min-width: 768px) {
 	#content-div {
 		padding-left: 260px;
+	}
+
+	#main-body-div {
+		margin-bottom: 0;
 	}
 }

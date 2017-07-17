@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712084236) do
+ActiveRecord::Schema.define(version: 20170716013743) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20170712084236) do
     t.string   "activation_digest"
     t.boolean  "activated",         default: false
     t.datetime "activated_at"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
 end

@@ -1,3 +1,20 @@
 <div class="page-header">
   <h1>Roster: <%= @roster.title %> </h1>
 </div>
+
+<div class="row bounded-row">
+    <p>
+        <%= @roster.as_json %>
+    </p>
+    <% @roster.tasks.each do |tsk| %>
+        <p>
+            <%= tsk.as_json %>
+        </p>
+    <% end %>
+    
+    <% @roster.users.each do |usr| %>
+    <p>
+        <%= usr.name %>
+    </p>
+    <% end %>
+</div>
