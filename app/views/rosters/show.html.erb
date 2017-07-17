@@ -1,3 +1,4 @@
+<% provide(:title, @roster.title) %>
 <div class="page-header">
   <h1>Roster: <%= @roster.title %> </h1>
 </div>
@@ -11,7 +12,7 @@
             <%= tsk.as_json %>
         </p>
     <% end %>
-    
+
     <% @roster.users.each do |usr| %>
     <p>
         <%= usr.name %>
