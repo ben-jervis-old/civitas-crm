@@ -1,15 +1,15 @@
 <ul id="action-menu" class="list-group">
 	<li class="list-group-item"><a href="/">Home</a></li>
 	<li class="list-group-item"><a href="#MyAccount">Settings</a></li>
-	<li class="list-group-item"><a href="#logout">Log Out</a></li>
+	<li class="list-group-item"><%= link_to 'Log Out', logout_path, method: :delete %></li>
 </ul>
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">
+			<%= link_to root_path, class: 'navbar-brand' do %>
         <%= image_tag 'logo-inverse.svg', height: 45 %>
 				civitasCRM
-			</a>
+			<% end %>
 		</div>
 		<% if logged_in? %>
 			<div class="pull-right action-icon-holder">
@@ -24,7 +24,7 @@
 				</a>
 			</div>
 		<% else %>
-			<%= link_to 'About', 'civitascrm.com.au', class: 'pull-right' %>
+			<%= link_to 'About', 'http://www.civitascrm.com.au/', class: 'pull-right', target: '_blank', rel: 'noopener noreferrer' %>
 		<% end %>
 	</div>
 </nav>
