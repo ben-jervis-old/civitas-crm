@@ -1,0 +1,42 @@
+<div id="user-details-top-row">
+  <div class="page-header">
+    <h1><%= @group.name %></h1>
+  </div>
+</div>
+
+<div class="row padded-row">
+	<ul class="nav nav-tabs" role='tablist'>
+
+		<li role="presentation" class="active">
+			<a href="#members" aria-controls="account" role="tab" data-toggle="tab">Group Members</a>
+		</li>
+
+		<li role="presentation">
+			<a href="#details" aria-controls="expenses" role="tab" data-toggle="tab">Group Details</a>
+		</li>
+
+	</ul>
+</div>
+
+<div class='row tab-content padded-row'>
+  <div id="members" role='tabpanel' class='tab-pane active fade in'>
+    <div class="col-md-8">
+      <div class="user-details">
+        
+      </div>
+    </div>
+  </div>
+  <div id="details"  role='tabpanel' class='tab-pane fade'>
+    <div class="col-md-8">
+      <div class="user-details">
+        <ul>
+          <li>
+            <h4>Group Type</h4>
+            <h3><%= @group.group_type %></h3>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :rosters
   resources :users
+  resources :groups
   resources :account_activations, only: [:edit]
 
 	root 'dashboard#index'

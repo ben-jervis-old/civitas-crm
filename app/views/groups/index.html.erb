@@ -1,0 +1,53 @@
+<div class="page-header">
+	<h1>Group Database</h1>
+</div>
+
+<div class="row bounded-row">
+	<div class="col-md-1 visible-xs-block">
+		<%= link_to new_group_path, class: 'btn btn-primary btn-block' do %>
+			<i class="glyphicon glyphicon-plus"></i> New Group 5
+		<% end %>
+		<br>
+	</div>
+	<div class="col-md-4">
+		<div class="input-group">
+			<input type="text" name="group-search" value="" class="form-control" placeholder="Search">
+			<span class="input-group-btn">
+				<button class="btn btn-default">
+					<i class="glyphicon glyphicon-search"></i>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-md-1 col-md-offset-7 hidden-xs">
+		<%= link_to new_group_path, class: "btn btn-primary pull-right" do %>
+			<i class="glyphicon glyphicon-plus"></i> New Group
+		<% end %>
+	</div>
+</div>
+	<div class="list-group row ">
+		<% @groups.each do |group| %>
+			<div class="col-md-4">
+				<div class="list-group-item">
+					<h4>
+						<%= link_to group.name, group %>
+						<%= link_to '#Show', class: 'picture-sym' do %>
+							<i class="glyphicon glyphicon-picture pull-right"></i>
+						<% end %>
+					</h4>
+				</div>
+			</div>
+		<% end %>
+		<% (1..15).each do |num| %>
+			<div class="col-md-4">
+				<div class="list-group-item">
+					<h4>
+						<%= link_to "Test group #{num}", '#' %>
+						<%= link_to '#Show', class: 'picture-sym' do %>
+							<i class="glyphicon glyphicon-picture pull-right"></i>
+						<% end %>
+					</h4>
+				</div>
+			</div>
+		<% end %>
+	</div>
