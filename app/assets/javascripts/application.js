@@ -33,4 +33,23 @@ $(document).ready(function () {
   	}
   });
 
+	$('#username-search-bar').keyup(function() {
+		var search_string = $(this)[0].value;
+		var filter_string = search_string.toUpperCase();
+		var user_list = $('[data-username]');
+
+		// console.log($('div.list-group-item.col-md-4:contains(' + filter_string + ')'));
+
+		for(i = 0; i < user_list.length; i++) {
+			user_name = user_list[i].dataset.username;
+			if(user_name.toUpperCase().indexOf(filter_string) > -1) {
+				user_list[i].style.display = "";
+			}
+			else {
+				console.log(user_list[i]);
+				user_list[i].style.display = "none";
+			}
+		}
+	});
+
 });

@@ -39,9 +39,9 @@ body {
 	padding-left: 30px;
 }
 
-.btn.pull-right.hidden-xs {
-	margin-bottom: 20px;
-}
+// .btn.pull-right.hidden-xs {
+// 	margin-bottom: 20px;
+// }
 
 .spaced {
 	margin-right: 5px;
@@ -150,7 +150,7 @@ nav.navbar {
 	}
 }
 
-table {
+#tab-menu table {
 	table-layout: fixed;
 	width: 100%;
 	text-align: center;
@@ -164,6 +164,11 @@ table {
 			display: block;
 		}
 	}
+}
+
+.narrow-container {
+	max-width: 800px;
+	margin-left: 0;
 }
 
 a>li.sidebar-list-item.active {
@@ -207,6 +212,11 @@ a>li.sidebar-list-item.active {
 		right: 15px;
 	}
 }
+
+// .list-group-item.col-md-4 {
+// 	margin-left: 5px;
+// 	margin-right: 5px;
+// }
 
 .card-holder {
 	display: flex;
