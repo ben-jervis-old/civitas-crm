@@ -25,7 +25,11 @@
         <ul>
           <li>
             <h4>Group Type</h4>
-            <h3><%= @group.group_type %></h3>
+            <h3><%= return_group_type(@group.group_type) %></h3>
+            <h4>Group Created</h4>
+            <h3><%= @group.created_at %></h3>
+            <h4>Last Updated</h4>
+            <h3><%= @group.updated_at %></h3>
           </li>
         </ul>
       </div>

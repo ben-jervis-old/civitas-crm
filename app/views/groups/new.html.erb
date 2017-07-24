@@ -1,2 +1,17 @@
-<h1>Groups#new</h1>
-<p>Find me in app/views/groups/new.html.erb</p>
+<h1>New Group</h1>
+
+<div class="row padded-row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_for @group do |f| %>
+
+		    <div class="form-group row">
+		      <%= f.label :name %>
+		      <%= f.text_field :name, class: 'form-control' %>
+		    </div>
+
+				<div class="row">
+					<%= f.submit "Create new group", class: 'btn btn-primary btn-block' %>
+				</div>
+		  <% end %>
+	</div>
+</div>

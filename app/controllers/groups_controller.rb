@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
 		@group = Group.new(group_params)
 		if @group.save
 			flash[:success] = "New Group has been created."
-			redirect_to root_url
+			redirect_to groups_url
 		else
 			render 'new'
 		end
