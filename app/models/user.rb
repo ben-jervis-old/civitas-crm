@@ -3,7 +3,8 @@ class User < ApplicationRecord
 
 	has_many :memberships
 	has_many :groups, through: :memberships
-	has_many :tasks
+	has_many :assignments
+	has_many :tasks, 	through: :assignments
 	has_many :rosters, through: :tasks
 
 	has_secure_password
@@ -118,7 +119,7 @@ class User < ApplicationRecord
 	def send_password_reset_email
 		UserMailer.password_reset(self).deliver_now
 	end
-	
+
 	def password_reset_expired?
 		reset_sent_at < 2.hours.ago
 	end

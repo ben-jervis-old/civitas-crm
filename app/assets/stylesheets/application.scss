@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require font-awesome
+ *= require bootstrap-datepicker3
  *= require_self
  */
 
@@ -79,8 +80,18 @@ body {
 	background-color: $theme-background;
 }
 
+.tall-margin {
+	margin-top: 70px;
+}
+
 .flash-alert {
 	margin-top: 10px;
+}
+
+#flash-holder {
+	position: absolute;
+	left: 280px;
+	right: 30px;
 }
 
 #sidebar {

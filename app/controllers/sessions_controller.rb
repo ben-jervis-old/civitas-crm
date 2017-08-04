@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       end
     else
       flash.now[:danger] = 'Invalid email/password combination'
-      @login_page = true
+      @hide_sidebar = true
       render 'new'
     end
   end

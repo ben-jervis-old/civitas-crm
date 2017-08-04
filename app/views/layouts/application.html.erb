@@ -16,9 +16,7 @@
         <%= render 'partials/sidebar' unless @hide_sidebar %>
         <div id="<%= @hide_sidebar ? '' : 'content-div' %>">
           <div class="container-fluid">
-            <% flash.each do |message_type, message| %>
-              <div class="flash-alert alert alert-<%= message_type %>"><%= message %></div>
-            <% end %>
+						<%= render 'partials/flash' %>
             <%= yield %>
 		      </div>
         </div>

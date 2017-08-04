@@ -3,8 +3,15 @@
   <div class="page-header">
     <h1><%= @user.name %></h1>
   </div>
+	<ol class="breadcrumb">
+		<li><%= link_to "Members", users_path %></li>
+		<li><%= link_to @user.name, @user %></li>
+	</ol>
+	
   <%= image_tag 'usericon.png', class: '', width: 150, height: 150 %>
 </div>
+
+
 
 <div class="row padded-row">
 	<ul class="nav nav-tabs" role='tablist'>

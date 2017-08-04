@@ -14,12 +14,30 @@ class RostersController < ApplicationController
     @roster = Roster.new
   end
 
+	def edit
+		@roster = Roster.find(params[:id])
+	end
+
   def create
   end
 
   def update
+		@roster = Roster.find(params[:id])
+
+    if @roster.update_attributes(roster_params)
+			flash[:success] = "Details updated successfully"
+      redirect_to @roster
+    else
+      render 'edit'
+    end
   end
 
   def destroy
   end
+
+	private
+
+		def roster_params
+			params.require(:roster).permit(:title, :start_date, :duration, :description)
+		end
 end

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170716013743) do
+ActiveRecord::Schema.define(version: 20170804074501) do
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.boolean  "accepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_assignments_on_task_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
@@ -48,7 +58,6 @@ ActiveRecord::Schema.define(version: 20170716013743) do
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "roster_id"
-    t.integer  "user_id"
     t.string   "title"
     t.datetime "due"
     t.string   "location"

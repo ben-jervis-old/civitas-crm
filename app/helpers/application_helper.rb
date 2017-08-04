@@ -9,4 +9,7 @@ module ApplicationHelper
 		end
 	end
 
+	def date_as_local(date)
+		date.localtime.strftime("%d/%m/%Y")
+	end
 end

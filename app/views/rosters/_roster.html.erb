@@ -1,10 +1,8 @@
-<div class="col-md-6">
-	<div class="list-group-item">
-	  <%= link_to roster do %>
-	    <h4><%= roster.title %>
-	      <span class="label label-default pull-right"><%= pluralize(roster.users.count, 'Member') %></span>
-	    </h4>
-	  <% end %>
-	  <%= roster.description %>
-	</div>
+<div class="list-group-item col-md-6" data-rostertitle="<%= roster.title %>">
+  <%= link_to roster do %>
+    <h4><%= roster.title %>
+      <span class="label label-default pull-right"><%= pluralize(roster.users.count, 'Member') %></span>
+    </h4>
+  <% end %>
+  <%= roster.description %>
 </div>
