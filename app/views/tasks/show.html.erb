@@ -13,11 +13,10 @@
 
 <div class="narrow-container">
 	<div class="row padded-row">
-		<h4>
+		<h3>
 			<%= @task.title %>
-		</h4>
+		</h3>
 	  <h4>Due: <%= date_as_local(@task.due) %></h4>
-		<h4>Member: <%= link_to @task.user.name, @task.user %></h4>
 		<h4>Location: <%= @task.location %></h4>
 		<h4>Notes: <%= @task.notes %></h4>
 	</div>

@@ -6,6 +6,7 @@ class TasksController < ApplicationController
 		@task = @roster.tasks.build
 		@users = User.all.sort_by{ |usr| [usr.last_name, usr.first_name]}
 		@user_options_list = @users.map{ |usr| [usr.name, usr.id] }.unshift(['Choose a user...', 0])
+		@cancel_path = roster_path(@roster)
 	end
 
 	def create
@@ -24,14 +25,13 @@ class TasksController < ApplicationController
 	end
 
 	def edit
-		@users = User.all.sort_by{ |usr| [usr.last_name, usr.first_name]}
-		@user_options_list = @users.map{ |usr| [usr.name, usr.id] }.unshift(['Choose a user...', 0])
+		@cancel_path = roster_task_path(@task.roster, @task)
 	end
 
 	def update
 		if @task.update_attributes(task_params)
 			flash[:success] = 'Task updated successfully'
-			redirect_to @task.roster
+			redirect_to [@task.roster, @task]
 		else
 			render :edit
 		end
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 	private
 
 		def task_params
-			params.require(:task).permit(:user_id, :title, :due, :location, :notes)
+			params.require(:task).permit(:title, :due, :location, :notes)
 		end
 
 		def set_task_and_check_roster

@@ -2,15 +2,9 @@
 	<%= render 'partials/error_messages', item: @task %>
 
 	<div class="row">
-		<div class="form-group col-sm-6">
+		<div class="form-group col-sm-12">
 			<%= f.label :title %>
 			<%= f.text_field :title, class: 'form-control' %>
-		</div>
-
-		<div class="form-group col-sm-6">
-			<%= f.label :user %>
-			<% select_option = @task.user_id.nil? ? 0 : @task.user_id %>
-			<%= f.select :user_id, @user_options_list, { selected: select_option, disabled: 0 }, class: 'form-control' %>
 		</div>
 
 		<div class="form-group col-sm-6">
@@ -22,15 +16,13 @@
 			<%= f.label :location %>
 			<%= f.text_field :location, class: 'form-control' %>
 		</div>
-	</div>
 
-	<div class="row">
-		<div class="form-group col-xs-12">
+		<div class="form-group col-sm-12">
 			<%= f.label :notes %>
 			<%= f.text_area :notes, class: 'form-control' %>
 		</div>
 	</div>
 
 	<%= f.submit class: 'btn btn-primary pull-right' %>
-	<%= link_to 'Cancel', @task.roster, class: 'btn btn-default' %>
+	<%= link_to 'Cancel', @cancel_path, class: 'btn btn-default' %>
 <% end %>

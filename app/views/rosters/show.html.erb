@@ -28,7 +28,7 @@
 					<% @roster.tasks.each do |tsk| %>
 						<tr>
 					  	<td><%= link_to tsk.title, roster_task_path(@roster, tsk) %></td>
-							<td><%= link_to tsk.users.first.name, tsk.users.first %></td>
+							<td><%= users_string tsk.users %></td>
 							<td>Due: <%= tsk.due.localtime.strftime("%d/%m/%Y") %></td>
 						</tr>
 				  <% end %>
@@ -47,7 +47,7 @@
 					<% @roster.users.uniq.each do |usr| %>
 						<tr>
 					  	<td><%= link_to usr.name, usr %></td>
-							<!-- <td><%= "#{pluralize(@roster.tasks.select{ |tsk| tsk.user_id == usr.id }.count, 'task')} in this roster" %></td> -->
+							<td><%= "#{pluralize(@roster.tasks.select{ |tsk| tsk.users.include? usr }.count, 'task')} in this roster" %></td>
 						</tr>
 				  <% end %>
 				<% else %>
