@@ -2,13 +2,14 @@
 <div class="page-header">
 	<h1>Member Database</h1>
 </div>
+
 <ol class="breadcrumb">
 	<li class='active'>Members</li>
 </ol>
 
 <div class="row bounded-row">
 	<div class="col-md-1 visible-sm-block visible-xs-block padded-row">
-		<%= link_to new_roster_path, class: "btn btn-primary btn-lg btn-block visible-xs-block visible-sm-block" do %>
+		<%= link_to new_user_path, class: "btn btn-primary btn-lg btn-block visible-xs-block visible-sm-block" do %>
 			<i class="glyphicon glyphicon-plus"></i> New Member
 		<% end %>
 	</div>
@@ -17,7 +18,7 @@
 			<input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
 			<span class="input-group-btn">
 				<button class="btn btn-default">
-					<i class="glyphicon glyphicon-search"></i>
+					<i class="fa fa-search"></i>
 				</button>
 			</span>
 		</div>

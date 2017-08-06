@@ -40,6 +40,18 @@ body {
 	padding-left: 30px;
 }
 
+.fa.large-icon {
+	font-size: 1.3em;
+
+	&.fa-square-o {
+		padding-right: 2.6px;
+	}
+}
+
+.hidden-item {
+	display: none;
+}
+
 // .btn.pull-right.hidden-xs {
 // 	margin-bottom: 20px;
 // }
@@ -150,6 +162,12 @@ nav.navbar {
 	}
 }
 
+.gap-spacer {
+	margin: 0;
+	padding: 0;
+	padding-bottom: 5px;
+}
+
 #login-page-wrapper {
 	max-width: 600px;
 	margin: 0 auto;
@@ -235,6 +253,7 @@ a>li.sidebar-list-item.active {
 	flex-wrap: wrap;
 	a:hover {
 		color: white;
+		text-decoration: none;
 	}
 	.panel {
 		display: inline-block;
@@ -254,6 +273,9 @@ a>li.sidebar-list-item.active {
 		.panel-footer {
 			background-color: $theme-background;
 			color: white;
+		}
+		&:hover {
+			background-color: #ededed;
 		}
 	}
 }

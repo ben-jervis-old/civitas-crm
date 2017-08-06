@@ -15,7 +15,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-datepicker
+//= require vue
 //= require_tree .
+//= stub 'tasks'
 
 var doc_ready;
 doc_ready = function () {
@@ -44,11 +46,23 @@ doc_ready = function () {
 		for(i = 0; i < user_list.length; i++) {
 			user_name = user_list[i].dataset.username;
 			if(user_name.toUpperCase().indexOf(filter_string) > -1) {
-				user_list[i].style.display = "";
+				user_list[i].classList.remove('hidden-item');
 			}
 			else {
-				user_list[i].style.display = "none";
+				user_list[i].classList.add('hidden-item');
 			}
+		}
+
+		console.log($('[data-username]:not(.hidden-item)'));
+
+		if($('[data-username]:not(.hidden-item)').length == 0) {
+			console.log('Tested');
+			console.log($('#list-empty-msg'));
+			$('#list-empty-msg')[0].classList = 'list-group-item';
+		}
+		else {
+			console.log('Not Tested');
+			$('#list-empty-msg')[0].classList = 'list-group-item hidden-item';
 		}
 	});
 

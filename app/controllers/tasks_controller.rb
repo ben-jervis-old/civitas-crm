@@ -22,6 +22,15 @@ class TasksController < ApplicationController
 	end
 
 	def show
+		@all_users =  User.all
+											.sort_by{ |usr| [usr.last_name, usr.first_name] }
+											.reject{ |usr| @task.users.include? usr }
+
+		@not_accepted = @task.users.include?(current_user) &&
+										!@task.assignments
+													.select{ |ass| ass.user_id == current_user.id }
+													.first
+													.accepted
 	end
 
 	def edit
@@ -34,6 +43,31 @@ class TasksController < ApplicationController
 			redirect_to [@task.roster, @task]
 		else
 			render :edit
+		end
+	end
+
+	def assign
+		@task = Task.find(params[:task_id])
+		user = User.find(params[:user_id])
+		@task.users << user
+		flash[:success] = "#{user.name} assigned to this task"
+		redirect_to roster_task_path(@task.roster, @task)
+		#TODO Create a notification for user
+	end
+
+	def accept
+		@task = Task.find(params[:task_id])
+		user = User.find(params[:user_id])
+		if user == current_user
+			@task.assignments
+						.select{ |ass| ass.user_id == user.id }
+						.first
+						.update_attribute(:accepted, true)
+			flash[:success] = "You have accepted this task"
+			redirect_to roster_task_path(@task.roster_id, @task.id)
+		else
+			flash[:danger] = "You are not authorised to do this"
+			redirect_to roster_task_path(@task.roster_id, @task.id)
 		end
 	end
 

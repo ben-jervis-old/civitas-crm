@@ -2,9 +2,9 @@ class User < ApplicationRecord
 	attr_accessor :remember_token, :activation_token, :reset_token
 
 	has_many :memberships
-	has_many :groups, through: :memberships
+	has_many :groups, -> { distinct }, through: :memberships
 	has_many :assignments
-	has_many :tasks, 	through: :assignments
+	has_many :tasks, -> { distinct },	through: :assignments
 	has_many :rosters, through: :tasks
 
 	has_secure_password
