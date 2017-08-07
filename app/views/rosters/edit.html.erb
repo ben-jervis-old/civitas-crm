@@ -1,0 +1,48 @@
+<% provide(:title, "Update Roster") %>
+<div class="page-header">
+	<h1>Update roster details</h1>
+</div>
+<ol class="breadcrumb">
+	<li><%= link_to "Rosters", rosters_path %></li>
+	<li><%= link_to @roster.title, @roster %></li>
+	<li><%= link_to 'Edit Details', edit_roster_path(@roster) %></li>
+</ol>
+
+
+<div class="row bounded-row padded-row">
+  <div class="col-md-8">
+    <%= form_for(@roster) do |f| %>
+
+		<%= render 'partials/error_messages', item: @roster %>
+
+      <div class="form-group row">
+				<%= f.label :title %>
+				<%= f.text_field :title, class: 'form-control' %>
+			</div>
+
+      <div class="form-group row">
+				<%= f.label :start_date %>
+				<div class="input-group input-daterange">
+			    <input type="text" class="form-control">
+			    <div class="input-group-addon">to</div>
+			    <input type="text" class="form-control">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<%= f.label :duration, 'Duration (days)' %>
+				<%= f.number_field :duration, class: 'form-control' %>
+			</div>
+
+			<div class="form-group row">
+				<%= f.label :description %>
+				<%= f.text_area :description, class: 'form-control' %>
+			</div>
+
+			<div class="row">
+				<%= f.submit "Save changes", class: "btn btn-primary" %>
+				<%= link_to 'Cancel', @roster, class: 'btn btn-default pull-right' %>
+			</div>
+    <% end %>
+  </div>
+</div>

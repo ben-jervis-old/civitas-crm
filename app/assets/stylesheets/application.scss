@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require font-awesome
+ *= require bootstrap-datepicker3
  *= require_self
  */
 
@@ -39,9 +40,21 @@ body {
 	padding-left: 30px;
 }
 
-.btn.pull-right.hidden-xs {
-	margin-bottom: 20px;
+.fa.large-icon {
+	font-size: 1.3em;
+
+	&.fa-square-o {
+		padding-right: 2.6px;
+	}
 }
+
+.hidden-item {
+	display: none;
+}
+
+// .btn.pull-right.hidden-xs {
+// 	margin-bottom: 20px;
+// }
 
 .spaced {
 	margin-right: 5px;
@@ -79,8 +92,18 @@ body {
 	background-color: $theme-background;
 }
 
+.tall-margin {
+	margin-top: 70px;
+}
+
 .flash-alert {
 	margin-top: 10px;
+}
+
+#flash-holder {
+	position: absolute;
+	left: 280px;
+	right: 30px;
 }
 
 #sidebar {
@@ -139,6 +162,12 @@ nav.navbar {
 	}
 }
 
+.gap-spacer {
+	margin: 0;
+	padding: 0;
+	padding-bottom: 5px;
+}
+
 #login-page-wrapper {
 	max-width: 600px;
 	margin: 0 auto;
@@ -150,7 +179,7 @@ nav.navbar {
 	}
 }
 
-table {
+#tab-menu table {
 	table-layout: fixed;
 	width: 100%;
 	text-align: center;
@@ -164,6 +193,11 @@ table {
 			display: block;
 		}
 	}
+}
+
+.narrow-container {
+	max-width: 800px;
+	margin-left: 0;
 }
 
 a>li.sidebar-list-item.active {
@@ -208,12 +242,18 @@ a>li.sidebar-list-item.active {
 	}
 }
 
+// .list-group-item.col-md-4 {
+// 	margin-left: 5px;
+// 	margin-right: 5px;
+// }
+
 .card-holder {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
 	a:hover {
 		color: white;
+		text-decoration: none;
 	}
 	.panel {
 		display: inline-block;
@@ -233,6 +273,9 @@ a>li.sidebar-list-item.active {
 		.panel-footer {
 			background-color: $theme-background;
 			color: white;
+		}
+		&:hover {
+			background-color: #ededed;
 		}
 	}
 }

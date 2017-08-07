@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
 
-  resources :rosters
+  resources :rosters do
+  	resources :tasks, except: :index
+  end
+
+	post '/tasks/:task_id/assign/:user_id', to: 'tasks#assign', as: 'assign_task'
+	delete '/tasks/:task_id/unassign/:user_id', to: 'tasks#unassign', as: 'unassign_task'
+	post '/tasks/:task_id/accept/:user_id', to: 'tasks#accept', as: 'accept_task'
+
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

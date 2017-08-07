@@ -13,6 +13,9 @@
 		</div>
 		<% if logged_in? %>
 			<div class="pull-right action-icon-holder">
+				<%= link_to '#', class: 'hidden-xs', 'data-toggle' => 'popover', 'data-placement' => 'bottom', title: 'Notifications', 'data-content' => '<a href="#notif">These are your notifications</a>', 'data-trigger' => 'focus' do %>
+					<i class="glyphicon glyphicon-bell"></i>
+				<% end %>
 				<a href="#MyAccount" class="hidden-xs" data-toggle="tooltip" data-placement="bottom" title="Settings">
 					<i class="glyphicon glyphicon-cog"></i>
 				</a>

@@ -1,0 +1,108 @@
+<% provide(:title, @task.title) %>
+
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Task: <%= @task.title %> </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Rosters", rosters_path %></li>
+	<li><%= link_to @task.roster.title, @task.roster %></li>
+	<li><%= link_to 'Tasks', @task.roster %></li>
+	<li class='active'><%= @task.title %></li>
+</ol>
+
+<div class="row">
+	<div class="col-lg-8 col-md-10">
+		<div class="row">
+			<div class="col-lg-10 col-md-9 col-sm-8">
+				<h3>
+					<%= @task.title %>
+				</h3>
+			  <h4>Due: <%= date_as_local(@task.due) %></h4>
+				<h4>Location: <%= @task.location %></h4>
+				<h4>Notes: <%= @task.notes %></h4>
+			</div>
+
+			<div class="col-lg-2 col-md-3 col-sm-4">
+				<%= link_to 'Edit Task', edit_roster_task_path(@task.roster, @task), class: 'btn btn-default btn-block' %>
+				<%= link_to 'Delete Task', roster_task_path(@task.roster, @task), data: { confirm: 'Are you sure you want to delete this task?' }, method: :delete, class: 'btn btn-danger btn-block' %>
+				<% if @not_accepted %>
+					<%= link_to 'Accept Task', accept_task_path(@task, current_user), method: :post, class: 'btn btn-success btn-block' %>
+				<% end %>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-6">
+				<h4>
+					Members <small class="pull-right">Accepted</small>
+				</h4>
+				<div class="panel panel-default">
+					<div class="list-group">
+						<% if @task.users.size > 0 %>
+							<% @task.users.each do |usr| %>
+								<% assignment = @task.assignments.select{ |ass| ass.user_id == usr.id }.first %>
+								<div class="list-group-item">
+									<% if assignment.accepted %>
+										<%= fa_icon 'check-square-o', class: 'large-icon' %>
+									<% else %>
+										<%= fa_icon 'square-o', class: 'large-icon' %>
+									<% end %>
+
+									<%= usr.name %>
+
+									<%= link_to unassign_task_path(@task.id, usr.id), class: 'pull-right', method: :delete do %>
+										<%= fa_icon 'trash', class: 'large-icon' %>
+									<% end %>
+								</div>
+						  <% end %>
+						<% else %>
+							<div class="list-group-item">There are no users assigned to this task yet.</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-2">
+						<h4>Add</h4>
+					</div>
+					<div class="col-md-8 col-md-offset-2">
+						<div class="input-group">
+							<input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
+							<span class="input-group-btn">
+								<button class="btn btn-default">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="gap-spacer visible-xs-block"></div>
+
+				<div class="panel panel-default">
+					<div class="list-group">
+						<% if @all_users.empty? %>
+							<div class="list-group-item">
+								<em>All users have been assigned to this task</em>
+							</div>
+						<% else %>
+							<% @all_users.each do |usr| %>
+								<div class="list-group-item" data-username='<%= usr.name %>'>
+									<%= link_to assign_task_path(@task, usr), method: :post do %>
+										<%= usr.name %> <i class="fa fa-plus pull-right large-icon"></i>
+									<% end %>
+								</div>
+							<% end %>
+						<% end %>
+						<div id="list-empty-msg" class="list-group-item hidden-item">
+							<em>No users to show</em>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

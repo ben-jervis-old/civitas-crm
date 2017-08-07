@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CivitasCRM</title>
+    <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag 'logo-inverse.png', type: 'image/png' %>
   </head>
 
@@ -16,15 +15,14 @@
         <%= render 'partials/sidebar' unless @hide_sidebar %>
         <div id="<%= @hide_sidebar ? '' : 'content-div' %>">
           <div class="container-fluid">
-            <% flash.each do |message_type, message| %>
-              <div class="flash-alert alert alert-<%= message_type %>"><%= message %></div>
-            <% end %>
+						<%= render 'partials/flash' %>
             <%= yield %>
 		      </div>
         </div>
         <%= render 'partials/tabmenu' unless @hide_sidebar %>
       </div>
     </div>
-
+		<%= javascript_include_tag 'application', 'data-turbolinks-eval': false %>
+		<%= javascript_include_tag 'tasks' if params[:controller] == 'task' and params[:action] == 'show' %>
   </body>
 </html>

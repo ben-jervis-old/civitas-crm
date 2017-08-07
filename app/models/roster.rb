@@ -1,7 +1,7 @@
 class Roster < ApplicationRecord
 	has_many :tasks
-	has_many :users, through: :tasks
-	
+	has_many :users, -> { distinct }, through: :tasks
+
 	validates :title, presence: true
 	validate  :must_start_after_today
 
@@ -11,7 +11,7 @@ class Roster < ApplicationRecord
 
 	def clone
 		new_start_date = self.start_date + 7*self.duration
-		new_roster = Roster.new(title: self.title, start_date: new_start_date, duration: self.duration)
+		new_roster = Roster.new(title: self.title, start_date: new_start_date, duration: self.duration, description: self.description)
 		new_roster.save
 		#TODO Task allocation
 	end
