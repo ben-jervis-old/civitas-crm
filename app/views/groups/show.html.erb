@@ -1,66 +1,49 @@
-<div id="user-details-top-row">
-  <div class="page-header">
-    <h1><%= @group.name %></h1>
-  </div>
+<% provide(:title, @group.name) %>
+
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Group: <%= @group.name %> </h1>
 </div>
 
-<div class="row padded-row">
-	<ul class="nav nav-tabs" role='tablist'>
+<ol class="breadcrumb">
+	<li><%= link_to "Groups", groups_path %></li>
+	<li class='active'><%= @group.name %></li>
+</ol>
 
-    <li role="presentation" class="active">
-			<a href="#details" aria-controls="expenses" role="tab" data-toggle="tab">Group Details</a>
-		</li>
+<div class="narrow-container">
+	<div class="row padded-row">
+		<h4>
+			<%= @group.discription %>
+		</h4>
+	  <p>
+	   Date created: <strong><%= @group.created_at %></strong> 
+	  </p>
+	  <p>
+	      Group type: <strong><%= @group.group_type %></strong>.
+	  </p>
+	</div>
 
-		<li role="presentation">
-			<a href="#members" aria-controls="account" role="tab" data-toggle="tab">Group Members</a>
-		</li>
-
-    <div class="col-md-1 col-md-offset-7 hidden-xs">
-  		<%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-primary pull-right" do %>
-  			<i class="glyphicon glyphicon-trash"></i> Delete Group
-  		<% end %>
-  	</div>
-	</ul>
-	
+	<div class="row padded-row">
+		<h4>Member List</h4>
+		<div class="panel panel-default">
+			<table class="table">
+				<% if @group.users.count > 0 %>
+				  <% @group.users.each do |user| %>
+            	<div class="list-group-item">
+            		<h4>
+                  <%= link_to user.name, user %>
+                </h4>
+            	</div>
+          <% end %>
+				<% else %>
+					<td>There are no users assigned to this roster yet.</td>
+				<% end %>
+			</table>
+		</div>
+	</div>
+	<div class="row padded-row">
+	  <%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default pull-right" do %>
+			<i class="glyphicon glyphicon-trash"></i> Delete Group
+		<% end %>
+		<%= link_to 'Edit Group', edit_group_path(@group), class: 'btn btn-default pull-right' %>
+	</div>
 </div>
-
-<div class='row tab-content padded-row'>
-  <div id="details"  role='tabpanel' class='tab-pane active fade in'>
-    <div class="col-md-8">
-      <div class="user-details">
-        <ul>
-          <li>
-            <h4>Group Type</h4>
-            <h3><%= return_group_type(@group.group_type) %></h3>
-            <h4>Group Created</h4>
-            <h3><%= @group.created_at %></h3>
-            <h4>Last Updated</h4>
-            <h3><%= @group.updated_at %></h3>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div id="members" role='tabpanel' class='tab-pane fade'>
-    <div class="col-md-8">
-      <div class="user-details">
-        <% @group.users.each do |user| %>
-          <div class="col-md-4">
-          	<div class="list-group-item">
-          		<h4>
-                <%= user.name %>
-                <i class="glyphicon glyphicon-picture pull-right"></i>
-              </h4>
-          	</div>
-          </div>
-        <% end %>
-      </div>
-      <div class="col-md-1 col-md-offset-7 hidden-xs">
-    		<%= link_to '#', class: "btn btn-primary pull-right" do %>
-    			<i class="glyphicon glyphicon-plus"></i> Add Member
-    		<% end %>
-    	</div>
-    </div>
-  </div>
-</div>
-
