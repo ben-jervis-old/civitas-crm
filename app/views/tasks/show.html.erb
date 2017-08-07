@@ -43,12 +43,16 @@
 							<% @task.users.each do |usr| %>
 								<% assignment = @task.assignments.select{ |ass| ass.user_id == usr.id }.first %>
 								<div class="list-group-item">
+									<% if assignment.accepted %>
+										<%= fa_icon 'check-square-o', class: 'large-icon' %>
+									<% else %>
+										<%= fa_icon 'square-o', class: 'large-icon' %>
+									<% end %>
+
 									<%= usr.name %>
 
-									<% if assignment.accepted %>
-										<%= fa_icon 'check-square-o', class: 'pull-right large-icon' %>
-									<% else %>
-										<%= fa_icon 'square-o', class: 'pull-right large-icon' %>
+									<%= link_to unassign_task_path(@task.id, usr.id), class: 'pull-right', method: :delete do %>
+										<%= fa_icon 'trash', class: 'large-icon' %>
 									<% end %>
 								</div>
 						  <% end %>

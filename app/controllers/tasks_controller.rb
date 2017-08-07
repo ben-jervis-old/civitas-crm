@@ -55,6 +55,15 @@ class TasksController < ApplicationController
 		#TODO Create a notification for user
 	end
 
+	def unassign
+		@task = Task.find(params[:task_id])
+		user = User.find(params[:user_id])
+		@task.users.delete user
+		flash[:success] = "#{user.name} removed from this task"
+		redirect_to roster_task_path(@task.roster, @task)
+		#TODO Create a notification for user
+	end
+
 	def accept
 		@task = Task.find(params[:task_id])
 		user = User.find(params[:user_id])

@@ -1,6 +1,6 @@
 class Roster < ApplicationRecord
 	has_many :tasks
-	has_many :users, through: :tasks
+	has_many :users, -> { distinct }, through: :tasks
 
 	validates :title, presence: true
 	validate  :must_start_after_today
