@@ -15,7 +15,13 @@
 			<a href="#members" aria-controls="account" role="tab" data-toggle="tab">Group Members</a>
 		</li>
 
+    <div class="col-md-1 col-md-offset-7 hidden-xs">
+  		<%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-primary pull-right" do %>
+  			<i class="glyphicon glyphicon-trash"></i> Delete Group
+  		<% end %>
+  	</div>
 	</ul>
+	
 </div>
 
 <div class='row tab-content padded-row'>
