@@ -29,6 +29,10 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
+.hidden-item {
+	display: none;
+}
+
 .padded-row {
 	padding-left: 15px;
 	padding-right: 15px;
@@ -289,3 +293,4 @@ label.checkbox.inline {
 		padding-left: 260px;
 	}
 }
+
