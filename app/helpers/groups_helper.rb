@@ -6,4 +6,12 @@ module GroupsHelper
       str
     end
   end
+  
+  def return_description (str = "")
+    if str.blank?
+      "-"
+    else
+      str
+    end
+  end
 end
