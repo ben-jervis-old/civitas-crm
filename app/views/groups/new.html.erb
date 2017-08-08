@@ -1,9 +1,16 @@
-<h1>New Group</h1>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Create New Group </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Groups", groups_path%></li>
+	<li class='active'>new</li>
+</ol>
 
 <div class="row padded-row">
 	<div class="col-md-6 col-md-offset-3">
 		<%= form_for @group do |f| %>
-			<%= render 'partials/error_messages', :item @groups %>
+			<%= render 'partials/error_messages' %>
 	    <div class="form-group row">
 	      <%= f.label :name %>
 	      <%= f.text_field :name, class: 'form-control' %>

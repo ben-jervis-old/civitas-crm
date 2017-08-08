@@ -2,6 +2,11 @@
 	<h1>Update group information</h1>
 </div>
 
+<ol class="breadcrumb">
+	<li><%= link_to "Groups", groups_path , data: { confirm: "Cancel will delete all change. Are you sure?" }%></li>
+	<li><%= link_to @group.name, @group , data: { confirm: "Cancel will delete all change. Are you sure?" }%></li>
+	<li class='active'>edit</li>
+</ol>
 
 <div class="row bounded-row padded-row">
   <div class="col-md-8">
