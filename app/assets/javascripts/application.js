@@ -14,9 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-datepicker
-//= require vue
-//= require_tree .
 
 var doc_ready;
 doc_ready = function () {

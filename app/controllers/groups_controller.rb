@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
+    @users = User.all
   end
 
   def new
@@ -39,6 +40,14 @@ class GroupsController < ApplicationController
     flash[:success] = "Group deleted"
     redirect_to groups_url
   end
+  
+  def assign
+		@group = Group.find(params[:id])
+		user = User.find(params[:user_id])
+		@group.users << user
+		flash[:success] = "#{user.name} added to group"
+		redirect_to @group.roster
+	end
   
   private
     def group_params
