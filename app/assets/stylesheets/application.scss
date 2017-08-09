@@ -30,6 +30,10 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
+.hidden-item {
+	display: none;
+}
+
 .padded-row {
 	padding-left: 15px;
 	padding-right: 15px;
@@ -62,6 +66,10 @@ body {
 
 .bounded-row {
 	margin-bottom: 20px;
+}
+
+.btn-group-vertical.btn-group-icons .btn {
+	text-align: left;
 }
 
 .navbar-inverse {

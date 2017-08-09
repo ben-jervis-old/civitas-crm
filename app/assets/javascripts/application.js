@@ -38,6 +38,26 @@ doc_ready = function () {
   	}
   });
 
+
+	$('#groups-search-bar').keyup(function() {
+		var search_string = $(this)[0].value;
+		var filter_string = search_string.toUpperCase();
+		var group_list = $('[data-groupname]');
+
+		for(i = 0; i < group_list.length; i++) {
+			group_name = group_list[i].dataset.groupname;
+			if(group_name.toUpperCase().indexOf(filter_string) > -1) {
+				group_list[i].classList.remove('hidden-item');
+			}
+			else {
+				group_list[i].classList.add('hidden-item');
+			}
+		}
+
+		console.log($('[data-groupname]:not(.hidden-item)'));
+
+		if($('[data-groupname]:not(.hidden-item)').length == 0) {
+
 	$('#username-search-bar').keyup(function() {
 		var search_string = $(this)[0].value;
 		var filter_string = search_string.toUpperCase();
