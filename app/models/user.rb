@@ -6,6 +6,7 @@ class User < ApplicationRecord
 	has_many :assignments
 	has_many :tasks, -> { distinct },	through: :assignments
 	has_many :rosters, through: :tasks
+	has_and_belongs_to_many :notifications
 
 	has_secure_password
 
