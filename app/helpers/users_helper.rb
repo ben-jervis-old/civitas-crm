@@ -21,7 +21,7 @@ module UsersHelper
   end
 
   def number_link (num = 0)
-    link_to format_number(@user.phone_number), "tel:+#{pad_number(@user.phone_number)}"
+    link_to format_number(@user.phone_number), "tel:#{pad_number(@user.phone_number)}"
   end
 
 end

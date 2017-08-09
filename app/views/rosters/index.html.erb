@@ -1,3 +1,4 @@
+<% provide(:title, "Rosters") %>
 <div class="page-header">
 	<h1>Rostering</h1>
 </div>
@@ -15,8 +16,7 @@
 </div>
 
 <div class="row padded-row">
-
-	<div class="panel panel-default list-group">
-    <%= render @rosters %>
-	</div>
+	<ul class="list-group">
+		<%= render @rosters %>
+	</ul>
 </div>

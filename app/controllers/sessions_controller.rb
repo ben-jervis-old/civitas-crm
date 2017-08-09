@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
 
   def new
-    @login_page = true
+    @hide_sidebar = true
   end
 
   def create
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       end
     else
       flash.now[:danger] = 'Invalid email/password combination'
-      @login_page = true
+      @hide_sidebar = true
       render 'new'
     end
   end

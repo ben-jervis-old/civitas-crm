@@ -1,0 +1,30 @@
+<% provide(:title, "Reset Password") %>
+<div id="login-page-wrapper">
+  <div class="page-header">
+    <h1>Reset Password</h1>
+  </div>
+  <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+    <%= render 'partials/error_messages' %>
+
+    <%= hidden_field_tag :email, @user.email %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+    <%= f.submit "Update Password", class: 'btn btn-primary btn-lg btn-block' %>
+  <% end %>
+  <br>
+  <h4>Password Rules</h4>
+  <p>
+    The only rule for creating a password is that it must be <strong>longer than 8 characters</strong>. There are also some very common passwords that are not allowed (like "password" or "1234", etc).
+  </p>
+  <p>
+    However, a strong password will include a mix of upper and lower case letter, numbers, and symbols.
+  </p>
+  <p>
+    You could also consider using a service like <%= link_to 'LastPass', 'https://www.lastpass.com/', target: '_blank', rel: 'noopener noreferrer' %> to generate and manage more secure passwords.
+  </p>
+</div>
