@@ -53,6 +53,14 @@ class GroupsController < ApplicationController
 		flash[:success] = "#{user.name} added to group"
 		redirect_to @group
 	end
+	
+	 def unassign
+		@group = Group.find(params[:group_id])
+		user = User.find(params[:format])
+		@group.users.delete user
+		flash[:success] = "#{user.name} removed from this task"
+		redirect_to @group
+	end
   
   private
     def group_params

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :groups do
     get '/members', to: 'groups#members', as: 'members'
     get '/assign', to: 'groups#assign', as: 'assign'
+    get '/unassign', to: 'groups#unassign', as: 'unassign'
   end
 
 	root 'dashboard#index'
