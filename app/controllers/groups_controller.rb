@@ -50,16 +50,14 @@ class GroupsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		user = User.find(params[:format])
 		@group.users << user
-		flash[:success] = "#{user.name} added to group"
-		redirect_to @group
+		redirect_to group_members_path(@group)
 	end
 	
 	 def unassign
 		@group = Group.find(params[:group_id])
 		user = User.find(params[:format])
 		@group.users.delete user
-		flash[:success] = "#{user.name} removed from this task"
-		redirect_to @group
+		redirect_to group_members_path(@group)
 	end
   
   private
