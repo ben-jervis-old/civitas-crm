@@ -26,11 +26,17 @@
 			<table class="table">
 				<% if @group.users.count > 0 %>
 				  <% @group.users.each do |user| %>
-            	<div class="list-group-item">
-            		<h4>
-                  <%= link_to user.name, user %>
-                </h4>
-            	</div>
+          	<div class="list-group-item col-md-4">
+          		<h4>
+                <%= link_to user.name, user %>
+              
+	              <% if @group.admin?(user) %>
+									<div class= 'pull-right'>
+										<i class="glyphicon glyphicon-user"></i> Admin
+									</div>
+								<% end %>
+							</h4>
+          	</div>
           <% end %>
 				<% else %>
 					<td>There are no users assigned to this roster yet.</td>
@@ -46,7 +52,7 @@
 			<i class="glyphicon glyphicon-pencil"></i> Edit Group
 		<% end %>
 		<%= link_to group_members_path(@group), class: "btn btn-default pull-right" do %>
-			<i class="glyphicon glyphicon-plus"></i> Add Members
+			<i class="glyphicon glyphicon-plus"></i> Edit Memberlist
 		<% end %>
 	</div>
 </div>

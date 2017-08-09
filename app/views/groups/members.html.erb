@@ -8,18 +8,20 @@
 	<li class='active'>Members</li>
 </ol>
 
-<div class="row bounded-row">
-	
+<div class="row padded-row">
+  <%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default pull-right" do %>
+		<i class="glyphicon glyphicon-chevron-left"></i> Back To Group Page
+	<% end %>
 </div>
 
-<div class="row bounded-row">
+<div class="narrow-container">
 	<div class="row padded-row">
 		<h4>Members in group</h4>
 		<div class="panel panel-default">
 			<table class="table">
 				<% if @group.users.count > 0 %>
 				  <% @group.users.each do |user| %>
-            	<div class="list-group-item col-md-6">
+            	<div class="list-group-item col-md-4">
             		<h4>
                   <%= link_to user.name, user %>
                   <%= link_to group_unassign_path(@group,user), class: 'btn btn-default pull-right' do %>
@@ -43,9 +45,7 @@
 			</table>
 		</div>
 	</div>
-</div>
-
-<div class="row bounded-row">
+	
 	<div class="row padded-row">
 		<div class="row bounded-row">
 			<div class="col-md-4">
@@ -68,7 +68,7 @@
 			<table class="table">
 			  <% @users.each do |user| %>
 			  	<% if !@group.users.exists?(user.id) %>
-          	<div class="list-group-item col-md-6" data-groupname="<%= user.name %>">
+          	<div class="list-group-item col-md-4" data-groupname="<%= user.name %>">
           		<h4>
                 <%= link_to user.name, user %>
 								<%= link_to group_assign_path(@group,user), class: 'btn btn-default pull-right' do %>
