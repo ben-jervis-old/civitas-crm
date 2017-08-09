@@ -7,52 +7,61 @@
 	<li class='active'><%= @group.name %></li>
 </ol>
 
-<div class="narrow-container">
-	<div class="row padded-row">
-		<h4>
-			<%= @group.description %>
-		</h4>
-	  <p>
-	   Date created: <strong><%= @group.created_at %></strong> 
-	  </p>
-	  <p>
-	      Group type: <strong><%= @group.group_type %></strong>.
-	  </p>
-	</div>
+<div class="row">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-8 col-sm-7">
+				<h4>
+					<%= @group.description %>
+				</h4>
+			  <p>
+			   Date created: <strong><%= @group.created_at %></strong>
+			  </p>
+			  <p>
+			      Group type: <strong><%= @group.group_type %></strong>.
+			  </p>
+			</div>
 
-	<div class="row padded-row">
-		<h4>Member List</h4>
-		<div class="panel panel-default">
-			<table class="table">
-				<% if @group.users.count > 0 %>
-				  <% @group.users.each do |user| %>
-          	<div class="list-group-item col-md-4">
-          		<h4>
-                <%= link_to user.name, user %>
-              
-	              <% if @group.admin?(user) %>
-									<div class= 'pull-right'>
-										<i class="glyphicon glyphicon-user"></i> Admin
-									</div>
-								<% end %>
-							</h4>
-          	</div>
-          <% end %>
-				<% else %>
-					<td>There are no users assigned to this roster yet.</td>
-				<% end %>
-			</table>
+			<div class="col-md-4 col-sm-5">
+				<div class="btn-group-vertical pull-right btn-group-icons btn-group-lg">
+					<%= link_to group_members_path(@group), class: "text-left btn btn-default" do %>
+						<i class="glyphicon glyphicon-user"></i>  Members
+					<% end %>
+					<%= link_to edit_group_path(@group), class: "text-left btn btn-default" do %>
+						<i class="glyphicon glyphicon-pencil"></i>  Edit
+					<% end %>
+					<%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
+						<i class="glyphicon glyphicon-trash"></i>  Delete
+					<% end %>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="row padded-row">
-	  <%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default pull-right" do %>
-			<i class="glyphicon glyphicon-trash"></i> Delete Group
-		<% end %>
-		<%= link_to edit_group_path(@group), class: "btn btn-default pull-right" do %>
-			<i class="glyphicon glyphicon-pencil"></i> Edit Group
-		<% end %>
-		<%= link_to group_members_path(@group), class: "btn btn-default pull-right" do %>
-			<i class="glyphicon glyphicon-plus"></i> Edit Memberlist
-		<% end %>
+
+
+
+		<div class="row padded-row">
+			<h4>Member List</h4>
+			<div class="panel panel-default">
+				<table class="table">
+					<% if @group.users.size > 0 %>
+					  <% @group.users.each do |user| %>
+	          	<div class="list-group-item col-md-4">
+	          		<h4>
+	                <%= link_to user.name, user %>
+
+		              <% if @group.admin?(user) %>
+										<div class= 'pull-right'>
+											<i class="glyphicon glyphicon-user"></i> Admin
+										</div>
+									<% end %>
+								</h4>
+	          	</div>
+	          <% end %>
+					<% else %>
+						<td>There are no users assigned to this roster yet.</td>
+					<% end %>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>

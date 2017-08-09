@@ -9,7 +9,7 @@
 </ol>
 
 <div class="row padded-row">
-  <%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default pull-right" do %>
+  <%= link_to @group, class: "btn btn-default pull-right" do %>
 		<i class="glyphicon glyphicon-chevron-left"></i> Back To Group Page
 	<% end %>
 </div>
@@ -19,20 +19,20 @@
 		<h4>Members in group</h4>
 		<div class="panel panel-default">
 			<table class="table">
-				<% if @group.users.count > 0 %>
+				<% if @group.users.size > 0 %>
 				  <% @group.users.each do |user| %>
             	<div class="list-group-item col-md-4">
             		<h4>
                   <%= link_to user.name, user %>
-                  <%= link_to group_unassign_path(@group,user), class: 'btn btn-default pull-right' do %>
+                  <%= link_to group_unassign_user_path(@group.id, user.id), class: 'btn btn-default pull-right', method: :post do %>
 										<i class="glyphicon glyphicon-minus"></i> Remove
 									<% end %>
 									<% if @group.admin?(user) %>
-										<%= link_to group_remove_administrator_path(@group,user), class: 'btn btn-warning pull-right' do %>
+										<%= link_to group_remove_administrator_path(@group,user), class: 'btn btn-warning pull-right', method: :post do %>
 											<i class="glyphicon glyphicon-ok"></i> Admin
 										<% end %>
 									<% else %>
-										<%= link_to group_make_administrator_path(@group,user), class: 'btn btn-default pull-right' do %>
+										<%= link_to group_make_administrator_path(@group,user), class: 'btn btn-default pull-right', method: :post do %>
 											<i class="glyphicon glyphicon-remove"></i> Admin
 										<% end %>
 									<% end %>
@@ -45,7 +45,7 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<div class="row padded-row">
 		<div class="row bounded-row">
 			<div class="col-md-4">
@@ -62,16 +62,16 @@
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<div class="panel panel-default">
 			<table class="table">
 			  <% @users.each do |user| %>
-			  	<% if !@group.users.exists?(user.id) %>
+			  	<% if !@group.user_ids.include?(user.id) %>
           	<div class="list-group-item col-md-4" data-groupname="<%= user.name %>">
           		<h4>
                 <%= link_to user.name, user %>
-								<%= link_to group_assign_path(@group,user), class: 'btn btn-default pull-right' do %>
+								<%= link_to group_assign_user_path(@group.id, user.id), class: 'btn btn-default pull-right', method: :post do %>
 									<i class="glyphicon glyphicon-plus"></i> Add
 								<% end %>
               </h4>

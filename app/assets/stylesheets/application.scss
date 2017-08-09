@@ -54,6 +54,10 @@ body {
 	margin-bottom: 20px;
 }
 
+.btn-group-vertical.btn-group-icons .btn {
+	text-align: left;
+}
+
 .navbar-inverse {
 	height: 70px;
 	padding-top: 12px;
@@ -293,4 +297,3 @@ label.checkbox.inline {
 		padding-left: 260px;
 	}
 }
-

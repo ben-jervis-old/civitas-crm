@@ -3,13 +3,13 @@
 </div>
 
 <ol class="breadcrumb">
-	<li class='active'><%= link_to "Groups", groups_path %></li>
+	<li class='active'>Groups</li>
 </ol>
 
 <div class="row bounded-row">
 	<div class="col-md-1 visible-xs-block">
 		<%= link_to new_group_path, class: 'btn btn-primary btn-block' do %>
-			<i class="glyphicon glyphicon-plus"></i> New Group 5
+			<i class="glyphicon glyphicon-plus"></i> New Group
 		<% end %>
 		<br>
 	</div>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="row padded-row">
-	<ul class="list-group">
+	<div class="list-group">
 		<% @groups.each do |group| %>
 			<div class="list-group-item col-md-6" data-groupname="<%= group.name %>">
 			  <%= link_to group do %>
@@ -39,8 +39,8 @@
 			      <span class="label label-default pull-right"><%= pluralize(group.users.count, 'Member') %></span>
 			    </h4>
 			  <% end %>
-			  <%= return_description(group.description) %>
+			  <%= group.description unless group.description.blank? %>
 			</div>
 		<% end %>
-	</ul>
+	</div>
 </div>
