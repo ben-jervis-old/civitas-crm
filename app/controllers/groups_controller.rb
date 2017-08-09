@@ -53,10 +53,24 @@ class GroupsController < ApplicationController
 		redirect_to group_members_path(@group)
 	end
 	
-	 def unassign
+	def unassign
 		@group = Group.find(params[:group_id])
 		user = User.find(params[:format])
 		@group.users.delete user
+		redirect_to group_members_path(@group)
+	end
+	
+	def make_administrator
+		@group = Group.find(params[:group_id])
+		user = User.find(params[:format])
+		@group.make_admin(user)
+		redirect_to group_members_path(@group)
+	end
+	
+	def remove_administrator
+		@group = Group.find(params[:group_id])
+		user = User.find(params[:format])
+		@group.remove_admin(user)
 		redirect_to group_members_path(@group)
 	end
   

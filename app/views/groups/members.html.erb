@@ -25,6 +25,15 @@
                   <%= link_to group_unassign_path(@group,user), class: 'btn btn-default pull-right' do %>
 										<i class="glyphicon glyphicon-minus"></i> Remove
 									<% end %>
+									<% if @group.admin?(user) %>
+										<%= link_to group_remove_administrator_path(@group,user), class: 'btn btn-warning pull-right' do %>
+											<i class="glyphicon glyphicon-ok"></i> Admin
+										<% end %>
+									<% else %>
+										<%= link_to group_make_administrator_path(@group,user), class: 'btn btn-default pull-right' do %>
+											<i class="glyphicon glyphicon-remove"></i> Admin
+										<% end %>
+									<% end %>
                 </h4>
             	</div>
           <% end %>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get '/members', to: 'groups#members', as: 'members'
     get '/assign', to: 'groups#assign', as: 'assign'
     get '/unassign', to: 'groups#unassign', as: 'unassign'
+    get '/make_administrator', to: 'groups#make_administrator', as: 'make_administrator'
+    get '/remove_administrator', to: 'groups#remove_administrator', as: 'remove_administrator'
   end
 
 	root 'dashboard#index'
