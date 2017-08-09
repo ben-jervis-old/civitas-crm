@@ -45,7 +45,7 @@
 		<%= link_to edit_group_path(@group), class: "btn btn-default pull-right" do %>
 			<i class="glyphicon glyphicon-pencil"></i> Edit Group
 		<% end %>
-		<%= link_to assign_group_path(@group, @user), method: :post, class: "btn btn-default pull-right" do %>
+		<%= link_to group_members_path(@group), class: "btn btn-default pull-right" do %>
 			<i class="glyphicon glyphicon-plus"></i> Add Members
 		<% end %>
 	</div>

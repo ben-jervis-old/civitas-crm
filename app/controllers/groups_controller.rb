@@ -16,6 +16,11 @@ class GroupsController < ApplicationController
     @groups = Group.all
   end
   
+  def members
+    @group = Group.find(params[:group_id])
+    @users = User.all
+  end
+  
   def update
     @group = Group.find(params[:id])
     if @group.update_attributes(group_params)
@@ -42,11 +47,11 @@ class GroupsController < ApplicationController
   end
   
   def assign
-		@group = Group.find(params[:id])
-		user = User.find(params[:user_id])
+		@group = Group.find(params[:group_id])
+		user = User.find(params[:format])
 		@group.users << user
 		flash[:success] = "#{user.name} added to group"
-		redirect_to @group.roster
+		redirect_to @group
 	end
   
   private

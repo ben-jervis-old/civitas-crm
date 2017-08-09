@@ -1,0 +1,72 @@
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Group: <%= @group.name %> </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Groups", groups_path %></li>
+	<li><%= link_to @group.name, @group %></li>
+	<li class='active'>Members</li>
+</ol>
+
+<div class="row bounded-row">
+	
+</div>
+
+<div class="row bounded-row">
+	<div class="row padded-row">
+		<h4>Members in group</h4>
+		<div class="panel panel-default">
+			<table class="table">
+				<% if @group.users.count > 0 %>
+				  <% @group.users.each do |user| %>
+            	<div class="list-group-item col-md-6">
+            		<h4>
+                  <%= link_to user.name, user %>
+                </h4>
+            	</div>
+          <% end %>
+				<% else %>
+					<td>There are no users assigned to this roster yet.</td>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="row bounded-row">
+	<div class="row padded-row">
+		<div class="row bounded-row">
+			<div class="col-md-4">
+				<h4>All members</h4>
+			</div>
+			<div class="col-md-4 pull-right">
+				<div class="input-group">
+					<input type="text" id="groups-search-bar" name="groups-search" value="" class="form-control" placeholder="Search">
+					<span class="input-group-btn">
+						<button class="btn btn-default">
+							<i class="glyphicon glyphicon-search"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="panel panel-default">
+			<table class="table">
+			  <% @users.each do |user| %>
+			  	<% if !@group.users.exists?(user.id) %>
+          	<div class="list-group-item col-md-6" data-groupname="<%= user.name %>">
+          		<h4>
+                <%= link_to user.name, user %>
+								<%= link_to group_assign_path(@group,user), class: 'btn btn-default pull-right' do %>
+									<i class="glyphicon glyphicon-plus"></i> Add
+								<% end %>
+              </h4>
+          	</div>
+          <% end %>
+        <% end %>
+			</table>
+		</div>
+	</div>
+</div>
