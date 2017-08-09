@@ -9,8 +9,7 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-
-ActiveRecord::Schema.define(version: 20170808100737) do
+ActiveRecord::Schema.define(version: 20170808105940) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -29,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170808100737) do
     t.integer  "repeat",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "event_type"
   end
 
   create_table "groups", force: :cascade do |t|
