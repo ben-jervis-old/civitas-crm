@@ -4,7 +4,7 @@
 
 <%= render 'cards' %>
 <div class="row padded-row">
-	<h2>Notifications (2)</h2>
+	<h2>Notifications</h2>
 	<div class="panel panel-default">
 		<div class="list-group">
 			<% if current_user.notifications.empty? %>
@@ -12,17 +12,18 @@
 					<div class="notification-body">
 						<h4>No notifications at this time</h4>
 					</div>
-				<% else %>
-					<% current_user.notifications.each do |notification| %>
-						<div class="list-group-item">
-							<div class="notification-body">
-								<h4><%= @notifications.title %></h4>
-								<p><%= @notifications.content %></p>
-							</div>
-							<button class="btn btn-primary pull-right">View</button>
+				</div>
+			<% else %>
+				<% current_user.notifications.each do |notification| %>
+					<div class="list-group-item">
+						<div class="notification-body">
+							<h4><%= @notifications.title %></h4>
+							<p><%= @notifications.content %></p>
 						</div>
-					<% end %>
+						<button class="btn btn-primary pull-right">View</button>
+					</div>
 				<% end %>
+			<% end %>
 		</div>
 	</div>
 </div>
