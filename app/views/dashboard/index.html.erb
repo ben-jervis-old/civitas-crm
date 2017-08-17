@@ -20,9 +20,9 @@
 						<div class="notification-body">
 							<h4><%= @notification.title %></h4>
 							<p><%= @notification.content %></p>
-							<p>click <%= link_to 'here', notification.resolve_link %>  to acccept task</p>
+							<p>click <%= link_to 'here', notification.resolve_link %> to acccept task</p>
 						</div>
-						<button class="btn btn-primary pull-right">View</button>
+						<%= link_to 'Mark as read', dismiss_notification_path(@task), class:"btn btn-primary pull-right", method: :post %>
 					</div>
 				<% end %>
 			<% end %>

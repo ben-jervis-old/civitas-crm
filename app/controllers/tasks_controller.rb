@@ -53,7 +53,6 @@ class TasksController < ApplicationController
 		flash[:success] = "#{user.name} assigned to this task"
 		redirect_to roster_task_path(@task.roster, @task)
 		current_user.notifications.create(title: "New Task", content:"You have been assigned to the task #{@task}", resolve_link: roster_task_path)
-		#TODO Create a notification for user
 	end
 
 	def unassign
@@ -63,6 +62,13 @@ class TasksController < ApplicationController
 		flash[:success] = "#{user.name} removed from this task"
 		redirect_to roster_task_path(@task.roster, @task)
 		#TODO Create a notification for user
+	end
+	
+	def dismiss
+		notification.read = true
+		notification.read_time = Time.now 
+		notification.user_id = current_user.id
+		redirect_to dashboard
 	end
 
 	def accept
