@@ -1,0 +1,46 @@
+<div class="page-header">
+	<h1>Group Database</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li class='active'>Groups</li>
+</ol>
+
+<div class="row bounded-row">
+	<div class="col-md-1 visible-xs-block">
+		<%= link_to new_group_path, class: 'btn btn-primary btn-block' do %>
+			<i class="glyphicon glyphicon-plus"></i> New Group
+		<% end %>
+		<br>
+	</div>
+	<div class="col-md-4">
+		<div class="input-group">
+			<input type="text" id="groups-search-bar" name="groups-search" value="" class="form-control" placeholder="Search">
+			<span class="input-group-btn">
+				<button class="btn btn-default">
+					<i class="glyphicon glyphicon-search"></i>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-md-1 col-md-offset-7 hidden-xs">
+		<%= link_to new_group_path, class: "btn btn-primary pull-right" do %>
+			<i class="glyphicon glyphicon-plus"></i> New Group
+		<% end %>
+	</div>
+</div>
+
+<div class="row padded-row">
+	<div class="list-group">
+		<% @groups.each do |group| %>
+			<div class="list-group-item col-md-6" data-groupname="<%= group.name %>">
+			  <%= link_to group do %>
+			    <h4><%= group.name %>
+			      <span class="label label-default pull-right"><%= pluralize(group.users.count, 'Member') %></span>
+			    </h4>
+			  <% end %>
+			  <%= group.description unless group.description.blank? %>
+			</div>
+		<% end %>
+	</div>
+</div>
