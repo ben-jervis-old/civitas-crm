@@ -9,7 +9,8 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema.define(version: 20170808105940) do
+ActiveRecord::Schema.define(version: 20170809025145) do
+
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -46,6 +47,25 @@ ActiveRecord::Schema.define(version: 20170808105940) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "resolve_link"
+    t.boolean  "read",         default: false
+    t.datetime "read_time"
+    t.integer  "user_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "notifications_users", id: false, force: :cascade do |t|
+    t.integer "notification_id", null: false
+    t.integer "user_id",         null: false
+    t.index ["notification_id"], name: "index_notifications_users_on_notification_id"
+    t.index ["user_id"], name: "index_notifications_users_on_user_id"
   end
 
   create_table "rosters", force: :cascade do |t|

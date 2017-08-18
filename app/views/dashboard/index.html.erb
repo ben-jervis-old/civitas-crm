@@ -3,24 +3,14 @@
 </div>
 
 <%= render 'cards' %>
-<div class="row padded-row">
-	<h2>Notifications (2)</h2>
-	<div class="panel panel-default">
-		<div class="list-group">
-			<div class="list-group-item">
-				<div class="notification-body">
-					<h4>Member Approvals</h4>
-					<p>There are new member applications</p>
-				</div>
-				<button class="btn btn-primary pull-right">View</button>
-			</div>
-			<div class="list-group-item">
-				<div class="notification-body">
-					<h4>Extended Absence</h4>
-					<p>[User Name] has been absent for the last 3 services</p>
-				</div>
-				<button class="btn btn-primary pull-right">View</button>
-			</div>
-		</div>
+<div class="row">
+	
+	<div class="col-md-4 col-sm-6">
+		<%= render 'notifications' %>
 	</div>
+
+	<div class="col-md-4 col-sm-6">
+
+	</div>
+
 </div>
