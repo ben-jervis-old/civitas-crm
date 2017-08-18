@@ -3,29 +3,14 @@
 </div>
 
 <%= render 'cards' %>
-<div class="row padded-row">
-	<h2>Notifications</h2>
-	<div class="panel panel-default">
-		<div class="list-group">
-			<% if current_user.notifications.empty? %>
-				<div class="list-group-item">
-					<div class="notification-body">
-						<h4>No notifications at this time for user</h4>
-						<h3><%= @current_user.id %><h3>
-					</div>
-				</div>
-			<% else %>
-				<% current_user.notifications.each do |notification| %>
-					<div class="list-group-item">
-						<div class="notification-body">
-							<h4><%= notification.title %></h4>
-							<p><%= notification.content %></p>
-							<p>click <%= link_to 'here', notification.resolve_link %> to acccept task</p>
-						</div>
-						<%= link_to 'Mark as read', dismiss_notification_path(notification), class:"btn btn-primary pull-right", method: :post %>
-					</div>
-				<% end %>
-			<% end %>
-		</div>
+<div class="row">
+	
+	<div class="col-md-4 col-sm-6">
+		<%= render 'notifications' %>
 	</div>
+
+	<div class="col-md-4 col-sm-6">
+
+	</div>
+
 </div>

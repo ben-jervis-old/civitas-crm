@@ -1,0 +1,22 @@
+<h3>Tasks (<%= @unread_notifications.length %>)</h3>
+<div class="panel panel-default">
+	<div class="list-group">
+		<% if @outstanding_tasks.empty? %>
+			<div class="list-group-item">
+				<div class="notification-body">
+					<h4>You don't have any tasks at the moment</h4>
+				</div>
+			</div>
+		<% else %>
+			<% @outstanding_tasks.each do |task| %>
+				<div class="list-group-item">
+					<div class="notification-body">
+						<h4><%= task.title %></h4>
+						<p><%= task.description %></p>
+						<p><%= link_to 'Show me', roster_task_path(task.roster, task) %></p>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>

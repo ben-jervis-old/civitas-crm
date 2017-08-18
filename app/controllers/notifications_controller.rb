@@ -1,8 +1,7 @@
-class NotificationController < ApplicationController
+class NotificationsController < ApplicationController
     def dismiss
-        notification.read = true
-	    notification.read_time = Time.now 
-	    notification.user_id = current_user.id
-	    redirect_to dashboard
+			@notification = Notification.find(params[:notification_id])
+			@notification.read_by(current_user.id)
+			redirect_to root_path
     end
 end
