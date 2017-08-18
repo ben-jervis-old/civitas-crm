@@ -13,7 +13,7 @@
 		</div>
 		<% if logged_in? %>
 			<div class="pull-right action-icon-holder">
-				<%= link_to '#', class: 'hidden-xs', 'data-toggle' => 'popover', 'data-placement' => 'bottom', title: 'Notifications', 'data-content' => '<a href="#notif">These are your notifications</a>', 'data-trigger' => 'focus' do %>
+				<%= link_to '#', class: '', 'data-toggle' => 'popover', 'data-placement' => 'bottom', title: 'Notifications', 'data-content' => '<a href="#notif">These are your notifications</a>', 'data-trigger' => 'focus' do %>
 					<i class="glyphicon glyphicon-bell"></i>
 					<% num_notifications = current_user.notifications.reject(&:read).size %>
 					<% if num_notifications > 0 %>

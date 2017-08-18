@@ -57,6 +57,15 @@ doc_ready = function () {
 		console.log($('[data-groupname]:not(.hidden-item)'));
 
 		if($('[data-groupname]:not(.hidden-item)').length == 0) {
+			console.log('Tested');
+			console.log($('#list-empty-msg'));
+			$('#list-empty-msg')[0].classList = 'list-group-item';
+		}
+		else {
+			console.log('Not Tested');
+			$('#list-empty-msg')[0].classList = 'list-group-item hidden-item';
+		}
+	});
 
 	$('#username-search-bar').keyup(function() {
 		var search_string = $(this)[0].value;

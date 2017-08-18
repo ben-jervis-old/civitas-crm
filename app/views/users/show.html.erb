@@ -1,89 +1,78 @@
 <% provide(:title, @user.name) %>
-<div id="user-details-top-row">
-  <div class="page-header">
-    <h1><%= @user.name %></h1>
-  </div>
-	<ol class="breadcrumb">
-		<li><%= link_to "Members", users_path %></li>
-		<li><%= link_to @user.name, @user %></li>
-	</ol>
-	
-  <%= image_tag 'usericon.png', class: '', width: 150, height: 150 %>
+
+<div class="page-header">
+  <h1><%= @user.name %></h1>
 </div>
 
+<ol class="breadcrumb">
+	<li><%= link_to "Members", users_path %></li>
+	<li><%= link_to @user.name, @user %></li>
+</ol>
 
-
-<div class="row padded-row">
-	<ul class="nav nav-tabs" role='tablist'>
-
-		<li role="presentation" class="active">
-			<a href="#personal" aria-controls="account" role="tab" data-toggle="tab">Personal Information</a>
-		</li>
-
-		<li role="presentation">
-			<a href="#contact" aria-controls="expenses" role="tab" data-toggle="tab">Contact Details</a>
-		</li>
-
-		<li role="presentation">
-			<a href="#security" aria-controls="contacts" role="tab" data-toggle="tab">Privacy and Security</a>
-		</li>
-
-	</ul>
-</div>
-
-<div class='row tab-content padded-row'>
-  <div id="personal" role='tabpanel' class='tab-pane active fade in'>
-    <div class="col-md-8">
-      <div class="user-details">
-        <ul>
-          <li>
-            <h4>Name</h4>
-            <h3><%= @user.name %></h3>
-          </li>
-          <li>
-            <h4>Date of Birth</h4>
-            <h3><%= @user.dob.strftime("%d/%m/%Y") %></h3>
-          </li>
-        </ul>
-      </div>
-    </div>
+<div class="row">
+	<div class="col-md-2">
+    <%= image_tag 'usericon.png', class: 'img-responsive', width: 150, height: 150 %>
   </div>
-  <div id="contact"  role='tabpanel' class='tab-pane fade'>
-    <div class="col-md-8">
-      <div class="user-details">
-        <ul>
-          <li>
-            <h4>Address</h4>
-            <h3><%= @user.address %>
-        			<%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
-        				<i class="fa fa-map-marker" aria-hidden="true"></i>
-        			<% end %></h3>
-          </li>
-          <li>
-            <h4>Email Address</h4>
-            <h3><%= mail_to @user.email %></h3>
-          </li>
-          <li>
-            <h4>Phone Number </h4>
-            <h3> <%= number_link(@user.phone_number) %> </h3>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div id="security"  role='tabpanel' class='tab-pane fade'>
-    <div class="col-md-8">
-      <div class="user-details">
-        <ul>
-          <li>
-            <h4>User Level</h4>
-            <h3><%= @user.level.capitalize %></h3>
-          </li>
-        </ul>
-      </div>
-    </div>
+
+  <div class="col-md-10">
+			<p>Email Address: <%= mail_to @user.email %></p>
+			<p>Phone Number: <%= number_link(@user.phone_number) %></p>
+			<p>Address: <%= @user.address %>
+				<%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
+					<i class="fa fa-map-marker" aria-hidden="true"></i>
+				<% end %>
+			</p>
+			<p>Date of Birth: <%= @user.dob.strftime("%d/%m/%Y") %></p>
   </div>
 </div>
-<div class="row double-padded-row col-md-8">
-    <%= link_to 'Update my details', edit_user_path  %> | <%= link_to 'Change Password', '#'  %>
+
+<br>
+
+<div class="row">
+  <div class="col-md-6">
+		<h4>Groups</h4>
+		<div class="panel panel-default">
+			<table class="table">
+				<% if current_user.groups.size > 0 %>
+					<% current_user.groups.each do |group| %>
+						<tr>
+							<td><%= link_to group.name, group %></td>
+							<td><%= "#{pluralize group.users.size, 'member'}" %></td>
+							<td>
+								<% if group.admin? current_user %>
+									Leader
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				<% else %>
+					<td>You're not a member of any groups at the moment.</td>
+				<% end %>
+			</table>
+		</div>
+
+	</div>
+	<div class="col-md-6">
+		<h4>Rosters</h4>
+		<div class="panel panel-default">
+			<table class="table">
+				<% if current_user.rosters.size > 0 %>
+					<% current_user.rosters.each do |roster| %>
+						<tr>
+							<td><%= link_to roster.title, roster %></td>
+							<td><%= "#{pluralize(roster.tasks.select{ |tsk| tsk.user_ids.include? current_user.id }.count, 'task')} in this roster" %></td>
+						</tr>
+					<% end %>
+				<% else %>
+					<td>You're not assigned to any rosters at the moment.</td>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+		<%= link_to 'Update my details', edit_user_path  %> | <%= link_to 'Change Password', '#'  %>
+	</div>
 </div>
