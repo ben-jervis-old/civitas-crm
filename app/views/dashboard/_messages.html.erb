@@ -1,18 +1,17 @@
-<h3>Tasks (<%= @outstanding_tasks.length %>)</h3>
+<h3>Inbox (<%= @unread_messages.length %>)</h3>
 <div class="panel panel-default">
 	<div class="list-group">
-		<% if @outstanding_tasks.empty? %>
+		<% if @unread_messages.empty? %>
 			<div class="list-group-item">
 				<div class="notification-body">
-					<h4>You don't have any tasks at the moment</h4>
+					<h4>No new messages</h4>
 				</div>
 			</div>
 		<% else %>
-			<% @outstanding_tasks.each do |task| %>
+			<% @unread_messages.each do |msg| %>
 				<div class="list-group-item">
 					<div class="notification-body">
-						<h4><%= link_to task.title, roster_task_path(task.roster, task) %></h4>
-						<p><%= task.notes %></p>
+
 					</div>
 				</div>
 			<% end %>

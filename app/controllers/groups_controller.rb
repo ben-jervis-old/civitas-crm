@@ -52,6 +52,7 @@ class GroupsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		user = User.find(params[:user_id])
 		@group.users << user
+		user.notifications.create(title: "New Group", content: "You have been added to the #{@group.name} group", resolve_link: group_path(@group.id))
 		redirect_to group_members_path(@group)
 	end
 
@@ -59,6 +60,7 @@ class GroupsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		user = User.find(params[:user_id])
 		@group.users.delete user
+		user.notifications.create(title: "Group Removal", content: "You have been removed from the #{@group.name} group", resolve_link: group_path(@group.id))
 		redirect_to group_members_path(@group)
 	end
 
@@ -66,6 +68,7 @@ class GroupsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		user = User.find(params[:format])
 		@group.make_admin(user)
+		user.notifications.create(title: "Group Leader", content: "You are now a group leader for the #{@group.name} group", resolve_link: group_path(@group.id))
 		redirect_to group_members_path(@group)
 	end
 
@@ -73,6 +76,7 @@ class GroupsController < ApplicationController
 		@group = Group.find(params[:group_id])
 		user = User.find(params[:format])
 		@group.remove_admin(user)
+		user.notifications.create(title: "Group Leader", content: "You are no longer a group leader for the #{@group.name} group", resolve_link: group_path(@group.id))
 		redirect_to group_members_path(@group)
 	end
 

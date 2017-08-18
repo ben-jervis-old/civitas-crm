@@ -12,13 +12,23 @@ class RostersController < ApplicationController
 
   def new
     @roster = Roster.new
+		@cancel_path = rosters_path
   end
 
 	def edit
 		@roster = Roster.find(params[:id])
+		@cancel_path = roster_path(@roster.id)
 	end
 
   def create
+		@roster = Roster.new(roster_params)
+
+		if @roster.save
+			flash[:success] = 'Roster created successfully'
+			redirect_to roster_path(@roster.id)
+		else
+			render 'new'
+		end
   end
 
   def update

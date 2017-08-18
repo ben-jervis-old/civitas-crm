@@ -4,6 +4,8 @@ class DashboardController < ApplicationController
 		@read_notifications = current_user.notifications.select(&:read)
 		@unread_notifications = current_user.notifications.reject(&:read)
 
-		# @outstanding_tasks = current_user.tasks.where
+		@outstanding_tasks = current_user.tasks.where('due >= ?', Date.today)
+
+		@unread_messages = []
   end
 end

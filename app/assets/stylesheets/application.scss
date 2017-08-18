@@ -56,9 +56,11 @@ body {
 	display: none;
 }
 
-// .btn.pull-right.hidden-xs {
-// 	margin-bottom: 20px;
-// }
+.notifications-badge {
+	position: absolute;
+	right: 95px;
+	background-color: #ce2f42;
+}
 
 .spaced {
 	margin-right: 5px;

@@ -51,8 +51,8 @@ class TasksController < ApplicationController
 		user = User.find(params[:user_id])
 		@task.users << user
 		flash[:success] = "#{user.name} assigned to this task"
+		user.notifications.create(title: "New Task", content:"You have been assigned to the task #{@task.title}", resolve_link: roster_task_path(@task.roster.id, @task.id))
 		redirect_to roster_task_path(@task.roster, @task)
-		current_user.notifications.create(title: "New Task", content:"You have been assigned to the task #{@task}", resolve_link: roster_task_path)
 	end
 
 	def unassign
