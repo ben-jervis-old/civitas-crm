@@ -63,13 +63,6 @@ class TasksController < ApplicationController
 		redirect_to roster_task_path(@task.roster, @task)
 		#TODO Create a notification for user
 	end
-	
-	def dismiss
-		notification.read = true
-		notification.read_time = Time.now 
-		notification.user_id = current_user.id
-		redirect_to dashboard
-	end
 
 	def accept
 		@task = Task.find(params[:task_id])

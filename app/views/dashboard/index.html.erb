@@ -18,11 +18,11 @@
 				<% current_user.notifications.each do |notification| %>
 					<div class="list-group-item">
 						<div class="notification-body">
-							<h4><%= @notification.title %></h4>
-							<p><%= @notification.content %></p>
+							<h4><%= notification.title %></h4>
+							<p><%= notification.content %></p>
 							<p>click <%= link_to 'here', notification.resolve_link %> to acccept task</p>
 						</div>
-						<%= link_to 'Mark as read', dismiss_notification_path(@task), class:"btn btn-primary pull-right", method: :post %>
+						<%= link_to 'Mark as read', dismiss_notification_path(notification), class:"btn btn-primary pull-right", method: :post %>
 					</div>
 				<% end %>
 			<% end %>
