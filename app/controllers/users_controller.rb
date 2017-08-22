@@ -1,9 +1,17 @@
 class UsersController < ApplicationController
+
+	skip_before_action :require_login, only: [:signup, :signup_create]
+
 	def index
 		@users = User.all
 	end
 
 	def new
+		@user = User.new
+	end
+
+	def signup
+		@hide_sidebar = true
 		@user = User.new
 	end
 
@@ -14,7 +22,9 @@ class UsersController < ApplicationController
 	def show
     @user = User.find(params[:id])
 
-		@address_link = "https://www.google.com.au/maps/place/#{CGI::escape(@user.address)}"
+		@pronoun = @user == current_user ? "You're" : "This user is"
+
+		@address_link = "https://www.google.com.au/maps/place/#{CGI::escape(@user.address)}" unless @user.address.nil?
 	end
 
 	def update
@@ -46,16 +56,35 @@ class UsersController < ApplicationController
     redirect_to users_url
 	end
 
+	# For admins creating users inside the app
 	def create
 		@user = User.new(user_params)
+		temporary_password = User.new_token
+		@user.password = @user.password_confirmation = temporary_password
+		@user.level = 'member'
+
 		if @user.save
 			@user.send_activation_email
 			#TODO Setup heroku email sending https://www.railstutorial.org/book/account_activation#sec-activation_email_in_production
-			log_in @user
-			flash[:success] = "Please check your email to activate your account"
-			redirect_to root_url
+			flash[:success] = "User created successfully"
+			redirect_to users_path
 		else
 			render 'new'
+		end
+	end
+
+	def signup_create
+		@user = User.new(user_signup_params)
+		@user.level = 'visitor'
+
+		if @user.save
+			@user.send_activation_email
+			log_in @user
+			flash[:success] = 'Welcome to civitasCRM!'
+			#TODO send notification to all admins
+			redirect_to root_path
+		else
+			render 'signup'
 		end
 	end
 
@@ -66,4 +95,8 @@ class UsersController < ApplicationController
 			params[:user][:level] ||= 'visitor'
       params.require(:user).permit(:first_name, :last_name, :email, :address, :phone_number, :dob, :password, :password_confirmation, :level)
     end
+
+		def user_signup_params
+			params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+		end
 end

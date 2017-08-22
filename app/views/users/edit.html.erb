@@ -1,51 +1,17 @@
 <% provide(:title, "Update Details") %>
 <div class="page-header">
-	<h1>Update your profile</h1>
+	<h1>Update profile</h1>
 </div>
+
 <ol class="breadcrumb">
 	<li><%= link_to "Members", users_path %></li>
 	<li><%= link_to @user.name, @user %></li>
-	<li><%= link_to 'Edit Details', edit_user_path(@user) %></li>
+	<li class='active'>Edit Details</li>
 </ol>
 
 
-<div class="row bounded-row padded-row">
-  <div class="col-md-8">
-    <%= form_for(@user) do |f| %>
-
-		<%= render 'partials/error_messages', item: @user %>
-
-      <div class="form-group row">
-				<%= f.label :first_name, "Name" %>
-				<div class=" form-inline">
-					<%= f.text_field :first_name, class: 'form-control', placeholder: "First Name" %>
-					<%= f.text_field :last_name, class: 'form-control', placeholder: "Last Name" %>
-				</div>
-			</div>
-
-      <div class="form-group row">
-				<%= f.label :email %>
-				<%= f.email_field :email, class: 'form-control' %>
-			</div>
-
-			<div class="form-group row">
-				<%= f.label :address %>
-				<%= f.text_field :address, class: 'form-control' %>
-			</div>
-
-			<div class="form-group row">
-				<%= f.label :phone_number %>
-				<%= f.telephone_field :phone_number, class: 'form-control', value: pad_number(@user.phone_number) %>
-			</div>
-
-			<div class="form-group row">
-				<%= f.label :dob, "Date of Birth" %>
-				<%= f.date_field :dob, class: 'form-control' %>
-			</div>
-			<div class="row">
-				<%= f.submit "Save changes", class: "btn btn-primary" %>
-				<%= link_to 'Cancel', @user, class: 'btn btn-default pull-right' %>
-			</div>
-    <% end %>
+<div class="row">
+  <div class="col-md-10 col-sm-10 col-lg-8">
+    <%= render 'form', ok_button_text: 'Save Changes', cancel_path: user_path(@user.id) %>
   </div>
 </div>

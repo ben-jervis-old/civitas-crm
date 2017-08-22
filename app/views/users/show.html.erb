@@ -15,14 +15,33 @@
   </div>
 
   <div class="col-md-10">
-			<p>Email Address: <%= mail_to @user.email %></p>
-			<p>Phone Number: <%= number_link(@user.phone_number) %></p>
-			<p>Address: <%= @user.address %>
-				<%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-				<% end %>
-			</p>
-			<p>Date of Birth: <%= @user.dob.strftime("%d/%m/%Y") %></p>
+    <table class='user-details-table'>
+      <tr>
+        <td>Email Address:</td>
+        <td><%= mail_to @user.email %></td>
+      </tr>
+      <tr>
+        <td>Phone Number:</td>
+        <td><%= number_link(@user.phone_number) || content_tag(:em, "Not provided") %></td>
+      </tr>
+      <tr>
+        <td>Address:</td>
+        <% if @user.address.blank? %>
+          <td><em>Not provided</em></td>
+        <% else %>
+          <td>
+            <%= @user.address %>
+            <%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
+    					<i class="fa fa-map-marker" aria-hidden="true"></i>
+    				<% end %>
+          </td>
+        <% end %>
+      </tr>
+      <tr>
+        <td>Date of Birth:</td>
+        <td><%= if @user.dob.nil? then content_tag(:em, "Not provided") else @user.dob.strftime("%d/%m/%Y") end %></td>
+      </tr>
+    </table>
   </div>
 </div>
 
@@ -33,20 +52,20 @@
 		<h4>Groups</h4>
 		<div class="panel panel-default">
 			<table class="table">
-				<% if current_user.groups.size > 0 %>
-					<% current_user.groups.each do |group| %>
+				<% if @user.groups.size > 0 %>
+					<% @user.groups.each do |group| %>
 						<tr>
 							<td><%= link_to group.name, group %></td>
 							<td><%= "#{pluralize group.users.size, 'member'}" %></td>
 							<td>
-								<% if group.admin? current_user %>
+								<% if group.admin? @user %>
 									Leader
 								<% end %>
 							</td>
 						</tr>
 					<% end %>
 				<% else %>
-					<td>You're not a member of any groups at the moment.</td>
+					<td><%= @pronoun %> not a member of any groups at the moment.</td>
 				<% end %>
 			</table>
 		</div>
@@ -56,15 +75,15 @@
 		<h4>Rosters</h4>
 		<div class="panel panel-default">
 			<table class="table">
-				<% if current_user.rosters.size > 0 %>
-					<% current_user.rosters.each do |roster| %>
+				<% if @user.rosters.size > 0 %>
+					<% @user.rosters.each do |roster| %>
 						<tr>
 							<td><%= link_to roster.title, roster %></td>
-							<td><%= "#{pluralize(roster.tasks.select{ |tsk| tsk.user_ids.include? current_user.id }.count, 'task')} in this roster" %></td>
+							<td><%= "#{pluralize(roster.tasks.select{ |tsk| tsk.user_ids.include? @user.id }.count, 'task')} in this roster" %></td>
 						</tr>
 					<% end %>
 				<% else %>
-					<td>You're not assigned to any rosters at the moment.</td>
+					<td><%= @pronoun %> not assigned to any rosters at the moment.</td>
 				<% end %>
 			</table>
 		</div>
@@ -73,6 +92,6 @@
 
 <div class="row">
 	<div class="col-md-8">
-		<%= link_to 'Update my details', edit_user_path  %> | <%= link_to 'Change Password', '#'  %>
+		<%= link_to 'Update details', edit_user_path  %> <% if @user.id == current_user.id %>| <%= link_to 'Change Password', '#'  %> <% end %>
 	</div>
 </div>

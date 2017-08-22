@@ -1,0 +1,74 @@
+<%= form_for @user do |f| %>
+<%= render 'partials/error_messages', item: @user %>
+
+  <div class="row">
+    <div class="form-group col-md-8">
+      <%= f.label :first_name, "Name" %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field :first_name, class: 'form-control', placeholder: "First Name" %>
+        </div>
+
+        <div class="gap-spacer visible-sm-block visible-xs-block"></div>
+        <div class="gap-spacer visible-sm-block visible-xs-block"></div>
+
+        <div class="col-md-6">
+          <%= f.text_field :last_name, class: 'form-control', placeholder: "Last Name" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4">
+      <%= f.label :dob, "Date of Birth" %>
+      <%= f.date_field :dob, class: 'form-control' %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="form-group col-md-4">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="form-group col-md-4">
+      <%= f.label :phone_number %>
+      <%= f.number_field :phone_number, class: 'form-control' %>
+    </div>
+
+    <div class="form-group col-md-4">
+      <%= f.label :level, as: 'Access Level' %>
+      <%= f.select :level, options_for_select(user_levels.map{ |level| [level.capitalize, level] }, @user.level), {}, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12">
+      <%= f.label :address %>
+      <%= f.text_field :address, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12">
+      <%= f.label :special_needs %>
+      <%= f.text_area :special_needs, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12">
+      <%= f.label :notes %>
+      <%= f.text_area :notes, class: 'form-control' %>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="form-group col-md-12">
+      <%= f.submit ok_button_text, class: 'btn btn-primary pull-right' %>
+      <%= link_to 'Cancel', cancel_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

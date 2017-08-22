@@ -1,50 +1,15 @@
 <% provide(:title, "New Member") %>
-<h1>Sign Up</h1>
+<div class="page-header">
+	<h1>Add New Member</h1>
+</div>
 
-<div class="row padded-row">
-	<div class="col-md-6 col-md-offset-3">
-		<%= form_for @user do |f| %>
-		  <%= render 'partials/error_messages', item: @user %>
-		    <div class="form-group row">
-		      <%= f.label :first_name, "Name" %>
-		      <div class=" form-inline">
-		        <%= f.text_field :first_name, class: 'form-control', placeholder: "First Name" %>
-		        <%= f.text_field :last_name, class: 'form-control', placeholder: "Last Name" %>
-		      </div>
-		    </div>
+<ol class="breadcrumb">
+	<li><%= link_to "Members", users_path %></li>
+	<li class='active'>New</li>
+</ol>
 
-		    <div class="form-group row">
-		      <%= f.label :email %>
-		      <%= f.email_field :email, class: 'form-control' %>
-		    </div>
-
-		    <div class="form-group row">
-		      <%= f.label :address %>
-		      <%= f.text_field :address, class: 'form-control' %>
-		    </div>
-
-		    <div class="form-group row">
-		      <%= f.label :phone_number %>
-		      <%= f.number_field :phone_number, class: 'form-control' %>
-		    </div>
-
-		    <div class="form-group row">
-		      <%= f.label :dob, "Date of Birth" %>
-		      <%= f.date_field :dob, class: 'form-control' %>
-		    </div>
-
-		    <div class="form-group row">
-		      <%= f.label :password %>
-		      <%= f.password_field :password, class: 'form-control' %>
-		    </div>
-
-		    <div class="form-group row">
-		      <%= f.label :password_confirmation %>
-		      <%= f.password_field :password_field, class: 'form-control' %>
-		    </div>
-				<div class="row">
-					<%= f.submit "Create my Account", class: 'btn btn-primary btn-block' %>
-				</div>
-		  <% end %>
+<div class="row">
+	<div class="col-md-10 col-sm-10 col-lg-8">
+		<%= render 'form', ok_button_text: 'Create Account', cancel_path: users_path %>
 	</div>
 </div>
