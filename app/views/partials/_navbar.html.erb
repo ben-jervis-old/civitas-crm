@@ -14,7 +14,7 @@
 		<% if logged_in? %>
 			<div class="pull-right action-icon-holder">
 				<%= link_to root_path, class: '', 'data-toggle' => 'popover', 'data-placement' => 'bottom', title: 'Notifications', 'data-content' => '<a href="#notif">These are your notifications</a>', 'data-trigger' => 'focus' do %>
-					<i class="glyphicon glyphicon-bell"></i>
+					<i class="fa fa-bell"></i>
 					<% num_notifications = current_user.notifications.reject(&:read).size %>
 					<% if num_notifications > 0 %>
 						<span class="badge notifications-badge"><%= num_notifications %></span>
@@ -22,13 +22,13 @@
 
 				<% end %>
 				<a href="#MyAccount" class="hidden-xs" data-toggle="tooltip" data-placement="bottom" title="Settings">
-					<i class="glyphicon glyphicon-cog"></i>
+					<i class="fa fa-cog"></i>
 				</a>
 				<%= link_to logout_path, method: :delete, class: 'hidden-xs', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: 'Log Out' do %>
-					<i class="glyphicon glyphicon-log-out"></i>
+					<i class="fa fa-log-out"></i>
 				<% end %>
 				<a href="#" id="action-menu-button" class="visible-xs-inline">
-					<i class="glyphicon glyphicon-option-vertical"></i>
+					<i class="fa fa-option-vertical"></i>
 				</a>
 			</div>
 		<% else %>

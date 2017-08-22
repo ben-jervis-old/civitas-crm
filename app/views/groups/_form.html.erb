@@ -1,5 +1,5 @@
 <%= form_for(@group) do |f| %>
-	<%= render 'partials/error_messages' %>
+	<%= render 'partials/error_messages', item: @group %>
 	<div class="row">
 		<div class="form-group col-sm-6">
 			<%= f.label :name %>

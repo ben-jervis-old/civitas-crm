@@ -1,7 +1,10 @@
 class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
-    @users = User.all
+    # @users = User.all
+    @all_users =  User.all
+											.sort_by{ |usr| [usr.last_name, usr.first_name] }
+											.reject{ |usr| @group.user_ids.include? usr.id }
   end
 
   def new
@@ -53,7 +56,7 @@ class GroupsController < ApplicationController
 		user = User.find(params[:user_id])
 		@group.users << user
 		user.notifications.create(title: "New Group", content: "You have been added to the #{@group.name} group", resolve_link: group_path(@group.id))
-		redirect_to group_members_path(@group)
+		redirect_to group_path(@group)
 	end
 
 	def unassign
@@ -61,7 +64,7 @@ class GroupsController < ApplicationController
 		user = User.find(params[:user_id])
 		@group.users.delete user
 		user.notifications.create(title: "Group Removal", content: "You have been removed from the #{@group.name} group", resolve_link: group_path(@group.id))
-		redirect_to group_members_path(@group)
+		redirect_to group_path(@group)
 	end
 
 	def make_administrator

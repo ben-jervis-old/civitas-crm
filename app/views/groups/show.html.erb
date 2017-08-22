@@ -15,7 +15,7 @@
 					<%= @group.description %>
 				</h4>
 			  <p>
-			   Date created: <strong><%= @group.created_at %></strong>
+			   Date created: <strong><%= @group.created_at.strftime("%d/%m/%Y") %></strong>
 			  </p>
 			  <p>
 			      Group type: <strong><%= @group.group_type %></strong>.
@@ -37,31 +37,73 @@
 			</div>
 		</div>
 
+    <br>
 
+    <div class="row">
+      <div class="col-md-6">
+        <h4>
+          Member List <small class="pull-right">Leader</small>
+        </h4>
+        <div class="panel panel-default">
+          <div class="list-group scrollable-list-group">
+            <% if @group.users.size > 0 %>
+              <% @group.users.each do |usr| %>
+                <div class="list-group-item">
 
-		<div class="row padded-row">
-			<h4>Member List</h4>
-			<div class="panel panel-default">
-				<table class="table">
-					<% if @group.users.size > 0 %>
-					  <% @group.users.each do |user| %>
-	          	<div class="list-group-item col-md-4">
-	          		<h4>
-	                <%= link_to user.name, user %>
+                  <%= usr.name %>
+                  <%= link_to group_unassign_user_path(@group.id, usr.id), class: 'pull-right', method: :delete do %>
+                    <%= fa_icon 'trash', class: 'large-icon' %>
+                  <% end %>
+                  <%= content_tag(:span, 'Group Leader', class: 'badge') if @group.admin? usr %> 
+                </div>
+              <% end %>
+            <% else %>
+              <div class="list-group-item">There are no users assigned to this group yet.</div>
+            <% end %>
+          </div>
+        </div>
+      </div>
 
-		              <% if @group.admin?(user) %>
-										<div class= 'pull-right'>
-											<i class="glyphicon glyphicon-user"></i> Admin
-										</div>
-									<% end %>
-								</h4>
-	          	</div>
-	          <% end %>
-					<% else %>
-						<td>There are no users assigned to this roster yet.</td>
-					<% end %>
-				</table>
-			</div>
-		</div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-2">
+            <h4>Add</h4>
+          </div>
+          <div class="col-md-8 col-md-offset-2">
+            <div class="input-group">
+              <input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
+              <span class="input-group-btn">
+                <button class="btn btn-default">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gap-spacer visible-xs-block"></div>
+
+        <div class="panel panel-default">
+          <div class="list-group scrollable-list-group">
+            <% if @all_users.empty? %>
+              <div class="list-group-item">
+                <em>All users have been assigned to this group</em>
+              </div>
+            <% else %>
+              <% @all_users.each do |usr| %>
+                <div class="list-group-item" data-username='<%= usr.name %>'>
+                  <%= link_to group_assign_user_path(@group.id, usr.id), method: :post do %>
+                    <%= usr.name %> <i class="fa fa-plus pull-right large-icon"></i>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+            <div id="list-empty-msg" class="list-group-item hidden-item">
+              <em>No users to show</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 	</div>
 </div>

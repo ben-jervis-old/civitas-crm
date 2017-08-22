@@ -2,32 +2,32 @@
 	<table>
 		<td class="">
 			<%= active_link_to root_path, active: :exclusive do %>
-				<i class="glyphicon glyphicon-dashboard"></i>
+				<i class="fa fa-dashboard"></i>
 				<small>Dashboard</small>
 			<% end %>
 		</td>
 		<td class="">
 			<%= active_link_to users_path do %>
-				<i class="glyphicon glyphicon-user"></i>
+				<i class="fa fa-user"></i>
 				<small>Members</small>
 			<% end %>
 		</td>
 		<td class="">
 			<%= active_link_to rosters_path do %>
-				<i class="glyphicon glyphicon-calendar"></i>
+				<i class="fa fa-calendar"></i>
 				<small>Rostering</small>
 			<% end %>
 		</td>
 		<td>
 			<%= link_to '#Attendance' do %>
-				<i class="glyphicon glyphicon-check"></i>
+				<i class="fa fa-check"></i>
 				<small>Attendance</small>
 			<% end %>
 		</td>
 		<td>
-			<%= link_to '#Contact' do %>
-				<i class="glyphicon glyphicon-envelope"></i>
-				<small>Contact</small>
+			<%= active_link_to more_path do %>
+				<i class="fa fa-ellipsis-h"></i>
+				<small>More</small>
 			<% end %>
 		</td>
 	</table>

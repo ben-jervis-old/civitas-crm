@@ -1,6 +1,6 @@
 module UsersHelper
   def pad_number (num)
-    return nil if num.blank? || num == 0
+    return "" if num.blank? || num == 0
 
     if num.to_s.length == 9
       "0" + num.to_s
@@ -10,7 +10,9 @@ module UsersHelper
   end
 
   def format_number (num)
-    return nil if num.blank? || num == 0
+
+    return "" if num.blank? || num == 0
+
     num = pad_number(num)
     if num.to_s.length == 8
       "#{num[0..3]} #{num[4..7]}"
