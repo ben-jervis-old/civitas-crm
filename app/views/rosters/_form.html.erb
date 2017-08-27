@@ -2,28 +2,43 @@
 
 <%= render 'partials/error_messages', item: @roster %>
 
-	<div class="form-group row">
-		<%= f.label :title %>
-		<%= f.text_field :title, class: 'form-control' %>
-	</div>
-
-	<div class="form-group row">
-		<%= f.label :start_date %>
-		<%= f.date_field :start_date, class: 'form-control' %>
-	</div>
-
-	<div class="form-group row">
-		<%= f.label :duration, 'Duration (days)' %>
-		<%= f.number_field :duration, class: 'form-control' %>
-	</div>
-
-	<div class="form-group row">
-		<%= f.label :description %>
-		<%= f.text_area :description, class: 'form-control' %>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<%= f.label :title %>
+				<%= f.text_field :title, class: 'form-control' %>
+			</div>
+		</div>
 	</div>
 
 	<div class="row">
-		<%= f.submit "Save", class: "btn btn-primary pull-right" %>
-		<%= link_to 'Cancel', @cancel_path, class: 'btn btn-default' %>
+		<div class="col-md-6">
+			<div class="form-group">
+				<%= f.label :start_date %>
+				<%= f.date_field :start_date, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<%= f.label :duration, 'Duration (days)' %>
+				<%= f.number_field :duration, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<%= f.label :description %>
+				<%= f.text_area :description, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<%= f.submit "Save", class: "btn btn-primary pull-right" %>
+			<%= link_to 'Cancel', @cancel_path, class: 'btn btn-default' %>
+		</div>
 	</div>
 <% end %>

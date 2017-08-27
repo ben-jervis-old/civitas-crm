@@ -2,9 +2,10 @@ class UsersController < ApplicationController
 
   before_action :get_user,          	only: [:edit, :show, :update, :update_password, :edit_privacy, :update_privacy]
 	skip_before_action :require_login, 	only: [:signup, :signup_create]
+	before_action :check_staff,					only: [:new, :destroy, :create]
 
 	def index
-		if current_user.staff? || current_user.leader? || current_user.trusted?
+		if current_user.is_staff?
 			@users = User.all
 		else
 			@users = User.all.select{ |usr| usr.privacy_setting.presence || usr.id == current_user.id }
@@ -24,9 +25,13 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@pronoun = @user == current_user ? "You're" : "This user is"
-
-		@address_link = "https://www.google.com.au/maps/place/#{CGI::escape(@user.address)}" unless @user.address.nil?
+		if !(@user.privacy_setting.presence || current_user.is_staff? || current_user.id == @user.id)
+			flash[:warning] = 'Member not found'
+			redirect_to users_path
+		else
+			@pronoun = @user == current_user ? "You're" : "This user is"
+			@address_link = "https://www.google.com.au/maps/place/#{CGI::escape(@user.address)}" unless @user.address.nil?
+		end
 	end
 
 	def update
@@ -124,5 +129,12 @@ class UsersController < ApplicationController
 
 		def user_signup_params
 			params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+		end
+
+		def check_staff
+			if !current_user.is_staff?
+				flash[:warning] = "You don't have access to that action"
+				redirect_to users_path
+			end
 		end
 end

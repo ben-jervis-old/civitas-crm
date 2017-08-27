@@ -10,29 +10,33 @@
 <div class="row bounded-row">
 
 	<!-- Button for mobile -->
-	<div class="col-md-1 visible-sm-block visible-xs-block padded-row">
-		<%= link_to new_user_path, class: "btn btn-primary btn-lg btn-block visible-xs-block visible-sm-block" do %>
-			<i class="glyphicon glyphicon-plus"></i> New Member
-		<% end %>
-	</div>
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 visible-sm-block visible-xs-block padded-row">
+			<%= link_to new_user_path, class: "btn btn-primary btn-lg btn-block visible-xs-block visible-sm-block" do %>
+				<%= fa_icon 'plus' %> New Member
+			<% end %>
+		</div>
+	<% end %>
 
 	<div class="col-md-6">
 		<div class="input-group">
 			<input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
 			<span class="input-group-btn">
 				<button class="btn btn-default">
-					<i class="fa fa-search"></i>
+					<%= fa_icon 'search' %>
 				</button>
 			</span>
 		</div>
 	</div>
 
 	<!-- Button for desktop -->
-	<div class="col-md-1 col-md-offset-5 hidden-sm hidden-xs">
-		<%= link_to new_user_path, class: "btn btn-primary pull-right" do %>
-			<i class="glyphicon glyphicon-plus"></i> New Member
-		<% end %>
-	</div>
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 col-md-offset-5 hidden-sm hidden-xs">
+			<%= link_to new_user_path, class: "btn btn-primary pull-right" do %>
+				<%= fa_icon 'plus' %> New Member
+			<% end %>
+		</div>
+	<% end %>
 
 </div>
 

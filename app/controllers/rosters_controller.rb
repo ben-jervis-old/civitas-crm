@@ -1,5 +1,7 @@
 class RostersController < ApplicationController
 
+	before_action :check_staff, except: [:show, :index]
+
   def index
     @rosters = Roster.all
   end
@@ -49,5 +51,12 @@ class RostersController < ApplicationController
 
 		def roster_params
 			params.require(:roster).permit(:title, :start_date, :duration, :description)
+		end
+
+		def check_staff
+			if !current_user.is_staff?
+				flash[:warning] = "You don't have access to that action"
+				redirect_to params[:id] ? Roster.find(params[:id]) : rosters_path
+			end
 		end
 end

@@ -10,7 +10,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<div class="row">
-			<div class="col-md-8 col-sm-7">
+			<div class="col-md-6 col-sm-6">
 				<h4>
 					<%= @group.description %>
 				</h4>
@@ -22,27 +22,29 @@
 			  </p>
 			</div>
 
-			<div class="col-md-4 col-sm-5">
-				<div class="btn-group-vertical pull-right btn-group-icons btn-group-lg">
-					<%= link_to group_members_path(@group), class: "text-left btn btn-default" do %>
-						<i class="glyphicon glyphicon-user"></i>  Members
-					<% end %>
-					<%= link_to edit_group_path(@group), class: "text-left btn btn-default" do %>
-						<i class="glyphicon glyphicon-pencil"></i>  Edit
-					<% end %>
-					<%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
-						<i class="glyphicon glyphicon-trash"></i>  Delete
-					<% end %>
+			<% if @authorised_user %>
+				<div class="col-md-6 col-sm-6">
+					<div class="btn-group pull-right btn-group-icons">
+						<%= link_to group_members_path(@group), class: "text-left btn btn-default" do %>
+							<%= fa_icon 'user', class: 'large-icon' %>  Members
+						<% end %>
+						<%= link_to edit_group_path(@group), class: "text-left btn btn-default" do %>
+							<%= fa_icon 'pencil', class: 'large-icon' %>  Edit
+						<% end %>
+						<%= link_to @group, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
+							<%= fa_icon 'trash', class: 'large-icon' %>  Delete
+						<% end %>
+					</div>
 				</div>
-			</div>
+			<% end %>
 		</div>
 
     <br>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-<%= @authorised_user ? 6 : 9 %>">
         <h4>
-          Member List <small class="pull-right">Leader</small>
+          Member List <%= content_tag :small, 'Remove', class: 'pull-right' if current_user.is_staff? %>
         </h4>
         <div class="panel panel-default">
           <div class="list-group scrollable-list-group">
@@ -51,10 +53,12 @@
                 <div class="list-group-item">
 
                   <%= usr.name %>
-                  <%= link_to group_unassign_user_path(@group.id, usr.id), class: 'pull-right', method: :delete do %>
-                    <%= fa_icon 'trash', class: 'large-icon' %>
-                  <% end %>
-                  <%= content_tag(:span, 'Group Leader', class: 'badge') if @group.admin? usr %> 
+									<% if @authorised_user %>
+	                  <%= link_to group_unassign_user_path(@group.id, usr.id), class: 'pull-right item-pad-left', method: :delete do %>
+	                    <%= fa_icon 'trash', class: 'large-icon' %>
+	                  <% end %>
+									<% end %>
+                  <%= content_tag(:span, 'Group Leader', class: 'badge') if @group.admin? usr %>
                 </div>
               <% end %>
             <% else %>
@@ -64,46 +68,48 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-2">
-            <h4>Add</h4>
-          </div>
-          <div class="col-md-8 col-md-offset-2">
-            <div class="input-group">
-              <input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
-              <span class="input-group-btn">
-                <button class="btn btn-default">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-          </div>
-        </div>
+			<% if @authorised_user %>
+	      <div class="col-md-6">
+	        <div class="row">
+	          <div class="col-md-2">
+	            <h4>Add</h4>
+	          </div>
+	          <div class="col-md-8 col-md-offset-2">
+	            <div class="input-group">
+	              <input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
+	              <span class="input-group-btn">
+	                <button class="btn btn-default">
+	                  <i class="fa fa-search"></i>
+	                </button>
+	              </span>
+	            </div>
+	          </div>
+	        </div>
 
-        <div class="gap-spacer visible-xs-block"></div>
+	        <div class="gap-spacer visible-xs-block"></div>
 
-        <div class="panel panel-default">
-          <div class="list-group scrollable-list-group">
-            <% if @all_users.empty? %>
-              <div class="list-group-item">
-                <em>All users have been assigned to this group</em>
-              </div>
-            <% else %>
-              <% @all_users.each do |usr| %>
-                <div class="list-group-item" data-username='<%= usr.name %>'>
-                  <%= link_to group_assign_user_path(@group.id, usr.id), method: :post do %>
-                    <%= usr.name %> <i class="fa fa-plus pull-right large-icon"></i>
-                  <% end %>
-                </div>
-              <% end %>
-            <% end %>
-            <div id="list-empty-msg" class="list-group-item hidden-item">
-              <em>No users to show</em>
-            </div>
-          </div>
-        </div>
-      </div>
+	        <div class="panel panel-default">
+	          <div class="list-group scrollable-list-group">
+	            <% if @all_users.empty? %>
+	              <div class="list-group-item">
+	                <em>All users have been assigned to this group</em>
+	              </div>
+	            <% else %>
+	              <% @all_users.each do |usr| %>
+	                <div class="list-group-item" data-username='<%= usr.name %>'>
+	                  <%= link_to group_assign_user_path(@group.id, usr.id), method: :post do %>
+	                    <%= usr.name %> <i class="fa fa-plus pull-right large-icon"></i>
+	                  <% end %>
+	                </div>
+	              <% end %>
+	            <% end %>
+	            <div id="list-empty-msg" class="list-group-item hidden-item">
+	              <em>No users to show</em>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+			<% end %>
     </div>
 	</div>
 </div>

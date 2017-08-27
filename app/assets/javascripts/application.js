@@ -118,15 +118,6 @@ doc_ready = function () {
 		$('.alert.fade.alert-timeout').alert('close');
 		$('.page-header.tall-margin').removeClass('tall-margin');
 	}, 10000);
-
-
-	$('.input-daterange input').datepicker({
-    format: "dd/mm/yyyy",
-    todayBtn: "linked",
-    todayHighlight: true,
-		defaultViewDate: 'today'
-	});
-
 };
 
 $(document).ready(doc_ready);
