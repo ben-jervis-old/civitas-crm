@@ -22,7 +22,7 @@
       </tr>
       <tr>
         <td>Phone Number:</td>
-        <td><%= if @user.phone_number == 0 then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
+        <td><%= if @user.phone_number == 0 || @user.phone_number.blank? then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
       </tr>
       <tr>
         <td>Address:</td>

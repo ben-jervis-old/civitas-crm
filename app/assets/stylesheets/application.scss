@@ -81,6 +81,10 @@ a.dismiss-cross-link {
 	color: #777777;
 }
 
+a.pull-right.navbar-brand {
+	line-height: 47px;
+}
+
 .spaced {
 	margin-right: 5px;
 }
@@ -361,7 +365,7 @@ label.checkbox.inline {
 	}
 
 	.notifications-badge {
-		right: 67px;
+		right: 90px;
 	}
 
 	#main-body-div {

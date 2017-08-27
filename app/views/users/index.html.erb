@@ -41,6 +41,10 @@
 		<ul class="list-group">
 			<%= render @users %>
 
+			<div class="list-group-item col-md-12 text-center hidden-item" id="list-empty-msg">
+				<h4><em>No users found</em></h4>
+			</div>
+
 			<!-- Render some test users to pad the list -->
 			<% (1..150).each do |num| %>
 			<% rand_str = (0...8).map { (65 + rand(26)).chr }.join %>

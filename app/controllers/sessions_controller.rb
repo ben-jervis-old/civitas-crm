@@ -13,6 +13,12 @@ class SessionsController < ApplicationController
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_to root_path
+      elsif user.created_at > 7.days.ago
+        days_left = (user.created_at - 7.days.ago).to_i / 1.day
+        flash[:warning] = "You can continue using an unactivated account for #{days_left} more #{'day'.pluralize(days_left)}. Please check your email."
+        log_in user
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        redirect_to root_path
       else
         message = "Account not activated. "
         message += "Check your email for the activation link"

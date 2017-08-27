@@ -61,11 +61,11 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		temporary_password = User.new_token
 		@user.password = @user.password_confirmation = temporary_password
-		@user.level = 'member'
+		@user.level ||= 'member'
 
 		if @user.save
-			@user.send_activation_email
-			#TODO Setup heroku email sending https://www.railstutorial.org/book/account_activation#sec-activation_email_in_production
+			@user.create_reset_digest
+			@user.send_account_setup_email
 			flash[:success] = "User created successfully"
 			redirect_to users_path
 		else
@@ -81,7 +81,11 @@ class UsersController < ApplicationController
 			@user.send_activation_email
 			log_in @user
 			flash[:success] = 'Welcome to civitasCRM!'
-			#TODO send notification to all admins
+
+			User.where(level: 'staff').each do |user|
+				user.notifications.create(title: 'New Member', content: "#{@user.name} has created an account", resolve_link: user_path(@user))
+			end
+
 			redirect_to root_path
 		else
 			render 'signup'
