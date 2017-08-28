@@ -1,0 +1,20 @@
+<% provide(:title, "Notifications") %>
+<div class="page-header">
+	<h1>Notifications History</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li class='active'>Notifications</li>
+</ol>
+
+<div class="row">
+  <% @users.each do |usr| %>
+  	<% if usr.staff?||usr.leader?||usr.trusted? %>
+  		<div class="col-md-12">
+				<h3><%= usr.name %> (<%= usr.level %>)</h3>
+		  	<%= render partial:'notifications/notification', collection: @notifications, locals: { usr: usr } %>
+	  	</div>
+	  <% end %>
+  <% end %>
+</div>
+	

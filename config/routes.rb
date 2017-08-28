@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  
+  resources :notifications do
+    get    '/resolve', to: 'notifications#resolve', as: 'resolve'
+    get    '/unresolve', to: 'notifications#unresolve', as: 'unresolve'
+  end
 
   resources :groups do
     get     '/members', 								to: 'groups#members', 							as: 'members'

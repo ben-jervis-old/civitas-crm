@@ -1,0 +1,29 @@
+<% if notification.user_id == usr.id then %>
+  <% if notification.read %>
+    <div class="list-group-item col-md-8">
+    	<div class="pull-left">
+			  <h4><%= notification.title %></h4>
+			</div>
+			<div class="pull-right">
+			  <%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default" do %>
+					<i class="glyphicon glyphicon-ok"> </i> <%= resolved(notification.read) %>
+				<% end %>
+			</div>
+  <% else %>
+    <div class="list-group-item col-md-8 list-group-item-warning"> 
+	    <div class="pull-left">
+			  <h4><%= notification.title %></h4>
+			</div>
+			<div class="pull-right">
+			  <%= link_to notification_resolve_path(notification), class: "text-left btn btn-default" do %>
+					<i class="glyphicon glyphicon-exclamation-sign"> </i> <%= resolved(notification.read) %>
+				<% end %>
+			</div>
+  <% end %>
+		
+    <br><br>
+  	<p>
+  		<%= notification.content %>
+  	</p>
+  </div>
+<% end %>
