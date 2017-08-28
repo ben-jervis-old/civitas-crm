@@ -17,7 +17,6 @@ class UsersController < ApplicationController
 	end
 
 	def signup
-		@hide_sidebar = true
 		@user = User.new
 	end
 
