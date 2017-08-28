@@ -4,7 +4,9 @@ class Event < ApplicationRecord
 	validates :location, 		presence: true
 
 	def next_occurrence
-		new_date = self.event_date + self.repeat
-		Event.new(title: self.title, event_date: new_date, location: self.location, repeat: self.repeat)
+		new_event = self.clone
+		new_date = self.event_date + self.repeat.days
+		new_event.event_date = new_date
+		return new_event
 	end
 end
