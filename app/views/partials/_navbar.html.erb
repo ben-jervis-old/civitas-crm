@@ -1,20 +1,23 @@
-<ul id="action-menu" class="list-group">
-	<li class="list-group-item">
-		<%= link_to root_path do %>
-			<%= fa_icon 'home', class: 'large-icon pull-right' %> Home
-		<% end %>
-	</li>
-	<li class="list-group-item">
-		<%= link_to user_path(current_user.id) do %>
-			<%= fa_icon 'user', class: 'large-icon pull-right' %> My Account
-		<% end %>
-	</li>
-	<li class="list-group-item">
-		<%= link_to logout_path, method: :delete do %>
-			<%= fa_icon 'sign-out', class: 'pull-right large-icon' %> Log Out
-		<% end %>
-	</li>
-</ul>
+<% if logged_in? %>
+	<ul id="action-menu" class="list-group">
+		<li class="list-group-item">
+			<%= link_to root_path do %>
+				<%= fa_icon 'home', class: 'large-icon pull-right' %> Home
+			<% end %>
+		</li>
+		<li class="list-group-item">
+			<%= link_to user_path(current_user.id) do %>
+				<%= fa_icon 'user', class: 'large-icon pull-right' %> My Account
+			<% end %>
+		</li>
+		<li class="list-group-item">
+			<%= link_to logout_path, method: :delete do %>
+				<%= fa_icon 'sign-out', class: 'pull-right large-icon' %> Log Out
+			<% end %>
+		</li>
+	</ul>
+<% end %>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
