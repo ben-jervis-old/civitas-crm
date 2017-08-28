@@ -1,29 +1,43 @@
-<% if notification.user_id == usr.id then %>
-  <% if notification.read %>
-    <div class="list-group-item col-md-8">
+<% usr.notifications.each do |notif| %>
+  <% if notif.read %>
+    <div class="list-group-item col-md-12">
     	<div class="pull-left">
-			  <h4><%= notification.title %></h4>
+			  <h4><%= notif.title %> (Resolved on <%= notif.updated_at.strftime("%d %m %Y")%>)</h4>
 			</div>
 			<div class="pull-right">
-			  <%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default" do %>
-					<i class="glyphicon glyphicon-ok"> </i> <%= resolved(notification.read) %>
+			  <%= link_to notification_unresolve_path(notif), class: "text-left btn btn-default" do %>
+					<i class="glyphicon glyphicon-ok"> </i> <%= resolved(notif.read) %>
 				<% end %>
 			</div>
   <% else %>
-    <div class="list-group-item col-md-8 list-group-item-warning"> 
+    <div class="list-group-item col-md-12 list-group-item-warning"> 
 	    <div class="pull-left">
-			  <h4><%= notification.title %></h4>
+			  <h4><%= notif.title %> (Created <%= notif.created_at.day - DateTime.current.day%> days ago)</h4>
 			</div>
 			<div class="pull-right">
-			  <%= link_to notification_resolve_path(notification), class: "text-left btn btn-default" do %>
-					<i class="glyphicon glyphicon-exclamation-sign"> </i> <%= resolved(notification.read) %>
+			  <%= link_to notification_resolve_path(notif), class: "text-left btn btn-default" do %>
+					<i class="glyphicon glyphicon-exclamation-sign"> </i> <%= resolved(notif.read) %>
 				<% end %>
 			</div>
   <% end %>
 		
     <br><br>
-  	<p>
-  		<%= notification.content %>
-  	</p>
+  	<div>
+		  <% if notif.content.length > 100 %>
+		    <%= truncate(notif.content, length: 100) %>
+		    <%= link_to 'Read more', '', class: "read-more-#{notif.id}" %>
+		    <script>
+		      $('.read-more-<%= notif.id %>').on('click', function(e) {
+		        e.preventDefault()
+		        $(this).parent().html('<%= escape_javascript notif.content %>')
+		      })
+		    </script>
+		  <% else %>
+		    <%= notif.content %>
+		  <% end %>
+		</div>
+  	<p><%= link_to 'Show me', notif.resolve_link %></p>
   </div>
+  
+  
 <% end %>

@@ -8,13 +8,23 @@
 </ol>
 
 <div class="row">
-  <% @users.each do |usr| %>
-  	<% if usr.staff?||usr.leader?||usr.trusted? %>
-  		<div class="col-md-12">
-				<h3><%= usr.name %> (<%= usr.level %>)</h3>
-		  	<%= render partial:'notifications/notification', collection: @notifications, locals: { usr: usr } %>
-	  	</div>
+	<div class="col-md-12">
+		<h2>Your Notifications</h2>
+		<div class="col-md-12">
+  		<%= render partial:'notifications/notification', locals: { usr: current_user } %>
+  	</div>
+	</div>
+	
+	<div class="col-md-12">
+		<h2>Other Staff</h2>
+	  <% @users.each do |usr| %>
+	  	<% if usr.staff?||usr.leader?||usr.trusted? %>
+	  		<div class="col-md-12">
+					<h3><%= usr.name %> (<%= usr.level %>)</h3>
+			  	<%= render partial:'notifications/notification', locals: { usr: usr } %>
+		  	</div>
+		  <% end %>
 	  <% end %>
-  <% end %>
+  </div>
 </div>
 	
