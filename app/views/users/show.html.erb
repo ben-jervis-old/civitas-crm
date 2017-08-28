@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
   <h1><%= @user.name %></h1>
 </div>
 
