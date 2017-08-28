@@ -116,8 +116,11 @@ doc_ready = function () {
 	// Flash alerts dismiss after 10 seconds
 	window.setTimeout(function() {
 		$('.alert.fade.alert-timeout').alert('close');
-		$('.page-header.tall-margin').removeClass('tall-margin');
 	}, 10000);
+
+	$('.alert.fade.alert-timeout').on('closed.bs.alert', function() {
+		$('.page-header.tall-margin').removeClass('tall-margin');
+	});
 };
 
 $(document).ready(doc_ready);

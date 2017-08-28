@@ -136,10 +136,10 @@ a.pull-right.navbar-brand {
 	margin-top: 10px;
 }
 
-#flash-holder {
+#flash-holder.regular-flash {
 	position: absolute;
-	left: 280px;
-	right: 30px;
+	left: 40px;
+	right: 40px;
 }
 
 #sidebar {
@@ -373,6 +373,11 @@ label.checkbox.inline {
 
 	#main-body-div {
 		margin-bottom: 0;
+	}
+
+	#flash-holder.regular-flash {
+		left: 280px;
+		right: 30px;
 	}
 
 	.card-holder {
