@@ -7,6 +7,7 @@ class User < ApplicationRecord
 	has_many :tasks, -> { distinct },	through: :assignments
 	has_many :rosters, through: :tasks
 	has_and_belongs_to_many :notifications
+	has_one :privacy_setting
 
 	has_secure_password
 
@@ -50,6 +51,10 @@ class User < ApplicationRecord
 
 	def visitor?
 		self.level == "visitor"
+	end
+
+	def is_staff?
+		%w(staff leader trusted).include?(self.level)
 	end
 
 	def admin_of

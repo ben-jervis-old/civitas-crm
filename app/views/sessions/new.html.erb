@@ -1,6 +1,6 @@
 <% provide(:title, 'Log In') %>
 <div id="login-page-wrapper">
-  <div class="page-header">
+  <div class="page-header <%= 'tall-margin' unless flash.empty? %>">
     <h1>Log In</h1>
   </div>
   <%= form_for(:session, url: login_path) do |f| %>

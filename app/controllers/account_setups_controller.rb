@@ -5,7 +5,6 @@ class AccountSetupsController < ApplicationController
   before_action :valid_user,        only: [:edit, :update]
 
   def edit
-    @hide_sidebar = true
   end
 
   def update

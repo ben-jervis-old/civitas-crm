@@ -1,6 +1,6 @@
 <% provide(:title, "Forgot Password") %>
 <div id="login-page-wrapper">
-  <div class="page-header">
+  <div class="page-header <%= 'tall-margin' unless flash.empty? %>">
     <h1>Reset Password</h1>
   </div>
   <%= form_for(:password_reset, url: password_resets_path) do |f| %>

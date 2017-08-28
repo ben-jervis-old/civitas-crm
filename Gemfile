@@ -38,8 +38,6 @@ gem 'font-awesome-rails'
 
 gem 'active_link_to'
 
-gem 'bootstrap-datepicker-rails'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -34,4 +34,10 @@ module UsersHelper
     %w(staff leader trusted member visitor)
   end
 
+	def show_allowed(user, field)
+		field_is_public = user.privacy_setting.send(field)
+
+		current_user.is_staff? || field_is_public || current_user.id == user.id
+	end
+
 end

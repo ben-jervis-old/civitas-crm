@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
   <h1><%= @user.name %></h1>
 </div>
 
@@ -16,31 +16,50 @@
 
   <div class="col-md-4">
     <table class='user-details-table'>
-      <tr>
-        <td>Email Address:</td>
-        <td><%= mail_to @user.email %></td>
-      </tr>
-      <tr>
-        <td>Phone Number:</td>
-        <td><%= if @user.phone_number == 0 || @user.phone_number.blank? then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
-      </tr>
-      <tr>
-        <td>Address:</td>
-        <% if @user.address.blank? %>
-          <td><em>Not provided</em></td>
-        <% else %>
-          <td>
-            <%= @user.address %>
-            <%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
-    					<i class="fa fa-map-marker" aria-hidden="true"></i>
-    				<% end %>
-          </td>
-        <% end %>
-      </tr>
-      <tr>
-        <td>Date of Birth:</td>
-        <td><%= if @user.dob.nil? then content_tag(:em, "Not provided") else @user.dob.strftime("%d/%m/%Y") end %></td>
-      </tr>
+			<% if show_allowed @user, :email %>
+	      <tr>
+	        <td>Email Address:</td>
+	        <td><%= mail_to @user.email %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :phone_number %>
+	      <tr>
+	        <td>Phone Number:</td>
+	        <td><%= if @user.phone_number == 0 || @user.phone_number.blank? then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :address %>
+	      <tr>
+	        <td>Address:</td>
+	        <% if @user.address.blank? %>
+	          <td><em>Not provided</em></td>
+	        <% else %>
+	          <td>
+	            <%= @user.address %>
+	            <%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
+	    					<i class="fa fa-map-marker" aria-hidden="true"></i>
+	    				<% end %>
+	          </td>
+	        <% end %>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :dob %>
+	      <tr>
+	        <td>Date of Birth:</td>
+	        <td><%= if @user.dob.nil? then content_tag(:em, "Not provided") else @user.dob.strftime("%d/%m/%Y") end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :user_created_at %>
+				<tr>
+					<td>Member Since:</td>
+					<td><%= @user.created_at.strftime("%d/%m/%Y") %></td>
+				</tr>
+			<% end %>
+
       <tr>
         <td>Access Level: </td>
         <td><%= @user.level.capitalize %></td>
@@ -52,20 +71,22 @@
 
   </div>
 
-  <div class="col-md-6">
-    <div class="row">
-      <div class="col-md-12">
-        <h4>Notes:</h4>
-        <p><%= if @user.notes.blank? then content_tag(:em, "No notes recorded") else @user.notes end %></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <h4>Special Requirements:</h4>
-        <p><%= if @user.special_needs.blank? then content_tag(:em, "No requirements recorded") else @user.special_needs end %></p>
-      </div>
-    </div>
-  </div>
+	<% if current_user.is_staff? %>
+	  <div class="col-md-6">
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h4>Notes:</h4>
+	        <p><%= if @user.notes.blank? then content_tag(:em, "No notes recorded") else @user.notes end %></p>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h4>Special Requirements:</h4>
+	        <p><%= if @user.special_needs.blank? then content_tag(:em, "No requirements recorded") else @user.special_needs end %></p>
+	      </div>
+	    </div>
+	  </div>
+	<% end %>
 </div>
 
 <br>
@@ -116,12 +137,40 @@
 <div class="row">
 	<div class="col-md-8">
     <div class="hidden-xs">
-      <%= link_to 'Update details', edit_user_path, class: 'btn btn-default' %>
-      <%= link_to 'Change Password', '#', class: 'btn btn-default' if @user.id == current_user.id %>
+
+			<% if current_user.is_staff? || current_user.id == @user.id %>
+	      <%= link_to edit_user_path, class: 'btn btn-default' do %>
+					<%= fa_icon 'pencil' %> Update details
+				<% end %>
+
+				<%= link_to user_privacy_path(current_user.id), class:'btn btn-default' do %>
+					<%= fa_icon 'cogs' %> Privacy Settings
+				<% end %>
+			<% end %>
+
+			<% if @user.id == current_user.id %>
+	      <%= link_to '#', class: 'btn btn-default' do %>
+					<%= fa_icon 'unlock-alt' %> Change Password
+				<% end %>
+			<% end %>
+
     </div>
     <div class="visible-xs-block btn-group-vertical">
-      <%= link_to 'Update details', edit_user_path, class: 'btn btn-default btn-block' %>
-      <%= link_to 'Change Password', '#', class: 'btn btn-default btn-block' if @user.id == current_user.id %>
+			<% if current_user.is_staff? || current_user.id == @user.id %>
+	      <%= link_to edit_user_path, class: 'btn btn-default' do %>
+					<%= fa_icon 'pencil' %> Update details
+				<% end %>
+
+				<%= link_to user_privacy_path(current_user.id), class:'btn btn-default' do %>
+					<%= fa_icon 'cogs' %> Privacy Settings
+				<% end %>
+			<% end %>
+
+			<% if @user.id == current_user.id %>
+	      <%= link_to '#', class: 'btn btn-default' do %>
+					<%= fa_icon 'unlock-alt' %> Change Password
+				<% end %>
+			<% end %>
     </div>
 	</div>
 </div>

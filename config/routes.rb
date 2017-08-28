@@ -9,7 +9,10 @@ Rails.application.routes.draw do
 	post '/tasks/:task_id/accept/:user_id', to: 'tasks#accept', as: 'accept_task'
 	post '/notifications/:notification_id/dismiss', to: 'notifications#dismiss', as: 'dismiss_notification'
 
-  resources :users
+  resources :users do
+  	get 	:privacy, to: 'users#edit_privacy'
+		patch 	:privacy, to: 'users#update_privacy'
+  end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :account_setups,      only: [:edit, :update]

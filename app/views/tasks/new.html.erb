@@ -1,5 +1,5 @@
 <% provide :title, 'New Task' %>
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 	<h1>New Task in <%= @task.roster.title %> Roster</h1>
 </div>
 

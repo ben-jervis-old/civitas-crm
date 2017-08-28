@@ -14,7 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-datepicker
 //= require vue
 //= require_tree .
 //= stub 'tasks'
@@ -44,10 +43,11 @@ doc_ready = function () {
 
   $("#action-menu-button").click(function(e) {
     e.preventDefault();
-  	$("#action-menu").slideToggle();
+  	$("#action-menu").slideDown();
   });
 
   $(document).click(function(e) {
+		// console.log(e);
   	if(!$(e.target).closest("#action-menu").length) {
   		if($("#action-menu").height() > 100) {
   			$("#action-menu").slideUp();
@@ -117,17 +117,11 @@ doc_ready = function () {
 	// Flash alerts dismiss after 10 seconds
 	window.setTimeout(function() {
 		$('.alert.fade.alert-timeout').alert('close');
-		$('.page-header.tall-margin').removeClass('tall-margin');
 	}, 10000);
 
-
-	$('.input-daterange input').datepicker({
-    format: "dd/mm/yyyy",
-    todayBtn: "linked",
-    todayHighlight: true,
-		defaultViewDate: 'today'
+	$('.alert.fade.alert-timeout').on('closed.bs.alert', function() {
+		$('.page-header.tall-margin').removeClass('tall-margin');
 	});
-
 };
 
 $(document).ready(doc_ready);

@@ -7,15 +7,12 @@ class PasswordResetsController < ApplicationController
   before_action :check_expiration,  only: [:edit, :update]
 
   def new
-    @hide_sidebar = true
   end
 
   def edit
-    @hide_sidebar = true
   end
 
   def create
-    @hide_sidebar = true
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
       @user.create_reset_digest

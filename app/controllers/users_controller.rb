@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
 
-	skip_before_action :require_login, only: [:signup, :signup_create]
+  before_action :get_user,          	only: [:edit, :show, :update, :update_password, :edit_privacy, :update_privacy]
+	skip_before_action :require_login, 	only: [:signup, :signup_create]
+	before_action :check_staff,					only: [:new, :destroy, :create]
 
 	def index
-		@users = User.all
+		if current_user.is_staff?
+			@users = User.all
+		else
+			@users = User.all.select{ |usr| usr.privacy_setting.presence || usr.id == current_user.id }
+		end
 	end
 
 	def new
@@ -11,25 +17,23 @@ class UsersController < ApplicationController
 	end
 
 	def signup
-		@hide_sidebar = true
 		@user = User.new
 	end
 
 	def edit
-    @user = User.find(params[:id])
 	end
 
 	def show
-    @user = User.find(params[:id])
-
-		@pronoun = @user == current_user ? "You're" : "This user is"
-
-		@address_link = "https://www.google.com.au/maps/place/#{CGI::escape(@user.address)}" unless @user.address.nil?
+		if !(@user.privacy_setting.presence || current_user.is_staff? || current_user.id == @user.id)
+			flash[:warning] = 'Member not found'
+			redirect_to users_path
+		else
+			@pronoun = @user == current_user ? "You're" : "This user is"
+			@address_link = "https://www.google.com.au/maps/place/#{CGI::escape(@user.address)}" unless @user.address.nil?
+		end
 	end
 
 	def update
-    @user = User.find(params[:id])
-
     if @user.update_attributes(user_params)
 			flash[:success] = "Details updated successfully"
       redirect_to @user
@@ -39,8 +43,6 @@ class UsersController < ApplicationController
 	end
 
 	def update_password
-		@user = User.find(params[:id])
-
 		if @user.update_attributes(password_params_only)
 			flash[:success] = "Your password has been updated"
 			#TODO email password update notification
@@ -66,6 +68,7 @@ class UsersController < ApplicationController
 		if @user.save
 			@user.create_reset_digest
 			@user.send_account_setup_email
+			@user.create_privacy_setting
 			flash[:success] = "User created successfully"
 			redirect_to users_path
 		else
@@ -79,6 +82,7 @@ class UsersController < ApplicationController
 
 		if @user.save
 			@user.send_activation_email
+			@user.create_privacy_setting
 			log_in @user
 			flash[:success] = 'Welcome to civitasCRM!'
 
@@ -92,7 +96,29 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def edit_privacy
+		user_has_setting = !!@user.privacy_setting
+		@user.create_privacy_setting unless user_has_setting
+	end
+
+	def update_privacy
+		if @user.privacy_setting.update_attributes(privacy_params)
+			flash[:success] = 'Privacy settings updated'
+			redirect_to @user
+		else
+			render 'edit_privacy'
+		end
+	end
+
 	private
+
+	def privacy_params
+		params.require(:privacy_setting).permit(:presence, :phone_number, :address, :email, :dob, :user_created_at)
+	end
+
+		def get_user
+			@user = User.find(params[:id] || params[:user_id])
+		end
 
     def user_params
     	params[:user][:phone_number] = params[:user][:phone_number].split.join('').to_i
@@ -102,5 +128,12 @@ class UsersController < ApplicationController
 
 		def user_signup_params
 			params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+		end
+
+		def check_staff
+			if !current_user.is_staff?
+				flash[:warning] = "You don't have access to that action"
+				redirect_to users_path
+			end
 		end
 end
