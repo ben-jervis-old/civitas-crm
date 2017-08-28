@@ -156,15 +156,19 @@
 
     </div>
     <div class="visible-xs-block btn-group-vertical">
-			<%= link_to edit_user_path, class: 'btn btn-default' do %>
-				<%= fa_icon 'pencil' %> Update details
+			<% if current_user.is_staff? || current_user.id == @user.id %>
+	      <%= link_to edit_user_path, class: 'btn btn-default' do %>
+					<%= fa_icon 'pencil' %> Update details
+				<% end %>
+
+				<%= link_to user_privacy_path(current_user.id), class:'btn btn-default' do %>
+					<%= fa_icon 'cogs' %> Privacy Settings
+				<% end %>
 			<% end %>
+
 			<% if @user.id == current_user.id %>
 	      <%= link_to '#', class: 'btn btn-default' do %>
 					<%= fa_icon 'unlock-alt' %> Change Password
-				<% end %>
-				<%= link_to user_privacy_path(current_user.id), class:'btn btn-default' do %>
-					<%= fa_icon 'cogs' %> Privacy Settings
 				<% end %>
 			<% end %>
     </div>

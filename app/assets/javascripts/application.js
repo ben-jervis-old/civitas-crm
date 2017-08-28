@@ -43,10 +43,11 @@ doc_ready = function () {
 
   $("#action-menu-button").click(function(e) {
     e.preventDefault();
-  	$("#action-menu").slideToggle();
+  	$("#action-menu").slideDown();
   });
 
   $(document).click(function(e) {
+		// console.log(e);
   	if(!$(e.target).closest("#action-menu").length) {
   		if($("#action-menu").height() > 100) {
   			$("#action-menu").slideUp();

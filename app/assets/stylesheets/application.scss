@@ -326,10 +326,10 @@ a>li.sidebar-list-item.active {
 }
 
 #action-menu {
-	position: absolute;
+	position: fixed;
 	display: none;
-	top: 50px;
-	right: 45px;
+	top: 60px;
+	right: 10px;
 	z-index: 2000;
 	width: 200px;
 	a {
