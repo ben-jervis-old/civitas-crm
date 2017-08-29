@@ -1,0 +1,20 @@
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Contact: <%= @contact.title %> </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Contacts", contacts_path %></li>
+	<li class='active'><%= @contact.title %></li>
+</ol>
+
+<div class="row">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-8 col-sm-7">
+			  <p>
+			      <%= @contact.content.html_safe %>
+			  </p>
+			</div>
+    </div>
+	</div>
+</div>

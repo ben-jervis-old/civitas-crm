@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 	post '/notifications/:notification_id/dismiss', to: 'notifications#dismiss', as: 'dismiss_notification'
 
   resources :users
+  resources :contacts
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :account_setups,      only: [:edit, :update]

@@ -18,6 +18,7 @@
 //= require vue
 //= require_tree .
 //= stub 'tasks'
+//= require trix
 
 var doc_ready;
 doc_ready = function () {

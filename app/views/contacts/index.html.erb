@@ -1,0 +1,20 @@
+<div class="page-header">
+	<h1>Contacts</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li class='active'>Contacts</li>
+</ol>
+
+<div class="row padded-row">
+	<div class="list-group">
+		<% @contacts.each do |contact| %>
+			<div class="list-group-item col-md-6" data-groupname="<%= contact.title %>">
+			  <%= link_to contact do %>
+			    <h4><%= contact.title %></h4>
+			    <p><%= contact.content.html_safe %></p>
+			  <% end %>
+			</div>
+		<% end %>
+	</div>
+</div>
