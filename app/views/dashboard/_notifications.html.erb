@@ -1,11 +1,9 @@
 <div>
-	<%= link_to "/notifications",
-				class:"pull-right dismiss-cross-link",
-				'data-placement' => 'top' do %>
-		<i>View all</i>
-	<% end %>
 	
-	<h3>Notifications (<%= @unread_notifications.length %>)</h3>
+	<h3>
+		Notifications (<%= @unread_notifications.length %>)
+		<%= link_to 'View all', notifications_path, class: 'pull-right small' %>
+	</h3>
 </div>
 
 <div class="panel panel-default">
