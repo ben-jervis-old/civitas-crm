@@ -1,0 +1,23 @@
+<%= form_for(@contact) do |f| %>
+	<%= render 'partials/error_messages', item: @contact %>
+	<div class="row">
+    <div class="form-group col-md-4">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-8">
+      <%= f.label :content %>
+      <%= f.trix_editor :content, class: 'form-control', overflow: 'auto'%>
+    </div>
+  </div>
+
+  <div class="row">
+		<div class="col-sm-8">
+			<%= f.submit "Save Changes", class: "btn btn-primary  pull-right" %>
+			<%= link_to 'Cancel', contacts_path, class: 'btn btn-default'%>
+		</div>
+	</div>
+<% end %>

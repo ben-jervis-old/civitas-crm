@@ -26,7 +26,28 @@ class ContactsController < ApplicationController
   end
 
   def edit
+    @contact = Contact.find(params[:id])
+		@cancel_path = contact_path(@contact.id)
   end
+  
+  def recipients
+    @contact = Contact.find(params[:contact_id])
+    @users = User.all
+  end
+  
+  def assign
+		@contact = Contact.find(params[:contact_id])
+		user = User.find(params[:user_id])
+		@contact.Recipients << user
+		redirect_to contact_path(@contact)
+	end
+
+	def unassign
+		@contact = Contact.find(params[:group_id])
+		user = User.find(params[:user_id])
+		@contact.Recipients.delete user
+		redirect_to contact_path(@contact)
+	end
   
   private
 

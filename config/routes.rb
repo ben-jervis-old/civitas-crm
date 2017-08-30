@@ -10,10 +10,15 @@ Rails.application.routes.draw do
 	post '/notifications/:notification_id/dismiss', to: 'notifications#dismiss', as: 'dismiss_notification'
 
   resources :users
-  resources :contacts
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :account_setups,      only: [:edit, :update]
+
+  resources :contacts do
+    get     '/recipients', 							to: 'contacts#recipients', 						as: 'recipients'
+    post    '/assign/:user_id', 				to: 'contacts#assign', 								as: 'assign_user'
+    delete  '/unassign/:user_id', 			to: 'contacts#unassign', 							as: 'unassign_user'
+  end
 
   resources :groups do
     get     '/members', 								to: 'groups#members', 							as: 'members'

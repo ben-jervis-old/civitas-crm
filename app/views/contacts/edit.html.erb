@@ -1,2 +1,19 @@
-<h1>Contacts#edit</h1>
-<p>Find me in app/views/contacts/edit.html.erb</p>
+<div class="page-header">
+	<h1>Edit Message</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Contacts", contact_path %></li>
+	<li><%= link_to @contact.title, @contact %></li>
+	<li class='active'>Edit</li>
+</ol>
+
+<%= link_to contact_recipients_path(@contact), class: "text-left btn btn-default" do %>
+	<i class="glyphicon glyphicon-pencil"></i>  Edit Recipients
+<% end %>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= render 'form' %>
+  </div>
+</div>
