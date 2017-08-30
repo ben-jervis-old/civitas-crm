@@ -38,6 +38,11 @@ doc_ready = function () {
   	}
   });
 
+	$('.read-more-link').on('click', function(e) {
+    e.preventDefault()
+    $(this).parent().text($(this).data('content'));
+    
+  });
 
 	$('#groups-search-bar').keyup(function() {
 		var search_string = $(this)[0].value;
