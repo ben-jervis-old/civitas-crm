@@ -8,7 +8,6 @@ class NotificationsController < ApplicationController
   def index
     @users = User.all
     @user = current_user
-    @notifications = Notification.all
   end
   
   def create
