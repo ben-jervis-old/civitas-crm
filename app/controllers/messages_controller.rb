@@ -1,6 +1,6 @@
-class ContactsController < ApplicationController
+class MessagesController < ApplicationController
   def index
-    @contacts = Contact.all
+    @messages = Contact.all
   end
 
   def new

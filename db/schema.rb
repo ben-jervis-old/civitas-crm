@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828073913) do
+ActiveRecord::Schema.define(version: 20170830071633) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,15 +20,6 @@ ActiveRecord::Schema.define(version: 20170828073913) do
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_assignments_on_task_id"
     t.index ["user_id"], name: "index_assignments_on_user_id"
-  end
-
-  create_table "contacts", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "sent_at"
-    t.boolean  "sent"
   end
 
   create_table "events", force: :cascade do |t|
@@ -55,6 +46,15 @@ ActiveRecord::Schema.define(version: 20170828073913) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "sent_at"
+    t.boolean  "sent"
   end
 
   create_table "notifications", force: :cascade do |t|
