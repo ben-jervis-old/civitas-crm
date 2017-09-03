@@ -24,11 +24,27 @@
 	      </tr>
 			<% end %>
 
-			<% if show_allowed @user, :phone_number %>
+			<% if show_allowed @user, :mobile_number %>
 	      <tr>
-	        <td class='icon-column'><%= privacy_indicator @user, :phone_number %></td>
-					<td>Phone Number:</td>
-	        <td><%= if @user.phone_number == 0 || @user.phone_number.blank? then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
+	        <td class='icon-column'><%= privacy_indicator @user, :mobile_number %></td>
+					<td>Mobile Number:</td>
+	        <td><%= if @user.mobile_number == 0 || @user.mobile_number.blank? then content_tag(:em, "Not provided") else number_link(@user.mobile_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :home_number %>
+	      <tr>
+	        <td class='icon-column'><%= privacy_indicator @user, :home_number %></td>
+					<td>Home Number:</td>
+	        <td><%= if @user.home_number == 0 || @user.home_number.blank? then content_tag(:em, "Not provided") else number_link(@user.home_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :work_number %>
+	      <tr>
+	        <td class='icon-column'><%= privacy_indicator @user, :work_number %></td>
+					<td>Work Number:</td>
+	        <td><%= if @user.work_number == 0 || @user.work_number.blank? then content_tag(:em, "Not provided") else number_link(@user.work_number) end %></td>
 	      </tr>
 			<% end %>
 

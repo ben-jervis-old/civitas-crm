@@ -31,13 +31,37 @@
 					</div>
 
 					<div class="list-group-item">
-						Phone Number
+						Mobile Number
 						<span class="pull-right">
-							<%= f.label :phone_number, value: true, class: 'radio-inline' do %>
-								<%= f.radio_button :phone_number, true %>All Users
+							<%= f.label :mobile_number, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :mobile_number, true %>All Users
 							<% end %>
-							<%= f.label :phone_number, value: false, class: 'radio-inline' do %>
-								<%= f.radio_button :phone_number, false %>Staff Only
+							<%= f.label :mobile_number, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :mobile_number, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Home Number
+						<span class="pull-right">
+							<%= f.label :home_number, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :home_number, true %>All Users
+							<% end %>
+							<%= f.label :home_number, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :home_number, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Work Number
+						<span class="pull-right">
+							<%= f.label :work_number, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :work_number, true %>All Users
+							<% end %>
+							<%= f.label :work_number, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :work_number, false %>Staff Only
 							<% end %>
 						</span>
 					</div>

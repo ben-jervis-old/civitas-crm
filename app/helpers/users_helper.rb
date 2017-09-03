@@ -27,7 +27,7 @@ module UsersHelper
 
   def number_link (num)
     return nil if num.blank? || num == 0
-    link_to format_number(@user.phone_number), "tel:#{pad_number(@user.phone_number)}"
+    link_to format_number(num), "tel:#{pad_number(num)}"
   end
 
   def user_levels

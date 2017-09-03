@@ -101,7 +101,7 @@ class UsersController < ApplicationController
 		@user.create_privacy_setting unless user_has_setting
 	end
 
-	def update_privacy			
+	def update_privacy
 		if @user.privacy_setting.update_attributes(privacy_params)
 			flash[:success] = 'Privacy settings updated'
 			redirect_to @user
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
 	private
 
 	def privacy_params
-		params.require(:privacy_setting).permit(:presence, :phone_number, :address, :email, :dob, :user_created_at)
+		params.require(:privacy_setting).permit(:presence, :mobile_number, :work_number, :home_number, :address, :email, :dob, :user_created_at)
 	end
 
 		def get_user
@@ -121,9 +121,11 @@ class UsersController < ApplicationController
 		end
 
     def user_params
-    	params[:user][:phone_number] = params[:user][:phone_number].split.join('').to_i
+    	params[:user][:mobile_number] = params[:user][:mobile_number].split.join('').to_i
+			params[:user][:work_number] = params[:user][:work_number].split.join('').to_i
+			params[:user][:home_number] = params[:user][:home_number].split.join('').to_i
 			params[:user][:level] ||= 'visitor'
-      params.require(:user).permit(:first_name, :last_name, :email, :address, :phone_number, :dob, :password, :password_confirmation, :level)
+      params.require(:user).permit(:first_name, :last_name, :email, :address, :mobile_number, :work_number, :home_number, :dob, :password, :password_confirmation, :level)
     end
 
 		def user_signup_params
