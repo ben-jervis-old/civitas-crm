@@ -8,11 +8,17 @@
 </ol>
 
 <div class="row">
-	
+
 	<div class="col-md-12">
 		<h2>Your Notifications</h2>
-		<h3>Unread</h3>
-		<%= will_paginate  @unread_notifications, class: 'pull-right' %>
+		<div class="row">
+			<div class="col-xs-3">
+				<h3>Unread</h3>
+			</div>
+			<div class="col-xs-9">
+				<%= will_paginate  @unread_notifications, class: 'pull-right' %>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<%= render  @unread_notifications %>
@@ -24,8 +30,15 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h3>Read</h3>
-		<%= will_paginate  @read_notifications, class: 'pull-right' %>
+		<div class="row">
+			<div class="col-xs-3">
+				<h3>Read</h3>
+			</div>
+			<div class="col-xs-9">
+				<%= will_paginate  @read_notifications, class: 'pull-right' %>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-md-12">
 				<%= render  @read_notifications %>
@@ -34,10 +47,10 @@
 		<%= will_paginate  @read_notifications, class: 'pull-right' %>
 	</div>
 </div>
-		
+
 <div class="row">
 	<div class="col-md-12">
-  	<h2>Other Staff 2</h2>
+  	<h2>Other Staff</h2>
   	<% @staff_unread.each do |staff| %>
 	  	<div class="row">
 	  		<div class="col-md-12">
@@ -48,4 +61,3 @@
   	<% end %>
   </div>
 </div>
-	

@@ -1,5 +1,5 @@
 <div>
-	
+
 	<h3>
 		Notifications (<%= @unread_notifications.length %>)
 		<%= link_to 'View all', notifications_path, class: 'pull-right small' %>
@@ -26,7 +26,15 @@
 							<i class="glyphicon glyphicon-remove"></i>
 						<% end %>
 					</h4>
-					<p><%= notification.content %></p>
+					<p>
+						<% if notification.content.length > 100 %>
+					    <%= truncate(notification.content, length: 100) %>
+					    <%= link_to 'Read more', '', class: "read-more-link", data: {content: notification.content} %>
+
+					  <% else %>
+					    <%= notification.content %>
+					  <% end %>
+					</p>
 					<p><%= link_to 'Show me', notification.resolve_link %></p>
 				</div>
 			<% end %>

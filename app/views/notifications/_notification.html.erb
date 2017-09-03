@@ -3,18 +3,19 @@
   	<div class="pull-left">
 		  <h4><%= notification.title %>
 		  	<span class="small" >
-		  		(Resolved on <%= notification.updated_at.strftime("%d %m %Y")%>)
+					<% resolution_user = User.find(notification.user_id) %>
+		  		(Resolved on <%= notification.updated_at.strftime("%d %m %Y")%> by <%= link_to resolution_user.name, user_path(resolution_user.id) %>)
 		  	</span>
 		  </h4>
-		  
+
 		</div>
 		<div class="pull-right">
-		  <%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default" do %>
-				<i class="glyphicon glyphicon-ok"> </i> <%= resolved(notification.read) %>
+		  <%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default hidden-xs", title: 'Mark as unresolved' do %>
+				<%= fa_icon 'times-circle-o', class: 'large-icon' %> </i> Unresolved
 			<% end %>
 		</div>
 <% else %>
-  <div class="list-group-item col-md-12 list-group-item-warning"> 
+  <div class="list-group-item col-md-12 list-group-item-warning">
     <div class="pull-left">
 		  <h4><%= notification.title %>
 		  	<span class="small" title="<%= notification.created_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y") %>">
@@ -23,21 +24,22 @@
 		  </h4>
 		</div>
 		<div class="pull-right">
-		  <%= link_to notification_resolve_path(notification), class: "text-left btn btn-default" do %>
-				<i class="glyphicon glyphicon-exclamation-sign"> </i> <%= resolved(notification.read) %>
+		  <%= link_to notification_resolve_path(notification), class: "text-left btn btn-default hidden-xs", title: 'Mark as resolved' do %>
+				<%= fa_icon 'check-circle-o', class: 'large-icon' %> </i> Resolved
 			<% end %>
 		</div>
 <% end %>
-	
+
   <br><br>
 	<div>
 	  <% if notification.content.length > 100 %>
 	    <%= truncate(notification.content, length: 100) %>
 	    <%= link_to 'Read more', '', class: "read-more-link", data: {content: notification.content} %>
-			
+
 	  <% else %>
 	    <%= notification.content %>
 	  <% end %>
 	</div>
+	<br>
 	<p><%= link_to 'Show me', notification.resolve_link %></p>
 </div>
