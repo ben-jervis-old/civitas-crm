@@ -12,7 +12,6 @@
  *
  *= require_tree .
  *= require font-awesome
- *= require bootstrap-datepicker3
  *= require_self
  */
 
@@ -52,8 +51,12 @@ body {
 	}
 }
 
-.hidden-item {
-	display: none;
+.icon-column {
+	width: 20px;
+}
+
+.item-pad-left {
+	margin-left: 15px;
 }
 
 .scrollable-list-group {
@@ -79,6 +82,10 @@ body {
 
 a.dismiss-cross-link {
 	color: #777777;
+}
+
+a.pull-right.navbar-brand {
+	line-height: 47px;
 }
 
 .spaced {
@@ -129,10 +136,10 @@ a.dismiss-cross-link {
 	margin-top: 10px;
 }
 
-#flash-holder {
+#flash-holder.regular-flash {
 	position: absolute;
-	left: 280px;
-	right: 30px;
+	left: 40px;
+	right: 40px;
 }
 
 #sidebar {
@@ -319,10 +326,10 @@ a>li.sidebar-list-item.active {
 }
 
 #action-menu {
-	position: absolute;
+	position: fixed;
 	display: none;
-	top: 50px;
-	right: 45px;
+	top: 60px;
+	right: 10px;
 	z-index: 2000;
 	width: 200px;
 	a {
@@ -361,11 +368,16 @@ label.checkbox.inline {
 	}
 
 	.notifications-badge {
-		right: 67px;
+		right: 90px;
 	}
 
 	#main-body-div {
 		margin-bottom: 0;
+	}
+
+	#flash-holder.regular-flash {
+		left: 280px;
+		right: 30px;
 	}
 
 	.card-holder {

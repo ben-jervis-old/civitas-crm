@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828073913) do
+ActiveRecord::Schema.define(version: 20170903054547) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20170828073913) do
     t.integer  "repeat",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "event_type"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -76,6 +77,21 @@ ActiveRecord::Schema.define(version: 20170828073913) do
     t.index ["user_id"], name: "index_notifications_users_on_user_id"
   end
 
+  create_table "privacy_settings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "presence",        default: true
+    t.boolean  "mobile_number",   default: true
+    t.boolean  "address",         default: true
+    t.boolean  "email",           default: true
+    t.boolean  "dob",             default: true
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "user_created_at", default: true
+    t.boolean  "home_number",     default: true
+    t.boolean  "work_number",     default: true
+    t.index ["user_id"], name: "index_privacy_settings_on_user_id"
+  end
+
   create_table "rosters", force: :cascade do |t|
     t.string   "title"
     t.date     "start_date"
@@ -98,7 +114,7 @@ ActiveRecord::Schema.define(version: 20170828073913) do
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone_number"
+    t.integer  "mobile_number"
     t.string   "address"
     t.string   "email"
     t.date     "dob"
@@ -117,6 +133,8 @@ ActiveRecord::Schema.define(version: 20170828073913) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer  "home_number"
+    t.integer  "work_number"
   end
 
 end

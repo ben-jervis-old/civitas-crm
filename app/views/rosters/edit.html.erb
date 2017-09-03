@@ -1,5 +1,5 @@
 <% provide(:title, "Update Roster") %>
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 	<h1>Update roster details</h1>
 </div>
 <ol class="breadcrumb">
@@ -9,7 +9,7 @@
 </ol>
 
 
-<div class="row bounded-row padded-row">
+<div class="row">
   <div class="col-md-8">
     <%= render 'form' %>
   </div>

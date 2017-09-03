@@ -7,6 +7,7 @@ class User < ApplicationRecord
 	has_many :tasks, -> { distinct },	through: :assignments
 	has_many :rosters, through: :tasks
 	has_and_belongs_to_many :notifications
+	has_one :privacy_setting
 
 	has_secure_password
 
@@ -50,6 +51,10 @@ class User < ApplicationRecord
 
 	def visitor?
 		self.level == "visitor"
+	end
+
+	def is_staff?
+		%w(staff leader trusted).include?(self.level)
 	end
 
 	def admin_of
@@ -103,8 +108,8 @@ class User < ApplicationRecord
 	end
 
 	def activate
-		user.update_attribute(:activated, true)
-		user.update_attribute(:activated_at, Time.zone.now)
+		self.update_attribute(:activated, true)
+		self.update_attribute(:activated_at, Time.zone.now)
 	end
 
 	def send_activation_email
@@ -119,6 +124,10 @@ class User < ApplicationRecord
 
 	def send_password_reset_email
 		UserMailer.password_reset(self).deliver_now
+	end
+
+	def send_account_setup_email
+		UserMailer.account_setup(self).deliver_now
 	end
 
 	def password_reset_expired?

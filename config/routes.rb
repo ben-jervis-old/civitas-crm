@@ -9,14 +9,17 @@ Rails.application.routes.draw do
 	post '/tasks/:task_id/accept/:user_id', to: 'tasks#accept', as: 'accept_task'
 	post '/notifications/:notification_id/dismiss', to: 'notifications#dismiss', as: 'dismiss_notification'
 
-  resources :users
+  resources :users do
+  	get 	:privacy, to: 'users#edit_privacy'
+		patch 	:privacy, to: 'users#update_privacy'
+  end
   resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]
-  
+  resources :password_resets,     only: [:new, :create, :edit, :update]  
   resources :notifications do
     get    '/resolve', to: 'notifications#resolve', as: 'resolve'
     get    '/unresolve', to: 'notifications#unresolve', as: 'unresolve'
   end
+  resources :account_setups,      only: [:edit, :update]
 
   resources :groups do
     get     '/members', 								to: 'groups#members', 							as: 'members'

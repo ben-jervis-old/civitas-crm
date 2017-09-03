@@ -27,11 +27,40 @@ module UsersHelper
 
   def number_link (num)
     return nil if num.blank? || num == 0
-    link_to format_number(@user.phone_number), "tel:#{pad_number(@user.phone_number)}"
+    link_to format_number(num), "tel:#{pad_number(num)}"
   end
 
   def user_levels
     %w(staff leader trusted member visitor)
   end
+
+	def show_allowed(user, field)
+		field_is_public = user.privacy_setting.send(field)
+
+		current_user.is_staff? || field_is_public || current_user.id == user.id
+	end
+
+	def privacy_indicator user, field
+
+		if current_user.is_staff? || current_user.id == user.id
+
+			field_is_public = (field == :level || user.privacy_setting.send(field)) && user.privacy_setting.presence
+
+			if field_is_public
+				icon = 'unlock'
+				display_str = 'This field is visible to all members'
+			elsif !user.privacy_setting.presence
+				icon = 'lock'
+				display_str = 'This profile is only visible to staff'
+			else
+				icon = 'lock'
+				display_str = 'This field is only visible to staff'
+			end
+
+			return fa_icon icon, data: { toggle: 'tooltip', placement: 'top', title: display_str}
+		else
+			return ""
+		end
+	end
 
 end
