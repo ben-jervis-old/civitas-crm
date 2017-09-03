@@ -80,8 +80,17 @@ body {
 	border-color: #eea236;
 }
 
-a.dismiss-cross-link {
-	color: #777777;
+.dismiss-cross-link {
+		color: #777777;
+		position: absolute;
+		right: 15px;
+		top: 10px;
+		.fa {
+			font-size: 23px;
+		}
+		&:hover {
+			color: #565656;
+		}
 }
 
 a.pull-right.navbar-brand {

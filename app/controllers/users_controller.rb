@@ -86,8 +86,8 @@ class UsersController < ApplicationController
 			log_in @user
 			flash[:success] = 'Welcome to civitasCRM!'
 
-			User.where(level: 'staff').each do |user|
-				user.notifications.create(title: 'New Member', content: "#{@user.name} has created an account", resolve_link: user_path(@user))
+			notification = Notification.create(title: 'New Member', content: "#{@user.name} has created an account", resolve_link: user_path(@user))
+			notification.users << User.where(level: 'staff')
 			end
 
 			redirect_to root_path
