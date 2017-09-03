@@ -57,7 +57,7 @@ module UsersHelper
 				display_str = 'This field is only visible to staff'
 			end
 
-			return fa_icon icon, data: { toggle: 'tooltip', placement: 'top', title: display_str}
+			return fa_icon icon, class: 'fa-fw', data: { toggle: 'tooltip', placement: 'top', title: display_str}
 		else
 			return ""
 		end

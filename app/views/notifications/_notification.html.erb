@@ -1,45 +1,62 @@
-<% if notification.read %>
-  <div class="list-group-item col-md-12">
-  	<div class="pull-left">
-		  <h4><%= notification.title %>
-		  	<span class="small" >
-					<% resolution_user = User.find(notification.user_id) %>
-		  		(Resolved on <%= notification.updated_at.strftime("%d %m %Y")%> by <%= link_to resolution_user.name, user_path(resolution_user.id) %>)
-		  	</span>
-		  </h4>
-
+<div class="list-group-item <%= 'list-group-item-warning' unless notification.read %>">
+	<div class="row">
+		<div class="col-xs-9">
+			<h4><%= notification.title %>
+				<% if notification.read %>
+					<span class="small" >
+						<% resolution_user = User.find(notification.user_id) %>
+						(Resolved on <%= notification.updated_at.strftime("%d %m %Y")%> by <%= link_to resolution_user.name, user_path(resolution_user.id) %>)
+					</span>
+				<% else %>
+					<span class="small" title="<%= notification.created_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y") %>">
+			  		(Created <%= time_ago_in_words(notification.created_at) %> ago)
+			  	</span>
+				<% end %>
+			</h4>
 		</div>
-		<div class="pull-right">
-		  <%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default hidden-xs", title: 'Mark as unresolved' do %>
-				<%= fa_icon 'times-circle-o', class: 'large-icon' %> </i> Unresolved
+		<div class="col-xs-3">
+			<% if notification.read %>
+				<%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default hidden-xs pull-right", title: 'Mark as unresolved' do %>
+					<%= fa_icon 'times-circle-o', class: 'large-icon' %> </i> Unresolved
+				<% end %>
+			<% else %>
+				<%= link_to notification_resolve_path(notification), class: "text-left btn btn-default hidden-xs pull-right", title: 'Mark as resolved' do %>
+					<%= fa_icon 'check-circle-o', class: 'large-icon' %> </i> Resolved
+				<% end %>
 			<% end %>
 		</div>
-<% else %>
-  <div class="list-group-item col-md-12 list-group-item-warning">
-    <div class="pull-left">
-		  <h4><%= notification.title %>
-		  	<span class="small" title="<%= notification.created_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y") %>">
-		  		(Created <%= time_ago_in_words(notification.created_at) %> ago)
-		  	</span>
-		  </h4>
-		</div>
-		<div class="pull-right">
-		  <%= link_to notification_resolve_path(notification), class: "text-left btn btn-default hidden-xs", title: 'Mark as resolved' do %>
-				<%= fa_icon 'check-circle-o', class: 'large-icon' %> </i> Resolved
-			<% end %>
-		</div>
-<% end %>
-
-  <br><br>
-	<div>
-	  <% if notification.content.length > 100 %>
-	    <%= truncate(notification.content, length: 100) %>
-	    <%= link_to 'Read more', '', class: "read-more-link", data: {content: notification.content} %>
-
-	  <% else %>
-	    <%= notification.content %>
-	  <% end %>
 	</div>
-	<br>
-	<p><%= link_to 'Show me', notification.resolve_link %></p>
+
+	<div class="row">
+		<div class='col-sm-12'>
+		  <p><% if notification.content.length > 100 %>
+		    <%= truncate(notification.content, length: 100) %>
+		    <%= link_to 'Read more', '', class: "read-more-link", data: {content: notification.content} %>
+
+		  <% else %>
+		    <%= notification.content %>
+		  <% end %></p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 col-xs-6">
+			<%= link_to 'Show me', notification.resolve_link %>
+		</div>
+		<div class="col-xs-6 visible-xs-block">
+			<% if notification.read %>
+				<%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default pull-right", title: 'Mark as unresolved' do %>
+					<%= fa_icon 'times-circle-o', class: 'large-icon' %> </i> Unresolved
+				<% end %>
+			<% else %>
+				<%= link_to notification_resolve_path(notification), class: "text-left btn btn-default pull-right", title: 'Mark as resolved' do %>
+					<%= fa_icon 'check-circle-o', class: 'large-icon' %> </i> Resolved
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="row visible-xs-block">
+
+	</div>
 </div>
