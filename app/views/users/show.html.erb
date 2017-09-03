@@ -18,21 +18,40 @@
     <table class='user-details-table'>
 			<% if show_allowed @user, :email %>
 	      <tr>
-	        <td>Email Address:</td>
+	        <td class='icon-column'><%= privacy_indicator @user, :email %></td>
+					<td>Email Address:</td>
 	        <td><%= mail_to @user.email %></td>
 	      </tr>
 			<% end %>
 
-			<% if show_allowed @user, :phone_number %>
+			<% if show_allowed @user, :mobile_number %>
 	      <tr>
-	        <td>Phone Number:</td>
-	        <td><%= if @user.phone_number == 0 || @user.phone_number.blank? then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
+	        <td class='icon-column'><%= privacy_indicator @user, :mobile_number %></td>
+					<td>Mobile Number:</td>
+	        <td><%= if @user.mobile_number == 0 || @user.mobile_number.blank? then content_tag(:em, "Not provided") else number_link(@user.mobile_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :home_number %>
+	      <tr>
+	        <td class='icon-column'><%= privacy_indicator @user, :home_number %></td>
+					<td>Home Number:</td>
+	        <td><%= if @user.home_number == 0 || @user.home_number.blank? then content_tag(:em, "Not provided") else number_link(@user.home_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :work_number %>
+	      <tr>
+	        <td class='icon-column'><%= privacy_indicator @user, :work_number %></td>
+					<td>Work Number:</td>
+	        <td><%= if @user.work_number == 0 || @user.work_number.blank? then content_tag(:em, "Not provided") else number_link(@user.work_number) end %></td>
 	      </tr>
 			<% end %>
 
 			<% if show_allowed @user, :address %>
 	      <tr>
-	        <td>Address:</td>
+	        <td class='icon-column'><%= privacy_indicator @user, :address %></td>
+					<td>Address:</td>
 	        <% if @user.address.blank? %>
 	          <td><em>Not provided</em></td>
 	        <% else %>
@@ -48,6 +67,7 @@
 
 			<% if show_allowed @user, :dob %>
 	      <tr>
+					<td class="icon-column"><%= privacy_indicator @user, :dob %></td>
 	        <td>Date of Birth:</td>
 	        <td><%= if @user.dob.nil? then content_tag(:em, "Not provided") else @user.dob.strftime("%d/%m/%Y") end %></td>
 	      </tr>
@@ -55,12 +75,14 @@
 
 			<% if show_allowed @user, :user_created_at %>
 				<tr>
+					<td class="icon-column"><%= privacy_indicator @user, :user_created_at %></td>
 					<td>Member Since:</td>
 					<td><%= @user.created_at.strftime("%d/%m/%Y") %></td>
 				</tr>
 			<% end %>
 
       <tr>
+				<td class="icon-column"><%= privacy_indicator @user, :level %></td>
         <td>Access Level: </td>
         <td><%= @user.level.capitalize %></td>
       </tr>
