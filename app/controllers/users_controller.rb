@@ -101,7 +101,7 @@ class UsersController < ApplicationController
 		@user.create_privacy_setting unless user_has_setting
 	end
 
-	def update_privacy
+	def update_privacy			
 		if @user.privacy_setting.update_attributes(privacy_params)
 			flash[:success] = 'Privacy settings updated'
 			redirect_to @user

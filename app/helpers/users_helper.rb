@@ -40,4 +40,27 @@ module UsersHelper
 		current_user.is_staff? || field_is_public || current_user.id == user.id
 	end
 
+	def privacy_indicator user, field
+
+		if current_user.is_staff? || current_user.id == user.id
+
+			field_is_public = (field == :level || user.privacy_setting.send(field)) && user.privacy_setting.presence
+
+			if field_is_public
+				icon = 'unlock'
+				display_str = 'This field is visible to all members'
+			elsif !user.privacy_setting.presence
+				icon = 'lock'
+				display_str = 'This profile is only visible to staff'
+			else
+				icon = 'lock'
+				display_str = 'This field is only visible to staff'
+			end
+
+			return fa_icon icon, data: { toggle: 'tooltip', placement: 'top', title: display_str}
+		else
+			return ""
+		end
+	end
+
 end
