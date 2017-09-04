@@ -1,4 +1,11 @@
-<h3>Notifications (<%= @unread_notifications.length %>)</h3>
+<div>
+
+	<h3>
+		Notifications (<%= @unread_notifications.length %>)
+		<%= link_to 'View all', notifications_path, class: 'pull-right small' %>
+	</h3>
+</div>
+
 <div class="panel panel-default">
 	<div class="list-group">
 		<% if @unread_notifications.empty? %>
@@ -8,18 +15,28 @@
 		<% else %>
 			<% @unread_notifications.each do |notification| %>
 				<div class="list-group-item">
+					<%= link_to dismiss_notification_path(notification.id),
+								class:"pull-right dismiss-cross-link",
+								method: :post,
+								data: {
+									toggle: 'tooltip',
+									placement: 'top',
+									title: 'Dismiss'
+								} do %>
+						<%= fa_icon 'remove', class: 'large-icon' %>
+					<% end %>
 					<h4>
 						<%= notification.title %>
-						<%= link_to dismiss_notification_path(notification.id),
-									class:"pull-right dismiss-cross-link",
-									method: :post,
-									'data-toggle' => 'tooltip',
-									'data-placement' => 'top',
-									title: 'Dismiss' do %>
-							<i class="glyphicon glyphicon-remove"></i>
-						<% end %>
 					</h4>
-					<p><%= notification.content %></p>
+					<p>
+						<% if notification.content.length > 100 %>
+					    <%= truncate(notification.content, length: 100) %>
+					    <%= link_to 'Read more', '', class: "read-more-link", data: {content: notification.content} %>
+
+					  <% else %>
+					    <%= notification.content %>
+					  <% end %>
+					</p>
 					<p><%= link_to 'Show me', notification.resolve_link %></p>
 				</div>
 			<% end %>

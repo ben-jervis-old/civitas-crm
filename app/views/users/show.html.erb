@@ -14,25 +14,39 @@
     <%= image_tag 'usericon.png', class: 'img-responsive img-xs-center', width: 150, height: 150 %>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-5">
     <table class='user-details-table'>
 			<% if show_allowed @user, :email %>
 	      <tr>
-	        <td>Email Address:</td>
+					<td><%= privacy_indicator @user, :email %> Email Address:</td>
 	        <td><%= mail_to @user.email %></td>
 	      </tr>
 			<% end %>
 
-			<% if show_allowed @user, :phone_number %>
+			<% if show_allowed @user, :mobile_number %>
 	      <tr>
-	        <td>Phone Number:</td>
-	        <td><%= if @user.phone_number == 0 || @user.phone_number.blank? then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
+					<td><%= privacy_indicator @user, :mobile_number %> Mobile Number:</td>
+	        <td><%= if @user.mobile_number == 0 || @user.mobile_number.blank? then content_tag(:em, "Not provided") else number_link(@user.mobile_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :home_number %>
+	      <tr>
+					<td><%= privacy_indicator @user, :home_number %> Home Number:</td>
+	        <td><%= if @user.home_number == 0 || @user.home_number.blank? then content_tag(:em, "Not provided") else number_link(@user.home_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :work_number %>
+	      <tr>
+					<td><%= privacy_indicator @user, :work_number %> Work Number:</td>
+	        <td><%= if @user.work_number == 0 || @user.work_number.blank? then content_tag(:em, "Not provided") else number_link(@user.work_number) end %></td>
 	      </tr>
 			<% end %>
 
 			<% if show_allowed @user, :address %>
 	      <tr>
-	        <td>Address:</td>
+					<td><%= privacy_indicator @user, :address %> Address:</td>
 	        <% if @user.address.blank? %>
 	          <td><em>Not provided</em></td>
 	        <% else %>
@@ -48,20 +62,20 @@
 
 			<% if show_allowed @user, :dob %>
 	      <tr>
-	        <td>Date of Birth:</td>
+	        <td><%= privacy_indicator @user, :dob %> Date of Birth:</td>
 	        <td><%= if @user.dob.nil? then content_tag(:em, "Not provided") else @user.dob.strftime("%d/%m/%Y") end %></td>
 	      </tr>
 			<% end %>
 
 			<% if show_allowed @user, :user_created_at %>
 				<tr>
-					<td>Member Since:</td>
+					<td><%= privacy_indicator @user, :user_created_at %> Member Since:</td>
 					<td><%= @user.created_at.strftime("%d/%m/%Y") %></td>
 				</tr>
 			<% end %>
 
       <tr>
-        <td>Access Level: </td>
+        <td><%= privacy_indicator @user, :level %> Access Level: </td>
         <td><%= @user.level.capitalize %></td>
       </tr>
     </table>
@@ -72,7 +86,7 @@
   </div>
 
 	<% if current_user.is_staff? %>
-	  <div class="col-md-6">
+	  <div class="col-md-5">
 	    <div class="row">
 	      <div class="col-md-12">
 	        <h4>Notes:</h4>
@@ -143,7 +157,7 @@
 					<%= fa_icon 'pencil' %> Update details
 				<% end %>
 
-				<%= link_to user_privacy_path(current_user.id), class:'btn btn-default' do %>
+				<%= link_to user_privacy_path(@user.id), class:'btn btn-default' do %>
 					<%= fa_icon 'cogs' %> Privacy Settings
 				<% end %>
 			<% end %>
@@ -161,7 +175,7 @@
 					<%= fa_icon 'pencil' %> Update details
 				<% end %>
 
-				<%= link_to user_privacy_path(current_user.id), class:'btn btn-default' do %>
+				<%= link_to user_privacy_path(@user.id), class:'btn btn-default' do %>
 					<%= fa_icon 'cogs' %> Privacy Settings
 				<% end %>
 			<% end %>

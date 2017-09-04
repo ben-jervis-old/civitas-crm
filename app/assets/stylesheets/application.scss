@@ -51,8 +51,8 @@ body {
 	}
 }
 
-.hidden-item {
-	display: none;
+.icon-column {
+	width: 20px;
 }
 
 .item-pad-left {
@@ -80,8 +80,17 @@ body {
 	border-color: #eea236;
 }
 
-a.dismiss-cross-link {
-	color: #777777;
+.dismiss-cross-link {
+		color: #777777;
+		position: absolute;
+		right: 15px;
+		top: 10px;
+		.fa {
+			font-size: 23px;
+		}
+		&:hover {
+			color: #565656;
+		}
 }
 
 a.pull-right.navbar-brand {
@@ -183,6 +192,7 @@ a.pull-right.navbar-brand {
 	padding-left: 10px;
 	padding-top: 6px;
 	padding-right: 10px;
+	padding-bottom: 30px;
 }
 
 #main-body-div {

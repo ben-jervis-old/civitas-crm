@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 		patch 	:privacy, to: 'users#update_privacy'
   end
   resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :password_resets,     only: [:new, :create, :edit, :update]  
+  resources :notifications do
+    get    '/resolve', to: 'notifications#resolve', as: 'resolve'
+    get    '/unresolve', to: 'notifications#unresolve', as: 'unresolve'
+  end
   resources :account_setups,      only: [:edit, :update]
 
   resources :groups do

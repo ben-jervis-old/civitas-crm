@@ -6,9 +6,9 @@ class UsersController < ApplicationController
 
 	def index
 		if current_user.is_staff?
-			@users = User.all
+			@users = User.all.order(:last_name)
 		else
-			@users = User.all.select{ |usr| usr.privacy_setting.presence || usr.id == current_user.id }
+			@users = User.all.order(:last_name).select{ |usr| usr.privacy_setting.presence || usr.id == current_user.id }
 		end
 	end
 
@@ -86,10 +86,9 @@ class UsersController < ApplicationController
 			log_in @user
 			flash[:success] = 'Welcome to civitasCRM!'
 
-			User.where(level: 'staff').each do |user|
-				user.notifications.create(title: 'New Member', content: "#{@user.name} has created an account", resolve_link: user_path(@user))
-			end
-
+			notification = Notification.create(title: 'New Member', content: "#{@user.name} has created an account", resolve_link: user_path(@user))
+			notification.users << User.where(level: 'staff')
+			
 			redirect_to root_path
 		else
 			render 'signup'
@@ -113,7 +112,7 @@ class UsersController < ApplicationController
 	private
 
 	def privacy_params
-		params.require(:privacy_setting).permit(:presence, :phone_number, :address, :email, :dob, :user_created_at)
+		params.require(:privacy_setting).permit(:presence, :mobile_number, :work_number, :home_number, :address, :email, :dob, :user_created_at)
 	end
 
 		def get_user
@@ -121,9 +120,14 @@ class UsersController < ApplicationController
 		end
 
     def user_params
-    	params[:user][:phone_number] = params[:user][:phone_number].split.join('').to_i
+			[:mobile_number, :work_number, :home_number].each do |param|
+				params[:user][param] = params[:user][param].split.join('').to_i
+			end
+    	# params[:user][:mobile_number] = params[:user][:mobile_number].split.join('').to_i
+			# params[:user][:work_number] = params[:user][:work_number].split.join('').to_i
+			# params[:user][:home_number] = params[:user][:home_number].split.join('').to_i
 			params[:user][:level] ||= 'visitor'
-      params.require(:user).permit(:first_name, :last_name, :email, :address, :phone_number, :dob, :password, :password_confirmation, :level)
+      params.require(:user).permit(:first_name, :last_name, :email, :address, :mobile_number, :work_number, :home_number, :dob, :password, :password_confirmation, :level)
     end
 
 		def user_signup_params
