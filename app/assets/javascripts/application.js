@@ -19,8 +19,9 @@
 //= stub 'tasks'
 
 var doc_ready;
+var already_run = false;
 doc_ready = function () {
-
+	console.log("Document Ready called");
   // Debounce function to limit excessive cycles
   function debounce(func, wait, immediate) {
     var timeout;
@@ -52,11 +53,38 @@ doc_ready = function () {
   	}
   });
 
-	$('.read-more-link').on('click', function(e) {
+	var addReadMoreListener = function(e) {
     e.preventDefault()
-    $(this).parent().text($(this).data('content'));
-    
-  });
+		var that = $(this)[0];
+		var parent = that.parentElement;
+
+		new_link = that.cloneNode();
+		new_link.classList = 'read-less-link';
+		new_link.innerText = 'Read Less';
+		parent.innerHTML = that.dataset.content + " " + new_link.outerHTML;
+
+		parent.firstElementChild.addEventListener('click', addReadLessListener);
+  };
+
+	var addReadLessListener = function(e) {
+		e.preventDefault()
+		var that = $(this)[0];
+
+		var parent = that.parentElement;
+
+		new_link = that.cloneNode();
+		new_link.classList = 'read-more-link';
+		new_link.innerText = 'Read More';
+
+		old_text = parent.innerText;
+		new_text = old_text.substring(0, 97) + "...";
+
+		parent.innerHTML = new_text + " " + new_link.outerHTML;
+
+		parent.firstElementChild.addEventListener('click', addReadMoreListener);
+	}
+
+	$('.read-more-link').on('click', addReadMoreListener);
 
 	$('#groups-search-bar').keyup(function() {
 		var search_string = $(this)[0].value;
@@ -123,7 +151,9 @@ doc_ready = function () {
 	$('.alert.fade.alert-timeout').on('closed.bs.alert', function() {
 		$('.page-header.tall-margin').removeClass('tall-margin');
 	});
+
+	already_run = true;
 };
 
-$(document).ready(doc_ready);
+// $(document).ready(doc_ready);
 $(document).on('turbolinks:load', doc_ready);
