@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'events/index'
+
+  get 'events/new'
+
+  get 'events/create'
+
+  get 'events/update'
+
+  get 'events/show'
+
   resources :rosters do
   	resources :tasks, except: :index
   end
