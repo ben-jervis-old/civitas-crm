@@ -6,6 +6,8 @@ class User < ApplicationRecord
 	has_many :assignments, dependent: :destroy
 	has_many :tasks, -> { distinct },	through: :assignments
 	has_many :rosters, through: :tasks
+	has_many :attendances, dependent: :destroy
+	has_many :events, -> { distinct }, through: :attendances
 	has_and_belongs_to_many :notifications
 	has_one :privacy_setting, dependent: :destroy
 
@@ -24,6 +26,7 @@ class User < ApplicationRecord
 	before_save :check_birthdate
 	before_save { self.email = email.downcase }
 	before_create :create_activation_digest
+	after_create :create_privacy_setting
 
 	def to_i
 		self.id

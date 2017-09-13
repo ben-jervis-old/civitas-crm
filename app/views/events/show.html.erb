@@ -8,3 +8,21 @@
 	<li><%= link_to "Events", events_path %></li>
 	<li class='active'><%= @event.title %></li>
 </ol>
+
+<div class="row">
+	<div class="col-md-6">
+		<h4><%= @event.event_type %> event</h4>
+		<p>
+			<%= "#{@event.formatted_time} on #{@event.formatted_date}, at #{@event.location}" %>
+		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<h4>Attendees</h4>
+		<p>
+			<%= "#{pluralize(@event.users.length, 'person')} marked present at this event." %> <%= link_to 'See the full list.', users_event_path %>
+		</p>
+	</div>
+</div>
