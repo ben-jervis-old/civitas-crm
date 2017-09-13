@@ -10,7 +10,7 @@
 </ol>
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<h4><%= @event.event_type %> event</h4>
 		<p>
 			<%= "#{@event.formatted_time} on #{@event.formatted_date}, at #{@event.location}" %>
@@ -19,10 +19,27 @@
 </div>
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<h4>Attendees</h4>
 		<p>
-			<%= "#{pluralize(@event.users.length, 'person')} marked present at this event." %> <%= link_to 'See the full list.', users_event_path %>
+			<%= "#{pluralize(@event.users.length, 'person')} marked present at this event." %>
 		</p>
+		<p>
+			<%= link_to 'See the full list.', '#attendance-users-panel', data: { toggle: 'collapse' } %>
+		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="collapse panel panel-default" id='attendance-users-panel'>
+			<div class="list-group scrollable-list-group">
+				<% 30.times do |index| %>
+					<div class="list-group-item">
+						User Name (<%= index %>)
+					</div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>
