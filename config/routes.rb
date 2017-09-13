@@ -1,14 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'events/index'
-
-  get 'events/new'
-
-  get 'events/create'
-
-  get 'events/update'
-
-  get 'events/show'
+  resources :events do
+		get 'past', on: :collection
+	end
 
   resources :rosters do
   	resources :tasks, except: :index
@@ -24,7 +18,7 @@ Rails.application.routes.draw do
 		patch 	:privacy, to: 'users#update_privacy'
   end
   resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]  
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :notifications do
     get    '/resolve', to: 'notifications#resolve', as: 'resolve'
     get    '/unresolve', to: 'notifications#unresolve', as: 'unresolve'

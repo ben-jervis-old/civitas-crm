@@ -1,0 +1,55 @@
+<%= form_for @event do |f| %>
+	<%= render 'partials/error_messages', item: @event %>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<%= f.label :title %>
+				<%= f.text_field :title, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<%= f.label :location %>
+				<%= f.text_field :location, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<%= f.label :event_type %>
+				<%= f.text_field :event_type, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<%= f.label :event_time %>
+				<%= f.time_field :event_time, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<%= f.label :event_date %>
+				<%= f.date_field :event_date, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<%= f.label :repeat, 'Repeat every (days)' %>
+				<%= f.number_field :repeat, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<%= f.submit 'Save', class: 'btn btn-primary pull-right' %>
+			<%= link_to 'Cancel', @cancel_path, class: 'btn btn-default' %>
+		</div>
+	</div>
+
+<% end %>

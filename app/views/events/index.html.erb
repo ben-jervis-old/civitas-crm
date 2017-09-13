@@ -1,2 +1,62 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<% provide(:title, "Events") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Events</h1>
+</div>
+
+<% unless @this_weeks_events.empty? %>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Events This Week</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="list-group">
+				<% @this_weeks_events.each do |event| %>
+					<div class="list-group-item" data-searchterm="<%= event.title %>">
+						<h4><%= link_to event.title, event %> - <%= distance_of_time_in_words(Time.now, event.event_date.in_time_zone('Sydney').strftime("%d/%m/%Y")) %> from today.</h4>
+						<p>
+							<%=  "#{event.event_type}: #{event.event_date.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y")} at #{event.location}" %>.
+						</p>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+<% unless @future_events.empty? %>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Future Events</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="list-group">
+				<% @future_events.each do |event| %>
+					<div class="list-group-item" data-searchterm="<%= event.title %>">
+						<h4><%= link_to event.title, event %> <span class="small">- <%= distance_of_time_in_words(Time.now, event.event_date.in_time_zone('Sydney').strftime("%d/%m/%Y")) %> from today.</span></h4>
+						<p>
+							<%=  "#{event.event_type}: #{event.event_date.in_time_zone('Sydney').strftime("%I:%M%P on %d/%m/%Y")} at #{event.location}" %>.
+						</p>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+<% if @future_events.empty? && @this_weeks_events.empty? %>
+	<div class="row">
+		<div class="col-md-12">
+			<h4><em>There are no upcoming events.</em></h4>
+		</div>
+	</div>
+<% end %>
+
+<div class="row">
+	<div class="col-md-12">
+		<%= link_to 'View past events', past_events_path %>
+	</div>
+</div>

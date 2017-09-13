@@ -1,2 +1,10 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<% provide(:title, "New Event") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>New Event</h1>
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+		<%= render 'form' %>
+	</div>
+</div>

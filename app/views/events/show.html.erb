@@ -1,2 +1,10 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<% provide(:title, @event.title) %>
+
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Event: <%= @event.title %> </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Events", events_path %></li>
+	<li class='active'><%= @event.title %></li>
+</ol>
