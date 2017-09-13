@@ -1,16 +1,16 @@
 <div class="page-header <%= 'tall-margin' unless flash.empty? %>">
-  <h1>Message: <%= @contact.title %> </h1>
+  <h1>Message: <%= @message.title %> </h1>
 </div>
 
 <ol class="breadcrumb">
-	<li><%= link_to "Contacts", contacts_path %></li>
-	<li><%= link_to @contact.title, @contact %></li>
-	<li><%= link_to "Edit", @contact %></li>
+	<li><%= link_to "Contacts", messages_path %></li>
+	<li><%= link_to @message.title, @message %></li>
+	<li><%= link_to "Edit", @message %></li>
 	<li class='active'>Recipients</li>
 </ol>
 
 <div class="row padded-row">
-  <%= link_to @contact, class: "btn btn-default pull-right" do %>
+  <%= link_to @message, class: "btn btn-default pull-right" do %>
 		<i class="glyphicon glyphicon-chevron-left"></i> Back To Contact Page
 	<% end %>
 </div>
@@ -20,19 +20,19 @@
 		<h4>Recipients</h4>
 		<div class="panel panel-default">
 			<table class="table">
-				<% if @contact.users.size > 0 %>
-				  <% @contact.users.each do |user| %>
+				<% if @message.users.size > 0 %>
+				  <% @message.users.each do |user| %>
             	<div class="list-group-item col-md-4">
             		<h4>
                   <%= link_to user.name, user %>
-                  <%= link_to contact_unassign_user_path(@group.id, user.id), class: 'btn btn-default pull-right', method: :post do %>
+                  <%= link_to message_unassign_user_path(@group.id, user.id), class: 'btn btn-default pull-right', method: :post do %>
 										<i class="glyphicon glyphicon-minus"></i> Remove
 									<% end %>
                 </h4>
             	</div>
           <% end %>
 				<% else %>
-					<td>There are no recipients assigned to this contact yet.</td>
+					<td>There are no recipients assigned to this message yet.</td>
 				<% end %>
 			</table>
 		</div>
@@ -59,11 +59,11 @@
 		<div class="panel panel-default">
 			<table class="table">
 			  <% @users.each do |user| %>
-			  	<% if !@contact.user_ids.include?(user.id) %>
+			  	<% if !@message.user_ids.include?(user.id) %>
           	<div class="list-group-item col-md-4" data-groupname="<%= user.name %>">
           		<h4>
                 <%= link_to user.name, user %>
-								<%= link_to contact_assign_user_path(@contact.id, user.id), class: 'btn btn-default pull-right', method: :post do %>
+								<%= link_to message_assign_user_path(@message.id, user.id), class: 'btn btn-default pull-right', method: :post do %>
 									<i class="glyphicon glyphicon-plus"></i> Add
 								<% end %>
               </h4>

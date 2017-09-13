@@ -1,0 +1,18 @@
+
+<div class="col-md-10">
+  <p>
+      <%= mess.title %>
+  </p>
+  
+  <p>
+      <%= mess.content.html_safe %>
+  </p>
+</div>
+
+<% if mess.sent %>
+  <div class="col-md-2 pull-right">
+    <%= link_to edit_message_path(mess), class: "text-left btn btn-default" do %>
+    	<i class="glyphicon glyphicon-pencil"></i>  Edit
+    <% end %>
+  </div>
+<% end %>

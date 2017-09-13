@@ -19,9 +19,15 @@
 //= require_tree .
 //= stub 'tasks'
 //= require trix
+//= require select2
 
 var doc_ready;
 doc_ready = function () {
+	
+	$('.js-recipients-multiple').select2({
+    placeholder: "Choose a person",
+    allowClear: true
+  });
 
   // Debounce function to limit excessive cycles
   function debounce(func, wait, immediate) {

@@ -1,0 +1,20 @@
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Contacts</h1>
+</div>
+
+<div class="row padded-row">
+	<div class="row justify-content-md-center">
+		<%= render "actions" %>
+	</div>
+
+	<div class="row justify-content-md-center list-group">
+		<div class="col-md-6 list-group">
+			<%= render @messages %>
+		</div>
+	
+		<div class="col-md-6">
+				<%= render  partial: "content", locals: {mess: @message} %>
+		</div>
+	</div>
+	
+</div>

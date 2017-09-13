@@ -14,11 +14,15 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :account_setups,      only: [:edit, :update]
 
-  resources :contacts do
-    get     '/recipients', 							to: 'contacts#recipients', 						as: 'recipients'
-    post    '/assign/:user_id', 				to: 'contacts#assign', 								as: 'assign_user'
-    delete  '/unassign/:user_id', 			to: 'contacts#unassign', 							as: 'unassign_user'
+  match '/draft_messages' => 'messages#draft_messages', :via => :get, as: 'draft_messages'
+  match '/sent_messages' => 'messages#sent_messages', :via => :get,   as: 'sent_messages'
+
+  resources :messages do
+    get     '/recipients', 							to: 'messages#recipients', 						as: 'recipients'
+    post    '/assign/:user_id', 				to: 'messages#assign', 								as: 'assign_user'
+    delete  '/unassign/:user_id', 			to: 'messages#unassign', 							as: 'unassign_user'
   end
+
 
   resources :groups do
     get     '/members', 								to: 'groups#members', 							as: 'members'

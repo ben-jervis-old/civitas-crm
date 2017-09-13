@@ -1,0 +1,24 @@
+
+<div class="list-group-item" data-groupname="<%= message.title %>">
+  <% if @place == 'inbox' %>
+    <%= link_to message do %>
+      <h4><%= message.title %></h4>
+      <p><%= message.created_at %> | <%= message.updated_at %></p>
+      <% if !message.sent then %>
+      	Status: <i class="glyphicon glyphicon-pencil"></i> Draft
+      <% else %>
+      	Status: <i class="glyphicon glyphicon-send"></i> Sent
+      <% end %>
+    <% end %>
+  <% elsif @place == 'draft' %>
+    <%= link_to edit_message_path(message) do %>
+      <h4><%= message.title %></h4>
+      <p><%= message.created_at %> | <%= message.updated_at %></p>
+      <% if !message.sent then %>
+      	Status: <i class="glyphicon glyphicon-pencil"></i> Draft
+      <% else %>
+      	Status: <i class="glyphicon glyphicon-send"></i> Sent
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
