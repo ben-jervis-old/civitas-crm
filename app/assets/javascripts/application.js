@@ -25,7 +25,7 @@ var doc_ready;
 doc_ready = function () {
 	
 	$('.js-recipients-multiple').select2({
-    placeholder: "Choose a person",
+    placeholder: "Choose Recipients",
     allowClear: true
   });
 

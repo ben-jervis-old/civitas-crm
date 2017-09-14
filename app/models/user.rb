@@ -2,6 +2,8 @@ class User < ApplicationRecord
 	attr_accessor :remember_token, :activation_token, :reset_token
 
 	has_many :messages
+	has_many :received, class_name: Message
+	
 
 	has_many :memberships
 	has_many :groups, -> { distinct }, through: :memberships

@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   def index
-    @messages = Message.all
+    @messages = current_user.received
     @place = 'inbox'
   end
   
