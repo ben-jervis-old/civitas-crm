@@ -21,7 +21,7 @@
 var doc_ready;
 var already_run = false;
 doc_ready = function () {
-	console.log("Document Ready called");
+
   // Debounce function to limit excessive cycles
   function debounce(func, wait, immediate) {
     var timeout;
@@ -52,6 +52,15 @@ doc_ready = function () {
 			$("#action-menu").slideUp(150);
   	}
   });
+
+	$('#attendance-users-panel').on('shown.bs.collapse', function() {
+		console.log('hide');
+		$('#attendance-users-link').text("Hide the full list.");
+	});
+
+	$('#attendance-users-panel').on('hidden.bs.collapse', function() {
+		$('#attendance-users-link').text("Show the full list.");
+	});
 
 	var addReadMoreListener = function(e) {
     e.preventDefault()

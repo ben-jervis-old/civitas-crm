@@ -3,6 +3,8 @@ class Event < ApplicationRecord
 	validates :event_date, 	presence: true
 	validates :location, 		presence: true
 
+	attr_accessor :event_time
+
 	has_many :attendances, dependent: :destroy
 	has_many :users, -> { distinct }, through: :attendances
 

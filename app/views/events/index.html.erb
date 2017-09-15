@@ -37,9 +37,9 @@
 			<div class="list-group">
 				<% @this_weeks_events.each do |event| %>
 					<div class="list-group-item" data-searchterm="<%= event.title %>">
-						<h4><%= link_to event.title, event %> - <%= distance_of_time_in_words(Time.now, event.event_date.in_time_zone('Sydney').strftime("%d/%m/%Y")) %> from today.</h4>
+						<h4><%= link_to event.title, event %> - <%= time_string event %></h4>
 						<p>
-							<%=  "#{event.event_type}: #{event.event_date.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y")} at #{event.location}" %>.
+							<%=  "#{event.event_type}: #{event.formatted_time} #{event.formatted_date} at #{event.location}" %>.
 						</p>
 					</div>
 				<% end %>
@@ -59,7 +59,7 @@
 			<div class="list-group">
 				<% @future_events.each do |event| %>
 					<div class="list-group-item" data-searchterm="<%= event.title %>">
-						<h4><%= link_to event.title, event %> <span class="small">- <%= distance_of_time_in_words(Time.now, event.event_date.in_time_zone('Sydney').strftime("%d/%m/%Y")) %> from today.</span></h4>
+						<h4><%= link_to event.title, event %> - <%= time_string event %></h4>
 						<p>
 							<%=  "#{event.event_type}: #{event.event_date.in_time_zone('Sydney').strftime("%I:%M%P on %d/%m/%Y")} at #{event.location}" %>.
 						</p>

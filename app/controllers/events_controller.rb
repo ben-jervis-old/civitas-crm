@@ -16,7 +16,7 @@ class EventsController < ApplicationController
 	def edit
 		@event = Event.find(params[:id])
 		@cancel_path = event_path(@event)
-		@event.event_time = @event.event_date.to_time.in_time_zone('Sydney')
+		@event.event_time = @event.event_date.localtime
 	end
 
   def create
@@ -44,6 +44,13 @@ class EventsController < ApplicationController
   def show
 		@event = Event.find(params[:id])
   end
+
+	def attendance
+		@event = Event.find(params[:id])
+		@main_users = User.where(main_service: @event.title) if @event.event_type.downcase == 'service'
+		@families = Group.where('lower(group_type) = ?', 'family')
+		@users = User.all
+	end
 
 	private
 

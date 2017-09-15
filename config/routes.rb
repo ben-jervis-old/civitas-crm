@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :events do
 		get 'past', on: :collection
 		get 'users', on: :member
+		get 'attendance', on: :member
 	end
 
   resources :rosters do
