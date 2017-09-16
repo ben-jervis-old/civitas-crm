@@ -16,11 +16,11 @@
 		</div>
 		<div class="col-xs-3">
 			<% if notification.read %>
-				<%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default hidden-xs pull-right", title: 'Mark as unresolved' do %>
+				<%= link_to unresolve_notification_path(notification), class: "text-left btn btn-default hidden-xs pull-right", title: 'Mark as unresolved' do %>
 					<%= fa_icon 'envelope-o', class: 'large-icon' %> </i> Mark as Unread
 				<% end %>
 			<% else %>
-				<%= link_to notification_resolve_path(notification), class: "text-left btn btn-default hidden-xs pull-right", title: 'Mark as resolved' do %>
+				<%= link_to resolve_notification_path(notification), class: "text-left btn btn-default hidden-xs pull-right", title: 'Mark as resolved' do %>
 					<%= fa_icon 'envelope-open-o', class: 'large-icon' %> </i> Mark as Read
 				<% end %>
 			<% end %>
@@ -45,11 +45,11 @@
 		</div>
 		<div class="col-xs-6 visible-xs-block">
 			<% if notification.read %>
-				<%= link_to notification_unresolve_path(notification), class: "text-left btn btn-default pull-right", title: 'Mark as unresolved' do %>
+				<%= link_to unresolve_notification_path(notification), class: "text-left btn btn-default pull-right", title: 'Mark as unresolved' do %>
 					<%= fa_icon 'envelope-o', class: 'large-icon' %> </i> Mark as Unread
 				<% end %>
 			<% else %>
-				<%= link_to notification_resolve_path(notification), class: "text-left btn btn-default pull-right", title: 'Mark as resolved' do %>
+				<%= link_to resolve_notification_path(notification), class: "text-left btn btn-default pull-right", title: 'Mark as resolved' do %>
 					<%= fa_icon 'envelope-open-o', class: 'large-icon' %> </i> Mark as Read
 				<% end %>
 			<% end %>
