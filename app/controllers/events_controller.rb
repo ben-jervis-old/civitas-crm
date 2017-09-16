@@ -52,6 +52,20 @@ class EventsController < ApplicationController
 		@users = User.all
 	end
 
+	def next
+		@event = Event.find(params[:id])
+
+		new_event = @event.next_occurrence
+
+		if new_event.save
+			flash[:success] = 'New event created successfully'
+			redirect_to new_event
+		else
+			flash[:danger] = 'There was an error creating the new event'
+			render 'show'
+		end
+	end
+
 	private
 
 		def event_params

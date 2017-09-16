@@ -33,24 +33,41 @@
 		<div class="row">
 			<div class="col-md-12">
 				<%= link_to 'Edit Event', edit_event_path(@event), class: 'btn btn-default' %>
+				<% if @event.repeat > 0 %>
+					<%= content_tag :button,
+													'Create Next',
+													class: 'btn btn-default',
+													data: {
+														html: true,
+														toggle: 'popover',
+														placement: 'top',
+														trigger: 'focus',
+														container: 'body',
+														content: "<div><p class='text-center'>This action will create a copy of this event with a date of #{@event.formatted_next}</p>
+																			#{link_to 'Confirm', next_event_path(@event), class: 'btn btn-block btn-warning'}</div>" } %>
+				<% end %>
 				<%= link_to 'Mark Attendance', attendance_event_path(@event), class: 'btn btn-success' %>
+			</div>
+			<div>
+
 			</div>
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="collapse panel panel-default" id='attendance-users-panel'>
-			<div class="panel-heading">
-				<div class="input-group">
-					<input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
-					<span class="input-group-btn">
-						<button class="btn btn-default">
-							<%= fa_icon 'search' %>
-						</button>
-					</span>
-				</div>
-			</div>
+
 
 			<div class="list-group scrollable-list-group">
+				<div class="list-group-item">
+					<div class="input-group">
+						<input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
+						<span class="input-group-btn">
+							<button class="btn btn-default">
+								<%= fa_icon 'search' %>
+							</button>
+						</span>
+					</div>
+				</div>
 				<% 30.times do |index| %>
 					<div class="list-group-item">
 						User Name (<%= index %>)
