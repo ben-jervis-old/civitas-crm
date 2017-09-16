@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 		get 'users', 			on: :member
 		get 'attendance', on: :member
 		get 'next', 			on: :member
+		post 'mark/:user_id', to: 'events#mark', as: 'mark_attendance'
+		post 'unmark/:user_id', to: 'events#unmark', as: 'unmark_attendance'
 	end
 
   resources :rosters do

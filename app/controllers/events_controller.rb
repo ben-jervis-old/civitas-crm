@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   def index
-		@future_events = Event.where('event_date >= ?', Time.zone.now.to_date + 7)
-		@this_weeks_events = Event.where('event_date >= ?', Time.zone.now.to_date).where('event_date < ?', Time.zone.now.to_date + 7)
+		@future_events = Event.where('event_date >= ?', Time.zone.now.to_date + 7).order(event_date: :asc)
+		@this_weeks_events = Event.where('event_date >= ?', Time.zone.now.to_date).where('event_date < ?', Time.zone.now.to_date + 7).order(event_date: :asc)
   end
 
 	def past
@@ -43,13 +43,14 @@ class EventsController < ApplicationController
 
   def show
 		@event = Event.find(params[:id])
+		@present_users = @event.users.sort_by{ |user| [user.last_name, user.first_name] }
   end
 
 	def attendance
 		@event = Event.find(params[:id])
 		@main_users = User.where(main_service: @event.title) if @event.event_type.downcase == 'service'
-		@families = Group.where('lower(group_type) = ?', 'family')
-		@users = User.all
+		@families = Group.where('lower(group_type) = ?', 'family').order(name: :asc)
+		@users = User.all.order(last_name: :asc).order(first_name: :asc)
 	end
 
 	def next
@@ -64,6 +65,20 @@ class EventsController < ApplicationController
 			flash[:danger] = 'There was an error creating the new event'
 			render 'show'
 		end
+	end
+
+	def mark
+		event = Event.find(params[:event_id])
+		user = User.find(params[:user_id])
+		event.users << user
+		render json: {}, status: :ok
+	end
+
+	def unmark
+		event = Event.find(params[:event_id])
+		user = User.find(params[:user_id])
+		event.users.delete(user.id)
+		render json: {}, status: :ok
 	end
 
 	private

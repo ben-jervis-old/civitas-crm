@@ -27,6 +27,6 @@ class Event < ApplicationRecord
 	end
 
 	def event_time
-		self.event_date.to_time.localtime
+		self.event_date.to_time.localtime unless self.event_date.nil?
 	end
 end

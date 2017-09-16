@@ -42,6 +42,7 @@ doc_ready = function () {
   $('[data-toggle="tooltip"]').tooltip();
 	$('[data-toggle="popover"]').popover();
 
+	// Control the dropdown of the mobile menu
   $("#action-menu-button").click(function(e) {
     e.preventDefault();
   	$("#action-menu").slideDown(150);
@@ -54,7 +55,6 @@ doc_ready = function () {
   });
 
 	$('#attendance-users-panel').on('shown.bs.collapse', function() {
-		console.log('hide');
 		$('#attendance-users-link').text("Hide the full list.");
 	});
 
@@ -123,6 +123,7 @@ doc_ready = function () {
 		}
 	});
 
+
 	$('#username-search-bar').keyup(debounce(function(e) {
     // If enter was pressed, navigate to first result
     if(e.which == 13) {
@@ -151,6 +152,83 @@ doc_ready = function () {
   		}
     }
 	}, 100));
+
+	$('#attendance-search-bar').keyup(debounce(function(e) {
+    var search_string = $(this)[0].value;
+		var filter_string = search_string.toUpperCase();
+		var object_list = $('[data-type=family-group]');
+
+		for(i = 0; i < object_list.length; i++) {
+			object_name = object_list[i].dataset.searchterm.split(' ')[1];
+			if(object_name.toUpperCase().indexOf(filter_string) > -1) {
+				object_list[i].classList.remove('hidden-item');
+			}
+			else {
+				object_list[i].classList.add('hidden-item');
+			}
+		}
+
+		if($('[data-type=family]:not(.hidden-item)').length == 0) {
+			$('#list-empty-msg')[0].classList = 'text-center';
+		}
+		else {
+			$('#list-empty-msg')[0].classList = 'hidden-item';
+		}
+	}, 100));
+
+	function post_checkbox(checkbox_element) {
+		val = checkbox_element.checked;
+		event_id = $(checkbox_element).data('event-id');
+		url_segment = val ? 'mark' : 'unmark';
+		user_id = $(checkbox_element).data('id');
+		url = '/events/' + event_id + '/' + url_segment + '/' + user_id;
+
+		$.ajax({
+			type: 'POST',
+			url: url,
+			data: {}
+		}).fail(function() {
+			checkbox_element.checked = false;
+			check_family_box(checkbox_element);
+			alert('There was an error');
+		});
+	}
+
+	function check_family_box(checkbox_element) {
+		family_group = $(checkbox_element).closest('[data-type=family-group]');
+		family_box = $(family_group).find('input[data-type=family]')[0];
+		all_checked = true;
+		$(family_group).find('input[data-type=user]').each(function() {
+			all_checked = all_checked && checkbox_element.checked;
+		});
+		family_box.checked = all_checked;
+	}
+
+	$('.unpadded-checkboxes input[type=checkbox]').change(function() {
+		checkbox_type = $(this).data('type');
+		event_id = $(this).data('event-id');
+		checkbox_value = this.checked;
+
+		if(checkbox_type == 'family') {
+			family_group = $(this).closest('[data-type=family-group]');
+			$(family_group).find('input[data-type=user]').each(function() {
+				this.checked = checkbox_value;
+				post_checkbox(this);
+			});
+		}
+		else {
+			post_checkbox(this);
+			check_family_box(this);
+		}
+	});
+
+	$('.search-bar').focus(function() {
+		if($(window).width() < 768) {
+			$('html, body').animate({
+		    scrollTop: $(this).offset().top - 80
+			}, 600);
+		}
+	});
 
 	// Flash alerts dismiss after 10 seconds
 	window.setTimeout(function() {

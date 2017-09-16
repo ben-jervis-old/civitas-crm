@@ -1,0 +1,93 @@
+<% provide(:title, @event.title) %>
+
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1><span class="hidden-xs">Mark Attendance: </span><%= @event.title %> </h1>
+</div>
+
+<div class="row bounded-row">
+	<div class="col-md-5">
+		<div class="input-group">
+			<input type="text" id='attendance-search-bar' class="form-control" placeholder="Search">
+			<span class="input-group-btn">
+				<button class="btn btn-default">
+					<%= fa_icon 'search' %>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="gap-spacer"></div><div class="gap-spacer"></div><div class="gap-spacer"></div>
+	<div class="col-md-5 col-md-offset-2">
+		<div class="btn-group pull-right">
+			<div class="btn-group" id='grouping-button-group'>
+				<button class="btn btn-default">
+					<%= fa_icon 'user' %> Show as Individuals
+				</button>
+				<button class="btn btn-default hidden">
+					<%= fa_icon 'users' %> Group by Family
+				</button>
+			</div>
+			<div class="btn-group" id='filtering-button-group'>
+				<button class="btn btn-default hidden">
+					<%= fa_icon 'list-ol' %> Show expected Members
+				</button>
+				<button class="btn btn-default">
+					<%= fa_icon 'list-ul' %> Show all Members
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row unpadded-checkboxes" id='family-view'>
+	<% @families.each do |family| %>
+		<%= content_tag :div, class: 'col-lg-3 col-md-4 col-sm-6 col-xs-12', data: { type: 'family-group', searchterm: family.name } do %>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" data-type='family' data-id='<%= family.id %>' data-event-id='<%= @event.id %>' <%= 'checked' if (family.user_ids - @event.user_ids).empty? %>>
+							<strong><%= family.name %></strong>
+						</label>
+					</div>
+				</div>
+				<div class="list-group">
+					<% family.users.sort_by(&:name).each do |user| %>
+						<div class="list-group-item">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" data-type='user' data-id='<%= user.id %>' data-event-id='<%= @event.id %>' <%= 'checked' if @event.user_ids.include? user.id %>>
+									<%= user.name %>
+								</label>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>
+
+<div class="row unpadded-checkboxes" id='user-view'>
+	<% @users.each do |user| %>
+		<%= content_tag :div, class: 'col-lg-3 col-md-4 col-sm-6 col-xs-12', data: { type: 'user', searchterm: user.name } do %>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">
+							<%= user.name %>
+						</label>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>
+
+<div id='list-empty-msg' class="hidden">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<em>There are no families to show</em>
+		</div>
+	</div>
+</div>

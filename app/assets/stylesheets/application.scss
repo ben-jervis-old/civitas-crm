@@ -93,6 +93,17 @@ body {
 		}
 }
 
+.unpadded-checkboxes {
+	display: flex;
+	flex-wrap: wrap;
+	.checkbox {
+		margin: 0;
+		label {
+			width: 100%;
+		}
+	}
+}
+
 a.pull-right.navbar-brand {
 	line-height: 47px;
 }
