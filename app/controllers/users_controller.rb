@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 
 			notification = Notification.create(title: 'New Member', content: "#{@user.name} has created an account", resolve_link: user_path(@user))
 			notification.users << User.where(level: 'staff')
-			
+
 			redirect_to root_path
 		else
 			render 'signup'
@@ -123,15 +123,28 @@ class UsersController < ApplicationController
 			[:mobile_number, :work_number, :home_number].each do |param|
 				params[:user][param] = params[:user][param].split.join('').to_i
 			end
-    	# params[:user][:mobile_number] = params[:user][:mobile_number].split.join('').to_i
-			# params[:user][:work_number] = params[:user][:work_number].split.join('').to_i
-			# params[:user][:home_number] = params[:user][:home_number].split.join('').to_i
 			params[:user][:level] ||= 'visitor'
-      params.require(:user).permit(:first_name, :last_name, :email, :address, :mobile_number, :work_number, :home_number, :dob, :password, :password_confirmation, :level)
+      params.require(:user).permit(	:first_name,
+																		:last_name,
+																		:email,
+																		:address,
+																		:mobile_number,
+																		:work_number,
+																		:home_number,
+																		:dob,
+																		:main_service,
+																		:occupation,
+																		:password,
+																		:password_confirmation,
+																		:level )
     end
 
 		def user_signup_params
-			params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+			params.require(:user).permit(	:first_name,
+																		:last_name,
+																		:email,
+																		:password,
+																		:password_confirmation )
 		end
 
 		def check_staff
