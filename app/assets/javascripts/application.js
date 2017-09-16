@@ -230,6 +230,21 @@ doc_ready = function () {
 		}
 	});
 
+	$('#grouping-button-group button').click(function() {
+		operation = $(this).data('operation');
+		if(operation == 'individual') {
+			$('#family-view').addClass('hidden');
+			$('#user-view').removeClass('hidden');
+		}
+		else {
+			$('#family-view').removeClass('hidden');
+			$('#user-view').addClass('hidden');
+		}
+
+		$(this).addClass('hidden');
+		$(this).siblings().removeClass('hidden');
+	});
+
 	// Flash alerts dismiss after 10 seconds
 	window.setTimeout(function() {
 		$('.alert.fade.alert-timeout').alert('close');

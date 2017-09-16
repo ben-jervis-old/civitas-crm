@@ -7,7 +7,7 @@
 <div class="row bounded-row">
 	<div class="col-md-5">
 		<div class="input-group">
-			<input type="text" id='attendance-search-bar' class="form-control" placeholder="Search">
+			<input type="text" id='attendance-search-bar' class="form-control search-bar" placeholder="Search">
 			<span class="input-group-btn">
 				<button class="btn btn-default">
 					<%= fa_icon 'search' %>
@@ -19,18 +19,18 @@
 	<div class="col-md-5 col-md-offset-2">
 		<div class="btn-group pull-right">
 			<div class="btn-group" id='grouping-button-group'>
-				<button class="btn btn-default">
+				<button class="btn btn-default" data-operation='individual'>
 					<%= fa_icon 'user' %> Show as Individuals
 				</button>
-				<button class="btn btn-default hidden">
+				<button class="btn btn-default hidden" data-operation='group'>
 					<%= fa_icon 'users' %> Group by Family
 				</button>
 			</div>
 			<div class="btn-group" id='filtering-button-group'>
-				<button class="btn btn-default hidden">
+				<button class="btn btn-default hidden" data-operation='expected'>
 					<%= fa_icon 'list-ol' %> Show expected Members
 				</button>
-				<button class="btn btn-default">
+				<button class="btn btn-default" data-operation='all'>
 					<%= fa_icon 'list-ul' %> Show all Members
 				</button>
 			</div>
@@ -67,7 +67,7 @@
 	<% end %>
 </div>
 
-<div class="row unpadded-checkboxes" id='user-view'>
+<div class="row unpadded-checkboxes hidden" id='user-view'>
 	<% @users.each do |user| %>
 		<%= content_tag :div, class: 'col-lg-3 col-md-4 col-sm-6 col-xs-12', data: { type: 'user', searchterm: user.name } do %>
 			<div class="panel panel-default">
