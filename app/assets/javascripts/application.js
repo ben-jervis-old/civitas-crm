@@ -174,6 +174,26 @@ doc_ready = function () {
 		else {
 			$('#list-empty-msg')[0].classList = 'hidden-item';
 		}
+
+		var object_list = $('[data-type=user-group]');
+		console.log(object_list);
+
+		for(i = 0; i < object_list.length; i++) {
+			object_name = object_list[i].dataset.searchterm.split(' ')[1];
+			if(object_name.toUpperCase().indexOf(filter_string) > -1) {
+				object_list[i].classList.remove('hidden-item');
+			}
+			else {
+				object_list[i].classList.add('hidden-item');
+			}
+		}
+
+		if($('[data-type=user]:not(.hidden-item)').length == 0) {
+			$('#list-empty-msg')[0].classList = 'text-center';
+		}
+		else {
+			$('#list-empty-msg')[0].classList = 'hidden-item';
+		}
 	}, 100));
 
 	function post_checkbox(checkbox_element) {
@@ -196,12 +216,14 @@ doc_ready = function () {
 
 	function check_family_box(checkbox_element) {
 		family_group = $(checkbox_element).closest('[data-type=family-group]');
-		family_box = $(family_group).find('input[data-type=family]')[0];
-		all_checked = true;
-		$(family_group).find('input[data-type=user]').each(function() {
-			all_checked = all_checked && checkbox_element.checked;
-		});
-		family_box.checked = all_checked;
+		if($(family_group).length > 0) {
+			family_box = $(family_group).find('input[data-type=family]')[0];
+			all_checked = true;
+			$(family_group).find('input[data-type=user]').each(function() {
+				all_checked = all_checked && checkbox_element.checked;
+			});
+			family_box.checked = all_checked;
+		}
 	}
 
 	$('.unpadded-checkboxes input[type=checkbox]').change(function() {
