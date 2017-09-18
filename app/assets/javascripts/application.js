@@ -156,6 +156,8 @@ doc_ready = function () {
 	$('#attendance-search-bar').keyup(debounce(function(e) {
     var search_string = $(this)[0].value;
 		var filter_string = search_string.toUpperCase();
+
+		/*--- Search the Families first ---*/
 		var object_list = $('[data-type=family-group]');
 
 		for(i = 0; i < object_list.length; i++) {
@@ -175,8 +177,8 @@ doc_ready = function () {
 			$('#list-empty-msg')[0].classList = 'hidden-item';
 		}
 
+		/*--- Also search individual Users ---*/
 		var object_list = $('[data-type=user-group]');
-		console.log(object_list);
 
 		for(i = 0; i < object_list.length; i++) {
 			object_name = object_list[i].dataset.searchterm.split(' ')[1];
