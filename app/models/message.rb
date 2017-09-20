@@ -1,7 +1,7 @@
 class Message < ApplicationRecord
-#  has_one :creator
-#  has_one :user, through: :creator
-	belongs_to :user
-	has_many :recipients, class_name: User
+	belongs_to :sender, class_name: "User"
+	
+	has_many :message_receivers 
+    has_many :receivers , through: :message_receivers
 	
 end

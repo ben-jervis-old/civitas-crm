@@ -1,11 +1,11 @@
 class MessagesController < ApplicationController
   def index
-    @messages = current_user.received
+    @messages = current_user.messages_sent
     @place = 'inbox'
   end
   
   def sent_messages
-    @messages = current_user.messages
+    @messages = current_user.messages_sent
                     .where(sent: true)
                     .order(created_at: :desc)
     
@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
   end
   
   def draft_messages
-    @messages = current_user.messages
+    @messages = current_user.messages_sent
                     .where(sent: false)
                     .order(created_at: :desc)
     
@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
-    @messages = current_user.messages
+    @messages = current_user.messages_sent
                     .where(sent: false)
                     .order(created_at: :desc)
     
@@ -32,22 +32,27 @@ class MessagesController < ApplicationController
   
   def update
     @message = Message.find(params[:id])
-
+    if :submit == "Send Message"
+      params[:message][:sent] = true
+    elsif :submit == "Save as Draft"
+      params[:message][:sent] = false
+    end
+    
     if @message.update_attributes(message_params)
 			flash[:success] = "Message updated successfully"
-      redirect_to @message
+      render 'edit'
     else
       flash[:success] = "Message not updated try again"
-      render @message
+      render 'edit'
     end
   end
   
   def create
-		@message = current_user.messages.create(message_params)
+    @message = current_user.messages_sent.create(message_params)
 
 		if @message.save
 			flash[:success] = "Message created successfully"
-			redirect_to messages_path
+			render 'draft_messages'
 		else
 			render 'new'
 		end
@@ -56,13 +61,13 @@ class MessagesController < ApplicationController
   def show
     @message = Message.find(params[:id])
     if @message.sent
-      @messages = current_user.messages
+      @messages = current_user.messages_sent
                   .where(sent: false)
                   .order(created_at: :desc)
       
       @place = 'sent'
     else
-      @messages = current_user.messages
+      @messages = current_user.messages_sent
                     .where(sent: true)
                     .order(created_at: :desc)
       
@@ -75,11 +80,19 @@ class MessagesController < ApplicationController
 
   def edit
     @message = Message.find(params[:id])
-		@cancel_path = message_path(@message.id)
-		@messages = current_user.messages
+    if @message.sent
+      @place = 'sent'
+      @messages = current_user.messages_sent
+                  .where(sent: true)
+                  .order(created_at: :desc)
+    else
+      @place = 'draft'
+      @messages = current_user.messages_sent
                   .where(sent: false)
                   .order(created_at: :desc)
-    @place = 'draft'
+    end
+    
+		@cancel_path = message_path(@message.id)
     @users = User.all
   end
   
@@ -105,6 +118,9 @@ class MessagesController < ApplicationController
   private
 
     def message_params
-      params.require(:message).permit(:title,:content)
+      params.require(:message).permit(:title,:content,:sent)
+    end
+    def receivers_params
+      params.require(:recipients).permit(:user_id[])
     end
 end

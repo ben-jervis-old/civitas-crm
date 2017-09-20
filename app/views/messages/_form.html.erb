@@ -5,13 +5,15 @@
 	  <div class="form-group col-md-12">
 	    <%= f.label 'To' %>
   		
-  		<select class="js-recipients-multiple col-md-12" multiple="multiple">
+  		<select class="js-recipients-multiple col-md-12" name="recipients[user_id][]" id="message_user_id" multiple="multiple">
         <% @users.each do |user| %>
           <option value="<%= user.id %>"><%= user.first_name %></option>
         <% end %>
       </select>
   	</div>
 	</div>
+	
+
 	
 	<div class="row">
     <div class="form-group col-md-12">
@@ -29,7 +31,8 @@
 
   <div class="row">
 		<div class="col-sm-12">
-			<%= f.submit "Save Changes", class: "btn btn-primary  pull-right" %>
+		  <%= f.submit "Send Message", class: "btn btn-primary  pull-right", :name => 'submit' %>
+			<%= f.submit "Save as Draft", class: "btn btn-default  pull-right", :name => 'submit'  %>
 			<%= link_to 'Cancel', messages_path, class: 'btn btn-default'%>
 		</div>
 	</div>

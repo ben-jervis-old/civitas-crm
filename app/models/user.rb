@@ -1,9 +1,10 @@
 class User < ApplicationRecord
 	attr_accessor :remember_token, :activation_token, :reset_token
-
-	has_many :messages
-	has_many :received, class_name: Message
 	
+	has_many :messages_sent, class_name: "Message", foreign_key: "sender_id"
+	
+	has_many :message_receivers
+	has_many :messages_received, through: :message_receivers
 
 	has_many :memberships
 	has_many :groups, -> { distinct }, through: :memberships
@@ -13,7 +14,6 @@ class User < ApplicationRecord
 	has_many :rosters, through: :tasks
 	has_and_belongs_to_many :notifications
 	
-
 	has_secure_password
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
