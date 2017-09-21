@@ -1,10 +1,8 @@
 class User < ApplicationRecord
 	attr_accessor :remember_token, :activation_token, :reset_token
 	
-	has_many :messages_sent, class_name: "Message", foreign_key: "sender_id"
-	
-	has_many :message_receivers
-	has_many :messages_received, through: :message_receivers
+	has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
+	has_many :received_messages, class_name: "Message", foreign_key: "receiver_id"
 
 	has_many :memberships
 	has_many :groups, -> { distinct }, through: :memberships

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920125924) do
+ActiveRecord::Schema.define(version: 20170921052117) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -48,13 +48,6 @@ ActiveRecord::Schema.define(version: 20170920125924) do
     t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
   end
 
-  create_table "message_receivers", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "message_id"
-    t.integer  "receiver_id"
-  end
-
   create_table "messages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -62,7 +55,8 @@ ActiveRecord::Schema.define(version: 20170920125924) do
     t.datetime "updated_at",                 null: false
     t.datetime "sent_at"
     t.boolean  "sent",       default: false
-    t.integer  "sender_id"
+    t.integer "sender_id"
+    t.integer "receiver_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -82,13 +76,6 @@ ActiveRecord::Schema.define(version: 20170920125924) do
     t.integer "user_id",         null: false
     t.index ["notification_id"], name: "index_notifications_users_on_notification_id"
     t.index ["user_id"], name: "index_notifications_users_on_user_id"
-  end
-
-  create_table "received_messages", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "receiver_id"
-    t.integer  "message_id"
   end
 
   create_table "receivers", force: :cascade do |t|

@@ -16,13 +16,7 @@ Rails.application.routes.draw do
 
   match '/draft_messages' => 'messages#draft_messages', :via => :get, as: 'draft_messages'
   match '/sent_messages' => 'messages#sent_messages', :via => :get,   as: 'sent_messages'
-
-  resources :messages do
-    get     '/recipients', 							to: 'messages#recipients', 						as: 'recipients'
-    post    '/assign/:user_id', 				to: 'messages#assign', 								as: 'assign_user'
-    delete  '/unassign/:user_id', 			to: 'messages#unassign', 							as: 'unassign_user'
-  end
-
+  resources :messages
 
   resources :groups do
     get     '/members', 								to: 'groups#members', 							as: 'members'

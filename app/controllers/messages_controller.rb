@@ -1,11 +1,12 @@
 class MessagesController < ApplicationController
   def index
-    @messages = current_user.messages_sent
+    @messages = current_user.received_messages
+                    .order(created_at: :desc)
     @place = 'inbox'
   end
   
   def sent_messages
-    @messages = current_user.messages_sent
+    @messages = current_user.sent_messages
                     .where(sent: true)
                     .order(created_at: :desc)
     
@@ -13,7 +14,7 @@ class MessagesController < ApplicationController
   end
   
   def draft_messages
-    @messages = current_user.messages_sent
+    @messages = current_user.sent_messages
                     .where(sent: false)
                     .order(created_at: :desc)
     
@@ -22,7 +23,7 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
-    @messages = current_user.messages_sent
+    @messages = current_user.sent_messages
                     .where(sent: false)
                     .order(created_at: :desc)
     
@@ -32,23 +33,35 @@ class MessagesController < ApplicationController
   
   def update
     @message = Message.find(params[:id])
-    if :submit == "Send Message"
-      params[:message][:sent] = true
-    elsif :submit == "Save as Draft"
-      params[:message][:sent] = false
+    @message.update_attributes(message_params)
+    if params[:submit] == "Send Message" && params.has_key?(:recipients)
+      @message.sent = true
+      params[:recipients][:user_id].each  do |id|
+        @recipient = User.find(id)
+        @recipient.received_messages.create(title: @message.title,
+                        content: @message.content,
+                        sender: @message.sender)
+      end
+      @message.sent = true
+      if @message.save
+  			flash[:success] = "Message updated successfully"
+      else
+        flash[:success] = "Message not updated try again"
+      end
+      redirect_to action: 'index'
+    elsif params[:submit] == "Save as Draft"
+      if @message.save
+  			flash[:success] = "Message updated successfully"
+      else
+        flash[:success] = "Message not updated try again"
+      end
+      redirect_to :back
     end
     
-    if @message.update_attributes(message_params)
-			flash[:success] = "Message updated successfully"
-      render 'edit'
-    else
-      flash[:success] = "Message not updated try again"
-      render 'edit'
-    end
   end
   
   def create
-    @message = current_user.messages_sent.create(message_params)
+    @message = current_user.sent_messages.create(message_params)
 
 		if @message.save
 			flash[:success] = "Message created successfully"
@@ -60,14 +73,19 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find(params[:id])
-    if @message.sent
-      @messages = current_user.messages_sent
+    if @message.receiver == current_user
+      @messages = current_user.received_messages
+                  .order(created_at: :desc)
+      
+      @place = 'inbox'
+    elsif @message.sent
+      @messages = current_user.sent_messages
                   .where(sent: false)
                   .order(created_at: :desc)
       
       @place = 'sent'
     else
-      @messages = current_user.messages_sent
+      @messages = current_user.sent_messages
                     .where(sent: true)
                     .order(created_at: :desc)
       
@@ -82,12 +100,12 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
     if @message.sent
       @place = 'sent'
-      @messages = current_user.messages_sent
+      @messages = current_user.sent_messages
                   .where(sent: true)
                   .order(created_at: :desc)
     else
       @place = 'draft'
-      @messages = current_user.messages_sent
+      @messages = current_user.sent_messages
                   .where(sent: false)
                   .order(created_at: :desc)
     end
@@ -96,31 +114,12 @@ class MessagesController < ApplicationController
     @users = User.all
   end
   
-  def recipients
-    @message = Message.find(params[:message_id])
-    @users = User.all
-  end
-  
-  def assign
-		@message = Message.find(params[:message_id])
-		user = User.find(params[:user_id])
-		@message.Recipients << user
-		redirect_to message_path(@message)
-	end
-
-	def unassign
-		@message = Message.find(params[:group_id])
-		user = User.find(params[:user_id])
-		@message.Recipients.delete user
-		redirect_to message_path(@message)
-	end
-  
   private
 
     def message_params
-      params.require(:message).permit(:title,:content,:sent)
+      params.require(:message).permit(:title,:content)
     end
     def receivers_params
-      params.require(:recipients).permit(:user_id[])
+      params.require(:recipients).permit(:user_id)
     end
 end

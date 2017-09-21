@@ -1,9 +1,14 @@
 
-<div class="col-md-10">
-  <p>
-      <%= mess.title %>
-  </p>
-  
+<div class="col-md-12">
+  <b>From</b>
+  <i><%= mess.sender.name %> </i>
+  <br>
+  <b>To</b>
+  <i><%= mess.receiver.name %> </i>
+  <br>
+  <b>Title</b>
+  <i> <%= mess.title %> </i>
+  <hr>
   <p>
       <%= mess.content.html_safe %>
   </p>
