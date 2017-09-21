@@ -1,13 +1,15 @@
 class User < ApplicationRecord
 	attr_accessor :remember_token, :activation_token, :reset_token
 
-	has_many :memberships
+	has_many :memberships, dependent: :destroy
 	has_many :groups, -> { distinct }, through: :memberships
-	has_many :assignments
+	has_many :assignments, dependent: :destroy
 	has_many :tasks, -> { distinct },	through: :assignments
 	has_many :rosters, through: :tasks
+	has_many :attendances, dependent: :destroy
+	has_many :events, -> { distinct }, through: :attendances
 	has_and_belongs_to_many :notifications
-	has_one :privacy_setting
+	has_one :privacy_setting, dependent: :destroy
 
 	has_secure_password
 
@@ -24,6 +26,7 @@ class User < ApplicationRecord
 	before_save :check_birthdate
 	before_save { self.email = email.downcase }
 	before_create :create_activation_digest
+	after_create :create_privacy_setting
 
 	def to_i
 		self.id

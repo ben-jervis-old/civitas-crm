@@ -1,5 +1,5 @@
 class Group < ApplicationRecord
-	has_many :memberships
+	has_many :memberships, dependent: :destroy
 	has_many :users, through: :memberships
 
 	validates :name, presence: true
@@ -13,7 +13,7 @@ class Group < ApplicationRecord
 		membership.update_attributes(trusted: true)
 		membership.save
 	end
-	
+
 	def remove_admin(user)
 		membership = self.memberships.select{ |membership| membership.user_id == user.to_i }.first
 		membership.update_attributes(trusted: false)

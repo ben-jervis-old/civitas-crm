@@ -13,13 +13,13 @@
 			<% end %>
 		</td>
 		<td class="">
-			<%= active_link_to rosters_path do %>
-				<i class="fa fa-calendar"></i>
-				<small>Rostering</small>
+			<%= active_link_to groups_path do %>
+				<%= fa_icon 'list' %>
+				<small>Groups</small>
 			<% end %>
 		</td>
 		<td>
-			<%= link_to '#Attendance' do %>
+			<%= active_link_to events_path do %>
 				<i class="fa fa-check"></i>
 				<small>Attendance</small>
 			<% end %>

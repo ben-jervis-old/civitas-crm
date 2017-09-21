@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903054547) do
+ActiveRecord::Schema.define(version: 20170916021958) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20170903054547) do
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_assignments_on_task_id"
     t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.text     "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_attendances_on_event_id"
+    t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -49,6 +59,16 @@ ActiveRecord::Schema.define(version: 20170903054547) do
     t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.datetime "sent_at"
+    t.boolean  "sent"
+    t.integer  "recipients_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -75,11 +95,13 @@ ActiveRecord::Schema.define(version: 20170903054547) do
     t.boolean  "address",         default: true
     t.boolean  "email",           default: true
     t.boolean  "dob",             default: true
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.boolean  "user_created_at", default: true
     t.boolean  "home_number",     default: true
     t.boolean  "work_number",     default: true
+    t.boolean  "main_service",    default: true
+    t.boolean  "occupation",      default: false
     t.index ["user_id"], name: "index_privacy_settings_on_user_id"
   end
 
@@ -126,6 +148,7 @@ ActiveRecord::Schema.define(version: 20170903054547) do
     t.datetime "reset_sent_at"
     t.integer  "home_number"
     t.integer  "work_number"
+    t.integer  "received_id"
   end
 
 end

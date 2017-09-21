@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all
+    @groups = Group.all.order(:name)
   end
 
   def members

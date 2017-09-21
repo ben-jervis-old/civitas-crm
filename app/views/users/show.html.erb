@@ -53,7 +53,7 @@
 	          <td>
 	            <%= @user.address %>
 	            <%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
-	    					<i class="fa fa-map-marker" aria-hidden="true"></i>
+	    					<%= fa_icon 'map-marker', class: 'large-icon' %>
 	    				<% end %>
 	          </td>
 	        <% end %>
@@ -71,6 +71,13 @@
 				<tr>
 					<td><%= privacy_indicator @user, :user_created_at %> Member Since:</td>
 					<td><%= @user.created_at.strftime("%d/%m/%Y") %></td>
+				</tr>
+			<% end %>
+
+			<% if show_allowed @user, :main_service %>
+				<tr>
+					<td><%= privacy_indicator @user, :main_service %> Main Service:</td>
+					<td><%= if @user.main_service.nil? then content_tag(:em, "Not provided") else @user.main_service end %></td>
 				</tr>
 			<% end %>
 
