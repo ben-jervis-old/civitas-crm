@@ -220,9 +220,13 @@ doc_ready = function () {
 		family_group = $(checkbox_element).closest('[data-type=family-group]');
 		if($(family_group).length > 0) {
 			family_box = $(family_group).find('input[data-type=family]')[0];
+			console.log(family_box);
 			all_checked = true;
-			$(family_group).find('input[data-type=user]').each(function() {
-				all_checked = all_checked && checkbox_element.checked;
+			console.log($(family_group).find('input[data-type=user]'));
+			$(family_group).find('input[data-type=user]').each(function(index, check_item) {
+				console.log(check_item);
+				all_checked = all_checked && check_item.checked;
+				console.log('All: ' + all_checked + '  Item: ' + check_item.checked);
 			});
 			family_box.checked = all_checked;
 		}
