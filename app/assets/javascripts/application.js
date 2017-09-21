@@ -161,7 +161,7 @@ doc_ready = function () {
 		var object_list = $('[data-type=family-group]');
 
 		for(i = 0; i < object_list.length; i++) {
-			object_name = object_list[i].dataset.searchterm.split(' ')[1];
+			object_name = object_list[i].dataset.searchterm;
 			if(object_name.toUpperCase().indexOf(filter_string) > -1) {
 				object_list[i].classList.remove('hidden-item');
 			}
@@ -209,6 +209,10 @@ doc_ready = function () {
 			type: 'POST',
 			url: url,
 			data: {}
+		}).done(function() {
+			$('[data-type=user][data-id=' + user_id + ']').each(function(index, check_box) {
+				check_box.checked = val;
+			});
 		}).fail(function() {
 			checkbox_element.checked = false;
 			check_family_box(checkbox_element);
@@ -220,13 +224,9 @@ doc_ready = function () {
 		family_group = $(checkbox_element).closest('[data-type=family-group]');
 		if($(family_group).length > 0) {
 			family_box = $(family_group).find('input[data-type=family]')[0];
-			console.log(family_box);
 			all_checked = true;
-			console.log($(family_group).find('input[data-type=user]'));
 			$(family_group).find('input[data-type=user]').each(function(index, check_item) {
-				console.log(check_item);
 				all_checked = all_checked && check_item.checked;
-				console.log('All: ' + all_checked + '  Item: ' + check_item.checked);
 			});
 			family_box.checked = all_checked;
 		}

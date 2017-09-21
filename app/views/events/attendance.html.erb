@@ -47,7 +47,8 @@
 
 <div class="row unpadded-checkboxes" id='family-view'>
 	<% @families.each do |family| %>
-		<%= content_tag :div, class: 'col-lg-3 col-md-4 col-sm-6 col-xs-12', data: { type: 'family-group', searchterm: family.name } do %>
+	<% searchterm = "#{family.name.split.second}.#{family.users.collect(&:name).join('.')}" %>
+		<%= content_tag :div, class: 'col-lg-3 col-md-4 col-sm-6 col-xs-12', data: { type: 'family-group', searchterm: searchterm } do %>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="checkbox">
