@@ -34,10 +34,10 @@
 				</div>
 				<div class="btn-group" id='filtering-button-group'>
 					<button class="btn btn-default hidden" data-operation='expected'>
-						<%= fa_icon 'list-ol' %> Show expected Members
+						<%= fa_icon 'list-ol' %> Show Expected Members
 					</button>
 					<button class="btn btn-default" data-operation='all'>
-						<%= fa_icon 'list-ul' %> Show all Members
+						<%= fa_icon 'list-ul' %> Show All Members
 					</button>
 				</div>
 			</div>
@@ -48,7 +48,8 @@
 <div class="row unpadded-checkboxes" id='family-view'>
 	<% @families.each do |family| %>
 	<% searchterm = "#{family.name.split.second}.#{family.users.collect(&:name).join('.')}" %>
-		<%= content_tag :div, class: 'col-lg-3 col-md-4 col-sm-6 col-xs-12', data: { type: 'family-group', searchterm: searchterm } do %>
+	<% filtered_empty = (family.users.collect(&:id) & @main_users.collect(&:id)).empty? %>
+		<%= content_tag :div, class: "col-lg-3 col-md-4 col-sm-6 col-xs-12 #{"hidden-filter" if filtered_empty}", data: { type: 'family-group', searchterm: searchterm } do %>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="checkbox">
@@ -60,7 +61,8 @@
 				</div>
 				<div class="list-group">
 					<% family.users.sort_by(&:name).each do |user| %>
-						<div class="list-group-item">
+						<% expected = @main_users.include? user %>
+						<div class="list-group-item <%= "hidden-filter" unless expected %>" data-expected="<%= expected %>">
 							<div class="checkbox">
 								<label>
 									<input type="checkbox" data-type='user' data-id='<%= user.id %>' data-event-id='<%= @event.id %>' <%= 'checked' if @event.user_ids.include? user.id %>>
@@ -77,7 +79,8 @@
 
 <div class="row unpadded-checkboxes hidden" id='user-view'>
 	<% @users.each do |user| %>
-		<%= content_tag :div, class: 'col-lg-3 col-md-4 col-sm-6 col-xs-12', data: { type: 'user-group', searchterm: user.name } do %>
+		<% expected = @main_users.include? user %>
+		<%= content_tag :div, class: "col-lg-3 col-md-4 col-sm-6 col-xs-12 #{'hidden-filter' unless expected}", data: { expected: expected, type: 'user-group', searchterm: user.name } do %>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="checkbox">

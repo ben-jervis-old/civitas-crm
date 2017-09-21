@@ -273,6 +273,34 @@ doc_ready = function () {
 		$(this).siblings().removeClass('hidden');
 	});
 
+	$('#filtering-button-group button').click(function() {
+		operation = $(this).data('operation');
+		if(operation == 'all') {
+			$('[data-type=family-group].hidden-filter').each(function(index, panel) {
+				$(panel).removeClass('hidden-filter');
+			});
+			$('.list-group-item.hidden-filter, [data-type=user-group].hidden-filter').each(function(index, checkbox) {
+				$(checkbox).removeClass('hidden-filter');
+			});
+		}
+		else {
+			$('[data-expected]').each(function(index, checkbox) {
+				if(!($(checkbox).data('expected'))) {
+					$(checkbox).addClass('hidden-filter');
+				}
+			});
+
+			$('[data-type=family-group]').each(function(index, panel) {
+				if($(panel).find('.list-group-item:not(.hidden-filter)').length == 0) {
+					$(panel).addClass('hidden-filter');
+				}
+			});
+		}
+
+		$(this).addClass('hidden');
+		$(this).siblings().removeClass('hidden');
+	});
+
 	// Flash alerts dismiss after 10 seconds
 	window.setTimeout(function() {
 		$('.alert.fade.alert-timeout').alert('close');
