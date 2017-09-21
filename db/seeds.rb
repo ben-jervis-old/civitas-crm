@@ -3680,131 +3680,131 @@ User.create(first_name: "Jaiden",
 
 
 
-Group.create( name: "Smith",
+Group.create( name: "The Smith Family",
        group_type: "Family")
-Group.create( name: "Johnson",
+Group.create( name: "The Johnson Family",
        group_type: "Family")
-Group.create( name: "Williams",
+Group.create( name: "The Williams Family",
        group_type: "Family")
-Group.create( name: "Jones",
+Group.create( name: "The Jones Family",
        group_type: "Family")
-Group.create( name: "Brown",
+Group.create( name: "The Brown Family",
        group_type: "Family")
-Group.create( name: "Davis",
+Group.create( name: "The Davis Family",
        group_type: "Family")
-Group.create( name: "Miller",
+Group.create( name: "The Miller Family",
        group_type: "Family")
-Group.create( name: "Wilson",
+Group.create( name: "The Wilson Family",
        group_type: "Family")
-Group.create( name: "Moore",
+Group.create( name: "The Moore Family",
        group_type: "Family")
-Group.create( name: "Taylor",
+Group.create( name: "The Taylor Family",
        group_type: "Family")
-Group.create( name: "Anderson",
+Group.create( name: "The Anderson Family",
        group_type: "Family")
-Group.create( name: "Thomas",
+Group.create( name: "The Thomas Family",
        group_type: "Family")
-Group.create( name: "Jackson",
+Group.create( name: "The Jackson Family",
        group_type: "Family")
-Group.create( name: "White",
+Group.create( name: "The White Family",
        group_type: "Family")
-Group.create( name: "Harris",
+Group.create( name: "The Harris Family",
        group_type: "Family")
-Group.create( name: "Martin",
+Group.create( name: "The Martin Family",
        group_type: "Family")
-Group.create( name: "Thompson",
+Group.create( name: "The Thompson Family",
        group_type: "Family")
-Group.create( name: "Garcia",
+Group.create( name: "The Garcia Family",
        group_type: "Family")
-Group.create( name: "Martinez",
+Group.create( name: "The Martinez Family",
        group_type: "Family")
-Group.create( name: "Robinson",
+Group.create( name: "The Robinson Family",
        group_type: "Family")
-Group.create( name: "Clark",
+Group.create( name: "The Clark Family",
        group_type: "Family")
-Group.create( name: "Rodriguez",
+Group.create( name: "The Rodriguez Family",
        group_type: "Family")
-Group.create( name: "Lewis",
+Group.create( name: "The Lewis Family",
        group_type: "Family")
-Group.create( name: "Lee",
+Group.create( name: "The Lee Family",
        group_type: "Family")
-Group.create( name: "Walker",
+Group.create( name: "The Walker Family",
        group_type: "Family")
-Group.create( name: "Hall",
+Group.create( name: "The Hall Family",
        group_type: "Family")
-Group.create( name: "Allen",
+Group.create( name: "The Allen Family",
        group_type: "Family")
-Group.create( name: "Young",
+Group.create( name: "The Young Family",
        group_type: "Family")
-Group.create( name: "Hernandez",
+Group.create( name: "The Hernandez Family",
        group_type: "Family")
-Group.create( name: "King",
+Group.create( name: "The King Family",
        group_type: "Family")
-Group.create( name: "Wright",
+Group.create( name: "The Wright Family",
        group_type: "Family")
-Group.create( name: "Lopez",
+Group.create( name: "The Lopez Family",
        group_type: "Family")
-Group.create( name: "Hill",
+Group.create( name: "The Hill Family",
        group_type: "Family")
-Group.create( name: "Scott",
+Group.create( name: "The Scott Family",
        group_type: "Family")
-Group.create( name: "Green",
+Group.create( name: "The Green Family",
        group_type: "Family")
-Group.create( name: "Adams",
+Group.create( name: "The Adams Family",
        group_type: "Family")
-Group.create( name: "Baker",
+Group.create( name: "The Baker Family",
        group_type: "Family")
-Group.create( name: "Gonzalez",
+Group.create( name: "The Gonzalez Family",
        group_type: "Family")
-Group.create( name: "Nelson",
+Group.create( name: "The Nelson Family",
        group_type: "Family")
-Group.create( name: "Carter",
+Group.create( name: "The Carter Family",
        group_type: "Family")
-Group.create( name: "Mitchell",
+Group.create( name: "The Mitchell Family",
        group_type: "Family")
-Group.create( name: "Perez",
+Group.create( name: "The Perez Family",
        group_type: "Family")
-Group.create( name: "Roberts",
+Group.create( name: "The Roberts Family",
        group_type: "Family")
-Group.create( name: "Turner",
+Group.create( name: "The Turner Family",
        group_type: "Family")
-Group.create( name: "Phillips",
+Group.create( name: "The Phillips Family",
        group_type: "Family")
-Group.create( name: "Campbell",
+Group.create( name: "The Campbell Family",
        group_type: "Family")
-Group.create( name: "Parker",
+Group.create( name: "The Parker Family",
        group_type: "Family")
-Group.create( name: "Evans",
+Group.create( name: "The Evans Family",
        group_type: "Family")
-Group.create( name: "Edwards",
+Group.create( name: "The Edwards Family",
        group_type: "Family")
-Group.create( name: "Collins",
+Group.create( name: "The Collins Family",
        group_type: "Family")
-Group.create( name: "Stewart",
+Group.create( name: "The Stewart Family",
        group_type: "Family")
-Group.create( name: "Sanchez",
+Group.create( name: "The Sanchez Family",
        group_type: "Family")
-Group.create( name: "Morris",
+Group.create( name: "The Morris Family",
        group_type: "Family")
-Group.create( name: "Rogers",
+Group.create( name: "The Rogers Family",
        group_type: "Family")
-Group.create( name: "Reed",
+Group.create( name: "The Reed Family",
        group_type: "Family")
-Group.create( name: "Cook",
+Group.create( name: "The Cook Family",
        group_type: "Family")
-Group.create( name: "Morgan",
+Group.create( name: "The Morgan Family",
        group_type: "Family")
-Group.create( name: "Bell",
+Group.create( name: "The Bell Family",
        group_type: "Family")
-Group.create( name: "Murphy",
+Group.create( name: "The Murphy Family",
        group_type: "Family")
-Group.create( name: "Bailey",
+Group.create( name: "The Bailey Family",
        group_type: "Family")
-Group.create( name: "Rivera",
+Group.create( name: "The Rivera Family",
        group_type: "Family")
-Group.create( name: "Cooper",
+Group.create( name: "The Cooper Family",
        group_type: "Family")
-Group.create( name: "Richardson",
+Group.create( name: "The Richardson Family",
        group_type: "Family")
 
 Roster.create(title: 'Grounds keeping',
@@ -3831,15 +3831,9 @@ for i in 0..100
       usr2.notifications.create(title: 'Member absent'+rand.to_s, content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
 end
 
-Roster.all.each do |roster|
-  roster.user_ids = (5..30).to_a.sample(rand(5..10))
-end
-
-Ro
-
-Group.all.each do |group|
-  User.all.each do |user|
-    if user.last_name.upcase == group.name.upcase
+Group.find_each do |group|
+  User.find_each do |user|
+    if group.name.upcase.include? user.last_name.upcase
       group.users << user
     end
   end
