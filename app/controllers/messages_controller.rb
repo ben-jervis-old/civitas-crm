@@ -41,6 +41,7 @@ class MessagesController < ApplicationController
         @recipient.received_messages.create(title: @message.title,
                         content: @message.content,
                         sender: @message.sender,
+                        receiver: @recipient,
                         sent: true)
       end
       @message.delete
