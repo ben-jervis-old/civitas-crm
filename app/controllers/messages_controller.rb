@@ -70,22 +70,19 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find(params[:id])
-    if @message.sender == current_user
+    if @message.receiver == current_user
       @messages = current_user.received_messages
                   .order(created_at: :desc)
-      
       @place = 'inbox'
     elsif @message.sent
       @messages = current_user.sent_messages
-                  .where(sent: false)
+                  .where(sent: true)
                   .order(created_at: :desc)
-      
       @place = 'sent'
     else
       @messages = current_user.sent_messages
-                    .where(sent: true)
+                    .where(sent: false)
                     .order(created_at: :desc)
-      
       @place = 'draft'
     end
   end
