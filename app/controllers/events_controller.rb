@@ -48,9 +48,11 @@ class EventsController < ApplicationController
 
 	def attendance
 		@event = Event.find(params[:id])
-		@main_users = User.where(main_service: @event.title) if @event.event_type.downcase == 'service'
-		@families = Group.where('lower(group_type) = ?', 'family').order(name: :asc)
 		@users = User.all.order(last_name: :asc).order(first_name: :asc)
+		@main_users = User.where(main_service: @event.title) if @event.event_type.downcase == 'service'
+		@main_was_empty = @main_users.nil?
+		@main_users ||= @users
+		@families = Group.where('lower(group_type) = ?', 'family').order(name: :asc)
 	end
 
 	def next
