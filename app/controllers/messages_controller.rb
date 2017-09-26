@@ -47,6 +47,7 @@ class MessagesController < ApplicationController
       @message.delete
       redirect_to action: 'index'
     elsif params[:submit] == "Save as Draft"
+      @message.updated_at = Time.now
       if @message.save
   			flash[:success] = "Message updated successfully"
       else

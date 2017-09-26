@@ -3,17 +3,12 @@
   <% if @place == 'inbox' %>
     <%= link_to message do %>
       <h4><%= message.title %></h4>
-      <p><%= message.created_at %> | <%= message.updated_at %></p>
-      <% if !message.sent then %>
-      	Status: <i class="glyphicon glyphicon-pencil"></i> Draft
-      <% else %>
-      	Status: <i class="glyphicon glyphicon-send"></i> Sent
-      <% end %>
+      <p><%= time_ago_in_words(message.updated_at) %> from <%= message.sender.name %></p>
     <% end %>
   <% elsif @place == 'draft' %>
     <%= link_to edit_message_path(message) do %>
       <h4><%= message.title %></h4>
-      <p><%= message.created_at %> | <%= message.updated_at %></p>
+      <p>Created <%= time_ago_in_words(message.created_at) %> ago. Last Updated <%= time_ago_in_words(message.updated_at) %></p>
       <% if !message.sent then %>
       	Status: <i class="glyphicon glyphicon-pencil"></i> Draft
       <% else %>
@@ -23,7 +18,7 @@
   <% elsif @place == 'sent' %>
     <%= link_to message do %>
       <h4><%= message.title %></h4>
-      <p><%= message.created_at %> | <%= message.updated_at %></p>
+      <p><%= time_ago_in_words(message.updated_at) %> | <%= message.updated_at %></p>
       <% if !message.sent then %>
       	Status: <i class="glyphicon glyphicon-pencil"></i> Draft
       <% else %>
