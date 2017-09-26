@@ -9,7 +9,7 @@
 
 	<div class="row justify-content-md-center list-group">
 		<div class="col-md-6 list-group">
-			<%= render @messages %>
+			<%= render(@messages) || 'No Entries Found' %>
 		</div>
 	</div>
 </div>

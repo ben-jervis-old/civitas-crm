@@ -4,7 +4,11 @@
   <i><%= mess.sender.name %> </i>
   <br>
   <b>To</b>
-  <i><%= mess.receiver.name %> </i>
+  <% if mess.receiver %>
+    <i><%= mess.receiver.name %> </i>
+  <% else %>
+    <i> None </i>
+  <% end %>
   <br>
   <b>Title</b>
   <i> <%= mess.title %> </i>
