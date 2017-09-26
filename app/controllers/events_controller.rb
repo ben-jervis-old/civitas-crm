@@ -16,7 +16,7 @@ class EventsController < ApplicationController
 	def edit
 		@event = Event.find(params[:id])
 		@cancel_path = event_path(@event)
-		@event.event_time = @event.event_date.localtime
+		@event.event_time = @event.event_date.in_time_zone('Sydney')
 	end
 
   def create

@@ -10,6 +10,6 @@ module ApplicationHelper
 	end
 
 	def date_as_local(date)
-		date.localtime.strftime("%d/%m/%Y")
+		date.in_time_zone('Sydney').strftime("%d/%m/%Y")
 	end
 end

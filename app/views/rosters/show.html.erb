@@ -29,7 +29,7 @@
 						<tr>
 					  	<td><%= link_to tsk.title, roster_task_path(@roster, tsk) %></td>
 							<td><%= users_string tsk.users %></td>
-							<td>Due: <%= tsk.due.localtime.strftime("%d/%m/%Y") %></td>
+							<td>Due: <%= tsk.due.in_time_zone('Sydney').strftime("%d/%m/%Y") %></td>
 						</tr>
 				  <% end %>
 				<% else %>

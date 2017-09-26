@@ -15,18 +15,18 @@ class Event < ApplicationRecord
 	end
 
 	def formatted_date
-		self.event_date.localtime.strftime("%d/%m/%Y")
+		self.event_date.in_time_zone('Sydney').strftime("%d/%m/%Y")
 	end
 
 	def formatted_next
-		(self.event_date.localtime + self.repeat.days).strftime("%d/%m/%Y")
+		(self.event_date.in_time_zone('Sydney') + self.repeat.days).strftime("%d/%m/%Y")
 	end
 
 	def formatted_time
-		event_date.localtime.strftime("%I:%M%P")
+		event_date.in_time_zone('Sydney').strftime("%I:%M%P")
 	end
 
 	def event_time
-		self.event_date.to_time.localtime unless self.event_date.nil?
+		self.event_date.to_time.in_time_zone('Sydney') unless self.event_date.nil?
 	end
 end
