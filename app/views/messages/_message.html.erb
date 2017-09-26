@@ -21,7 +21,7 @@
       <% end %>
     <% end %>
   <% elsif @place == 'sent' %>
-    <%= link_to edit_message_path(message) do %>
+    <%= link_to message do %>
       <h4><%= message.title %></h4>
       <p><%= message.created_at %> | <%= message.updated_at %></p>
       <% if !message.sent then %>

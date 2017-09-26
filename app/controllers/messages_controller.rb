@@ -40,14 +40,10 @@ class MessagesController < ApplicationController
         @recipient = User.find(id)
         @recipient.received_messages.create(title: @message.title,
                         content: @message.content,
-                        sender: @message.sender)
+                        sender: @message.sender,
+                        sent: true)
       end
-      @message.sent = true
-      if @message.save
-  			flash[:success] = "Message updated successfully"
-      else
-        flash[:success] = "Message not updated try again"
-      end
+      @message.delete
       redirect_to action: 'index'
     elsif params[:submit] == "Save as Draft"
       if @message.save
@@ -73,7 +69,7 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find(params[:id])
-    if @message.receiver == current_user
+    if @message.sender == current_user
       @messages = current_user.received_messages
                   .order(created_at: :desc)
       
