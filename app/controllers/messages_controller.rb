@@ -53,9 +53,8 @@ class MessagesController < ApplicationController
       else
         flash[:success] = "Message not updated try again"
       end
-      redirect_to :back
+      redirect_to '/draft_messages'
     end
-    
   end
   
   def create
@@ -88,9 +87,16 @@ class MessagesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+    @message = Message.find(params[:id])
+    if @message.delete
+  			flash[:success] = "Message deleted successfully"
+      else
+        flash[:success] = "Message could not be deleted try again"
+      end
+      redirect_to '/draft_messages'
   end
-
+    
   def edit
     @message = Message.find(params[:id])
     if @message.sent
@@ -107,6 +113,21 @@ class MessagesController < ApplicationController
     
 		@cancel_path = message_path(@message.id)
     @users = User.all
+  end
+  
+  def forward
+    @message = Message.find(params[:message_id])
+    @new_message = current_user.sent_messages.create(title: "Fwd: "+@message.title,
+                        content: @message.content,
+                        sender: current_user,
+                        sent: false)
+    if @new_message.save
+      flash[:success] = "New message"
+      redirect_to :action => "edit", :id => @new_message.id
+    else
+      flash[:success] = "Message deleted successfully"
+      redirect_to :back
+    end
   end
   
   private

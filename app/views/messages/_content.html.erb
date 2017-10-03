@@ -23,5 +23,8 @@
     <%= link_to edit_message_path(mess), class: "text-left btn btn-default" do %>
     	<i class="glyphicon glyphicon-pencil"></i>  Edit
     <% end %>
+    <%= link_to message_forward_path(@message), class: "text-left btn btn-default", method: :post do %>
+    	<i class="glyphicon glyphicon-pencil"></i>  Forward
+    <% end %>
   </div>
 <% end %>

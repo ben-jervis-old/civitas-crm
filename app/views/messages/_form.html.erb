@@ -33,7 +33,10 @@
 		<div class="col-sm-12">
 		  <%= f.submit "Send Message", class: "btn btn-primary  pull-right", :name => 'submit' %>
 			<%= f.submit "Save as Draft", class: "btn btn-default  pull-right", :name => 'submit'  %>
-			<%= link_to 'Cancel', messages_path, class: 'btn btn-default'%>
+			<%= link_to @message, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
+				<i class="glyphicon glyphicon-trash"></i>  Delete
+			<% end %>
+			<%= link_to 'Cancel', messages_path, class: 'btn btn-default pull-left'%>
 		</div>
 	</div>
 <% end %>
