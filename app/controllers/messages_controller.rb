@@ -53,7 +53,7 @@ class MessagesController < ApplicationController
       else
         flash[:success] = "Message not updated try again"
       end
-      redirect_to '/draft_messages'
+      redirect_to :action => "edit", :id => @message.id
     end
   end
   
@@ -120,6 +120,23 @@ class MessagesController < ApplicationController
     @new_message = current_user.sent_messages.create(title: "Fwd: "+@message.title,
                         content: @message.content,
                         sender: current_user,
+                        sent: false)
+    if @new_message.save
+      flash[:success] = "New message"
+      redirect_to :action => "edit", :id => @new_message.id
+    else
+      flash[:success] = "Message deleted successfully"
+      redirect_to :back
+    end
+  end
+  
+  def reply
+    @message = Message.find(params[:message_id])
+    text = "<br><blockquote>"+"To: "+@message.receiver.name+"<br>"+"From: "+@message.sender.name+"<br>"+@message.content+"</blockquote>"
+    @new_message = current_user.sent_messages.create(title: "Re: "+@message.title,
+                        content: text,
+                        sender: current_user,
+                        receiver: @message.sender,
                         sent: false)
     if @new_message.save
       flash[:success] = "New message"
