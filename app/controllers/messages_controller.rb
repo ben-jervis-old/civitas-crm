@@ -117,8 +117,12 @@ class MessagesController < ApplicationController
   
   def forward
     @message = Message.find(params[:message_id])
+    text = "<br><blockquote>"+
+                        "To: "+@message.receiver.name+"<br>"+
+                        "From: "+@message.sender.name+"<br>"+
+                        @message.content+"</blockquote>"
     @new_message = current_user.sent_messages.create(title: "Fwd: "+@message.title,
-                        content: @message.content,
+                        content: text,
                         sender: current_user,
                         sent: false)
     if @new_message.save
@@ -132,7 +136,10 @@ class MessagesController < ApplicationController
   
   def reply
     @message = Message.find(params[:message_id])
-    text = "<br><blockquote>"+"To: "+@message.receiver.name+"<br>"+"From: "+@message.sender.name+"<br>"+@message.content+"</blockquote>"
+    text = "<br><blockquote>To: "
+    if !@message.receiver.nil? then text = text+@message.receiver.name else text = text+"No recipient" end
+    text = text+"<br>From: "+@message.sender.name+"<br>"+
+                        @message.content+"</blockquote>"
     @new_message = current_user.sent_messages.create(title: "Re: "+@message.title,
                         content: text,
                         sender: current_user,
