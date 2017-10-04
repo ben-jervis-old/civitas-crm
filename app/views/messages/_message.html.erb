@@ -1,29 +1,12 @@
-
 <div class="list-group-item" data-groupname="<%= message.title %>">
-  <% if @place == 'inbox' %>
-    <%= link_to message do %>
-      <h4><%= message.title %></h4>
+  <%= link_to message do %>
+    <h4><%= message.title %></h4>
+    <% if @place == 'inbox' %>
       <p><%= time_ago_in_words(message.updated_at) %> from <%= message.sender.name %></p>
-    <% end %>
-  <% elsif @place == 'draft' %>
-    <%= link_to edit_message_path(message) do %>
-      <h4><%= message.title %></h4>
+    <% elsif @place == 'draft' %>
       <p>Created <%= time_ago_in_words(message.created_at) %> ago. Last Updated <%= time_ago_in_words(message.updated_at) %></p>
-      <% if !message.sent then %>
-      	Status: <i class="glyphicon glyphicon-pencil"></i> Draft
-      <% else %>
-      	Status: <i class="glyphicon glyphicon-send"></i> Sent
-      <% end %>
-    <% end %>
-  <% elsif @place == 'sent' %>
-    <%= link_to message do %>
-      <h4><%= message.title %></h4>
+    <% elsif @place == 'sent' %>
       <p><%= time_ago_in_words(message.updated_at) %> | <%= message.updated_at %></p>
-      <% if !message.sent then %>
-      	Status: <i class="glyphicon glyphicon-pencil"></i> Draft
-      <% else %>
-      	Status: <i class="glyphicon glyphicon-send"></i> Sent
-      <% end %>
     <% end %>
   <% end %>
 </div>
