@@ -1,25 +1,33 @@
 class EventsController < ApplicationController
+	before_action :set_timezone
+
   def index
+		Time.zone = 'Sydney'
 		@future_events = Event.where('event_date >= ?', Time.zone.now.to_date + 7).order(event_date: :asc)
 		@this_weeks_events = Event.where('event_date >= ?', Time.zone.now.to_date).where('event_date < ?', Time.zone.now.to_date + 7).order(event_date: :asc)
   end
 
 	def past
+		Time.zone = 'Sydney'
 		@past_events = Event.where('event_date < ?', Time.zone.now.to_date)
 	end
 
   def new
+		Time.zone = 'Sydney'
 		@event = Event.new
 		@cancel_path = events_path
   end
 
 	def edit
+		Time.zone = 'Sydney'
 		@event = Event.find(params[:id])
 		@cancel_path = event_path(@event)
-		@event.event_time = @event.event_date.in_time_zone('Sydney')
+		@event.event_time = @event.event_date
+		# .in_time_zone('Sydney')
 	end
 
   def create
+		Time.zone = 'Sydney'
 		@event = Event.new(event_params)
 
 		if @event.save
@@ -31,6 +39,7 @@ class EventsController < ApplicationController
   end
 
   def update
+		Time.zone = 'Sydney'
 		@event = Event.find(params[:id])
 
 		if @event.update_attributes(event_params)
@@ -42,11 +51,13 @@ class EventsController < ApplicationController
   end
 
   def show
+		Time.zone = 'Sydney'
 		@event = Event.find(params[:id])
 		@present_users = @event.users.sort_by{ |user| [user.last_name, user.first_name] }
   end
 
 	def attendance
+		Time.zone = 'Sydney'
 		@event = Event.find(params[:id])
 		@users = User.all.order(last_name: :asc).order(first_name: :asc)
 		@main_users = User.where(main_service: @event.title) if @event.event_type.downcase == 'service'
@@ -56,6 +67,7 @@ class EventsController < ApplicationController
 	end
 
 	def next
+		Time.zone = 'Sydney'
 		@event = Event.find(params[:id])
 
 		new_event = @event.next_occurrence
@@ -86,8 +98,13 @@ class EventsController < ApplicationController
 	private
 
 		def event_params
-			new_date = Time.parse(params[:event][:event_time] + " " + params[:event][:event_date])
+			Time.zone = 'Sydney'
+			new_date = Time.zone.parse(params[:event][:event_time] + " " + params[:event][:event_date])
 			params[:event][:event_date] = new_date
 			params.require(:event).permit(:title, :event_date, :location, :repeat, :event_type)
+		end
+
+		def set_timezone
+			Time.zone = 'Sydney'
 		end
 end

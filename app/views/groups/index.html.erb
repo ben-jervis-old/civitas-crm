@@ -19,7 +19,7 @@
 
 	<div class="col-md-4">
 		<div class="input-group">
-			<input type="text" id="groups-search-bar" name="groups-search" value="" class="form-control search-bar" placeholder="Search">
+			<input type="text" name="groups-search" value="" class="form-control search-bar scroll" placeholder="Search">
 			<span class="input-group-btn">
 				<button class="btn btn-default">
 					<%= fa_icon 'search' %>
@@ -41,7 +41,7 @@
 <div class="row padded-row">
 	<div class="list-group">
 		<% @groups.each do |group| %>
-			<div class="list-group-item col-md-6" data-groupname="<%= group.name %>">
+			<div class="list-group-item col-md-6" data-searchterm="<%= group.name %>">
 			  <%= link_to group do %>
 			    <h4><%= group.name %>
 			      <span class="label label-default pull-right"><%= pluralize(group.users.count, 'Member') %></span>
@@ -49,5 +49,8 @@
 			  <% end %>
 			</div>
 		<% end %>
+		<div class="list-group-item col-md-12 text-center hidden-item" id="list-empty-msg">
+			<h4><em>No groups found</em></h4>
+		</div>
 	</div>
 </div>
