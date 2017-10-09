@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  
   def index
     @messages = current_user.received_messages
                     .order(created_at: :desc)
@@ -33,7 +34,32 @@ class MessagesController < ApplicationController
   
   def update
     @message = Message.find(params[:id])
-    @message.update_attributes(message_params)
+    if params[:submit] == "Send Message" && params.has_key?(:recipients)
+      @message.sent = true
+      params[:recipients][:user_id].each  do |id|
+        @recipient = User.find(id)
+        @recipient.received_messages.create(title: @message.title,
+                        content: @message.content,
+                        sender: @message.sender,
+                        receiver: @recipient,
+                        sent: true)
+      end
+      @message.delete
+      redirect_to action: 'sent_messages'
+    elsif params[:submit] == "Save as Draft"
+      @message.update_attributes(message_params)
+      @message.updated_at = Time.now
+      if @message.save
+  			flash[:success] = "Message updated successfully"
+      else
+        flash[:success] = "Message not updated try again"
+      end
+      redirect_to :action => "edit", :id => @message.id
+    end
+  end
+  
+  def create
+    @message = current_user.sent_messages.create(message_params)
     if params[:submit] == "Send Message" && params.has_key?(:recipients)
       @message.sent = true
       params[:recipients][:user_id].each  do |id|
@@ -55,17 +81,6 @@ class MessagesController < ApplicationController
       end
       redirect_to :action => "edit", :id => @message.id
     end
-  end
-  
-  def create
-    @message = current_user.sent_messages.create(message_params)
-
-		if @message.save
-			flash[:success] = "Message created successfully"
-			render 'draft_messages'
-		else
-			render 'new'
-		end
 	end
 
   def show
@@ -153,7 +168,7 @@ class MessagesController < ApplicationController
       redirect_to :back
     end
   end
-  
+
   private
 
     def message_params
