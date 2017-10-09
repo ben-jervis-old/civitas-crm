@@ -1,0 +1,16 @@
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Contacts</h1>
+</div>
+
+<div class="row ">
+	<div class="col-md-12">
+		<%= render "actions" %>
+	</div>
+</div>
+<div class="row padded-row">
+	<div class="list-group">
+		<div class="col-md-6 list-group">
+			<%= render(@messages) || 'No Entries Found' %>
+		</div>
+	</div>
+</div>

@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
                         sent: true)
       end
       @message.delete
-      redirect_to action: 'index'
+      redirect_to action: 'sent_messages'
     elsif params[:submit] == "Save as Draft"
       @message.updated_at = Time.now
       if @message.save

@@ -1,15 +1,1 @@
-<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
-	<h1>Contacts</h1>
-</div>
-
-<div class="row padded-row">
-	<div class="row justify-content-md-center">
-		<%= render "actions" %>
-	</div>
-
-	<div class="list-group">
-		<div class="col-md-6 list-group">
-			<%= render(@messages) || 'No Entries Found' %>
-		</div>
-	</div>
-</div>
+<%= render partial: 'list', collection: @messages %>

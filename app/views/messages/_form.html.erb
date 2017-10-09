@@ -1,16 +1,16 @@
 <%= form_for(@message) do |f| %>
 	<%= render 'partials/error_messages', item: @message %>
 	
-	<div class="row">
-	  <div class="form-group col-md-12">
-	    <%= f.label 'To' %>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <%= f.label 'To' %>
   		
-  		<select class="js-recipients-multiple col-md-12" name="recipients[user_id][]" id="message_user_id" multiple="multiple">
-        <% @users.each do |user| %>
-          <option value="<%= user.id %>"><%= user.name %></option>
-        <% end %>
-      </select>
-  	</div>
+  	        <select class="js-recipients-multiple form-control" name="recipients[user_id][]" id="message_user_id" multiple="multiple">
+                <% @users.each do |user| %>
+                    <option value="<%= user.id %>"><%= user.name %></option>
+                <% end %>
+            </select>
+  	    </div>
 	</div>
 	
 
@@ -25,7 +25,7 @@
   <div class="row">
     <div class="form-group col-md-12">
       <%= f.label :content %>
-      <%= f.trix_editor :content, class: 'form-control trixarea', overflow: 'auto'%>
+      <%= f.trix_editor :content, class: 'form-control'%>
     </div>
   </div>
 
