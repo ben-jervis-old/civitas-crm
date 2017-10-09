@@ -54,6 +54,7 @@ class MessagesController < ApplicationController
       else
         flash[:success] = "Message not updated try again"
       end
+      MessageMailer.new_message(@message).deliver_now
       redirect_to :action => "edit", :id => @message.id
     end
   end

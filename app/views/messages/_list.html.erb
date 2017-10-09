@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6 hidden-xs">
 	<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 		<h1>Contacts</h1>
 	</div>
@@ -15,4 +15,13 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="col-md-6">
+	<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+		<h1><br></h1>
+	</div>
+	<%= link_to new_message_path, class: "btn btn-primary pull-right" do %>
+		<i class="glyphicon glyphicon-plus"></i> New Message
+	<% end %>
 </div>
