@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916021958) do
+ActiveRecord::Schema.define(version: 20171009092507) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -62,11 +62,12 @@ ActiveRecord::Schema.define(version: 20170916021958) do
   create_table "messages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.datetime "sent_at"
-    t.boolean  "sent"
-    t.integer  "recipients_id"
+    t.boolean  "sent",        default: false
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -146,9 +147,10 @@ ActiveRecord::Schema.define(version: 20170916021958) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer  "receiver_id"
     t.integer  "home_number"
     t.integer  "work_number"
-    t.integer  "received_id"
+    t.string   "image"
   end
 
 end
