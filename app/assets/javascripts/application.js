@@ -21,10 +21,11 @@
 //= require trix
 //= require select2
 
+
 var doc_ready;
 doc_ready = function () {
 	
-    $('.js-recipients-multiple').select2({
+  $('.js-recipients-multiple').select2({
     placeholder: "Choose Recipients",
     allowClear: true
   });

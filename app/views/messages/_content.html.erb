@@ -20,9 +20,6 @@
 
 <% if mess.sent %>
   <div class="col-md pull-right">
-    <%= link_to edit_message_path(mess), class: "text-left btn btn-default" do %>
-    	<i class="glyphicon glyphicon-pencil"></i>  Edit
-    <% end %>
     <%= link_to message_forward_path(@message), class: "text-left btn btn-default", method: :post do %>
     	<i class="glyphicons glyphicons-message-forward"></i>  Forward
     <% end %>

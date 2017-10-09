@@ -1,11 +1,17 @@
 <div class="list-group-item" data-groupname="<%= message.title %>">
-  <%= link_to message do %>
-    <h4><%= message.title %></h4>
-    <% if @place == 'inbox' %>
+  <% if @place == 'inbox' %>
+    <%= link_to message do %>
+      <h4><%= truncate(message.title, length: 45) %></h4>
       <p><%= time_ago_in_words(message.updated_at) %> from <%= message.sender.name %></p>
-    <% elsif @place == 'draft' %>
+    <% end %>
+  <% elsif @place == 'draft' %>
+    <%= link_to edit_message_path(message) do %>
+      <h4><%= truncate(message.title, length: 45) %></h4>
       <p>Created <%= time_ago_in_words(message.created_at) %> ago. Last Updated <%= time_ago_in_words(message.updated_at) %></p>
-    <% elsif @place == 'sent' %>
+    <% end %>
+  <% elsif @place == 'sent' %>
+    <%= link_to message do %>
+      <h4><%= truncate(message.title, length: 45) %></h4>
       <p><%= time_ago_in_words(message.updated_at) %> | <%= message.updated_at %></p>
     <% end %>
   <% end %>
