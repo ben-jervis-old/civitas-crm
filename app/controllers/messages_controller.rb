@@ -62,7 +62,6 @@ class MessagesController < ApplicationController
                         sent: true)
           end
         end
-        
       end
       @message.delete
       redirect_to action: 'sent_messages'
@@ -84,22 +83,38 @@ class MessagesController < ApplicationController
     if params[:submit] == "Send Message" && params.has_key?(:recipients)
       @message.sent = true
       params[:recipients][:user_id].each  do |id|
-        @recipient = User.find(id)
-        @recipient.received_messages.create(title: @message.title,
+        if id[0] == "U"
+          id = id[1..-1]
+          @recipient = User.find(id)
+          @recipient.received_messages.create(title: @message.title,
                         content: @message.content,
                         sender: @message.sender,
                         receiver: @recipient,
                         sent: true)
+        elsif id[0] == "G"
+          id = id[1..-1]
+          @group = Group.find(id)
+          @group.memberships.each do |mem|
+            @recipient = User.find(mem.user_id)
+            @recipient.received_messages.create(title: @message.title,
+                        content: @message.content,
+                        sender: @message.sender,
+                        receiver: @recipient,
+                        sent: true)
+          end
+        end
       end
       @message.delete
       redirect_to action: 'sent_messages'
     elsif params[:submit] == "Save as Draft"
+      @message.update_attributes(message_params)
       @message.updated_at = Time.now
       if @message.save
   			flash[:success] = "Message updated successfully"
       else
         flash[:success] = "Message not updated try again"
       end
+      MessageMailer.new_message(@message).deliver_now
       redirect_to :action => "edit", :id => @message.id
     end
 	end
