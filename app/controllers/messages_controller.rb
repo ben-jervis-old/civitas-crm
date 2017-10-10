@@ -50,6 +50,7 @@ class MessagesController < ApplicationController
                         sender: @message.sender,
                         receiver: @recipient,
                         sent: true)
+          MessageMailer.new_message(@recipient.received_messages.last).deliver_now
         elsif id[0] == "G"
           id = id[1..-1]
           @group = Group.find(id)
@@ -73,7 +74,6 @@ class MessagesController < ApplicationController
       else
         flash[:success] = "Message not updated try again"
       end
-      MessageMailer.new_message(@message).deliver_now
       redirect_to :action => "edit", :id => @message.id
     end
   end
@@ -91,6 +91,7 @@ class MessagesController < ApplicationController
                         sender: @message.sender,
                         receiver: @recipient,
                         sent: true)
+          MessageMailer.new_message(@recipient.received_messages.last).deliver_now
         elsif id[0] == "G"
           id = id[1..-1]
           @group = Group.find(id)
@@ -114,7 +115,6 @@ class MessagesController < ApplicationController
       else
         flash[:success] = "Message not updated try again"
       end
-      MessageMailer.new_message(@message).deliver_now
       redirect_to :action => "edit", :id => @message.id
     end
 	end

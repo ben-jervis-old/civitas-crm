@@ -3,6 +3,7 @@ class MessageMailer < ApplicationMailer
   
   def new_message(message)
     @message = message
-    mail to: @Message.recipient.email, subject: 'New message on civitasCRM'
+    @user = User.find(@message.receiver_id)
+    mail to: @user.email, subject: 'New message on civitasCRM'
   end
 end

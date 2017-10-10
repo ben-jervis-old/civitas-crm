@@ -1,6 +1,6 @@
 <h1>civitasCRM</h1>
 <p>
-  Hi <%= @message.recipient.name %>,
+  Hi <%= @message.receiver.name %>,
 </p>
 
 <p>
@@ -10,12 +10,12 @@
 <Quote>
   <h2>
     To: 
-    @message.recipient.name
+    <%= @message.receiver.name %>
     From:
-    @message.sender.name
+    <%= @message.sender.name %>
   </h2>
   <p>
-    @message.content
+    <%= @message.content %>
   </p>
 </Quote>
 
