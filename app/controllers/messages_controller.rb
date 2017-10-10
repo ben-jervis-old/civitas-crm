@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
   def index
     @messages = current_user.received_messages
                     .order(created_at: :desc)
+                    .paginate(:page => params[:page], :per_page => 30)
     @place = 'inbox'
   end
   
@@ -10,6 +11,7 @@ class MessagesController < ApplicationController
     @messages = current_user.sent_messages
                     .where(sent: true)
                     .order(created_at: :desc)
+                    .paginate(:page => params[:page], :per_page => 30)
     
     @place = 'sent'
   end
@@ -18,6 +20,7 @@ class MessagesController < ApplicationController
     @messages = current_user.sent_messages
                     .where(sent: false)
                     .order(created_at: :desc)
+                    .paginate(:page => params[:page], :per_page => 30)
     
     @place = 'draft'
   end
@@ -27,9 +30,11 @@ class MessagesController < ApplicationController
     @messages = current_user.sent_messages
                     .where(sent: false)
                     .order(created_at: :desc)
+                    .paginate(:page => params[:page], :per_page => 30)
     
     @place = 'draft'
     @users = User.all
+    @groups = Group.all
   end
   
   def update
@@ -37,12 +42,27 @@ class MessagesController < ApplicationController
     if params[:submit] == "Send Message" && params.has_key?(:recipients)
       @message.sent = true
       params[:recipients][:user_id].each  do |id|
-        @recipient = User.find(id)
-        @recipient.received_messages.create(title: @message.title,
+        if id[0] == "U"
+          id = id[1..-1]
+          @recipient = User.find(id)
+          @recipient.received_messages.create(title: @message.title,
                         content: @message.content,
                         sender: @message.sender,
                         receiver: @recipient,
                         sent: true)
+        elsif id[0] == "G"
+          id = id[1..-1]
+          @group = Group.find(id)
+          @group.memberships.each do |mem|
+            @recipient = User.find(mem.user_id)
+            @recipient.received_messages.create(title: @message.title,
+                        content: @message.content,
+                        sender: @message.sender,
+                        receiver: @recipient,
+                        sent: true)
+          end
+        end
+        
       end
       @message.delete
       redirect_to action: 'sent_messages'
@@ -89,16 +109,19 @@ class MessagesController < ApplicationController
     if @message.receiver == current_user
       @messages = current_user.received_messages
                   .order(created_at: :desc)
+                  .paginate(:page => params[:page], :per_page => 30)
       @place = 'inbox'
     elsif @message.sent
       @messages = current_user.sent_messages
                   .where(sent: true)
                   .order(created_at: :desc)
+                  .paginate(:page => params[:page], :per_page => 30)
       @place = 'sent'
     else
       @messages = current_user.sent_messages
                     .where(sent: false)
                     .order(created_at: :desc)
+                    .paginate(:page => params[:page], :per_page => 30)
       @place = 'draft'
     end
   end
@@ -115,20 +138,15 @@ class MessagesController < ApplicationController
     
   def edit
     @message = Message.find(params[:id])
-    if @message.sent
-      @place = 'sent'
-      @messages = current_user.sent_messages
-                  .where(sent: true)
-                  .order(created_at: :desc)
-    else
-      @place = 'draft'
-      @messages = current_user.sent_messages
-                  .where(sent: false)
-                  .order(created_at: :desc)
-    end
+    @place = 'draft'
+    @messages = current_user.sent_messages
+                .where(sent: false)
+                .order(created_at: :desc)
+                .paginate(:page => params[:page], :per_page => 30)
     
 		@cancel_path = message_path(@message.id)
     @users = User.all
+    @groups = Group.all
   end
   
   def forward

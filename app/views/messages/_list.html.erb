@@ -1,4 +1,4 @@
-<div class="col-md-6 hidden-xs">
+<div class="col-md-6 hidden-xs hidden-sm">
 	<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 		<h1>Contacts</h1>
 	</div>
@@ -9,15 +9,38 @@
 		</div>
 	</div>
 	<div class="row padded-row">
+		<%= will_paginate @messages %>
 		<div class="list-group">
 			<div class="col-md-12 list-group">
 				<%= render(@messages) || 'No Entries Found' %>
 			</div>
 		</div>
+		<%= will_paginate @messages %>
 	</div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-1 visble-xs visible-sm">
+	<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+		<h1>Contacts</h1>
+	</div>
+	
+	<div class="row ">
+		<div class="col-md-12">
+			<%= render "actions" %>
+		</div>
+	</div>
+	<div class="row padded-row">
+		<%= will_paginate @messages %>
+		<div class="list-group">
+			<div class="col-md-12 list-group">
+				<%= render(@messages) || 'No Entries Found' %>
+			</div>
+		</div>
+		<%= will_paginate @messages %>
+	</div>
+</div>
+
+<div class="col-md-6 hidden-xs hidden-sm">
 	<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 		<h1><br></h1>
 	</div>
@@ -25,3 +48,4 @@
 		<i class="glyphicon glyphicon-plus"></i> New Message
 	<% end %>
 </div>
+
