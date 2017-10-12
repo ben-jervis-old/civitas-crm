@@ -9,7 +9,7 @@
                 <% @users.each do |user| %>
                   <option 
                     value="U<%= user.id %>" 
-                    <% if @message.receiver_id == user.id %>
+                    <% if @message.receiver == user %>
                       selected = "selected"
                     <% end %>
                     ><%= user.name %>

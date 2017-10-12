@@ -69,6 +69,8 @@ class MessagesController < ApplicationController
     elsif params[:submit] == "Save as Draft"
       @message.update_attributes(message_params)
       @message.updated_at = Time.now
+      @recipient = User.find(params[:recipients][:user_id].first[1..-1])
+      @message.receiver = @recipient
       if @message.save
   			flash[:success] = "Message updated successfully"
       else
@@ -110,6 +112,8 @@ class MessagesController < ApplicationController
     elsif params[:submit] == "Save as Draft"
       @message.update_attributes(message_params)
       @message.updated_at = Time.now
+      @recipient = User.find(params[:recipients][:user_id].first[1..-1])
+      @message.receiver = @recipient
       if @message.save
   			flash[:success] = "Message updated successfully"
       else
