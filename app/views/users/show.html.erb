@@ -10,9 +10,9 @@
 </ol>
 
 <div class="row">
-	<div class="col-md-2">
-		<% image_path = @user.image.url || 'usericon.png' %>
-    <%= image_tag image_path, class: 'img-responsive img-xs-center', width: 150, height: 150 %>
+	<div class="col-md-3">
+		<% image_path = @user.image.thumb.url || 'usericon.png' %>
+    <%= image_tag image_path, class: 'img-responsive img-xs-center', id: 'user-display-picture' %>
 		<%= form_for @user, url: user_photo_path(@user), html: { multipart: true } do |f| %>
 			<div class="form-group">
 				<%= f.label :image, 'Upload a picture' %>
@@ -103,7 +103,7 @@
   </div>
 
 	<% if current_user.is_staff? %>
-	  <div class="col-md-5">
+	  <div class="col-md-4">
 	    <div class="row">
 	      <div class="col-md-12">
 	        <h4>Notes:</h4>
