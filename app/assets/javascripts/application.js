@@ -38,6 +38,15 @@ doc_ready = function () {
     };
   };
 
+  // Set dimensions of user picture
+  var img = $('#sidebar-image-holder img')[0];
+  if(img.height > img.width) {
+    img.style.width = '100%';
+  }
+  else {
+    img.style.height = '100%';
+  }
+
   $('#user-detail-modal').on('show.bs.modal', function(e) {
     nameLabel = $('#user-name-label')[0];
     image_tag = $('#user-picture-tag')[0];
@@ -47,6 +56,23 @@ doc_ready = function () {
     picturePath = $(refLink).data('picture');
     if(picturePath != "empty") {
       image_tag.src = picturePath;
+    }
+    else {
+      image_tag.src = '/assets/usericon-002c909ea7fc826da5866a8e0ed8811ab574d2dd31ba4ae9ff79dc25e6571ce6.png';
+    }
+  });
+
+  $('#user_image').on('change', function(e) {
+    var that = this;
+
+    if(that.value != '') {
+      filepath = that.value.split('\\');
+      filename = filepath[filepath.length - 1];
+
+      label = $(this).siblings('label')[0];
+      label.innerText = filename;
+
+      $('#user-new-picture-submit').removeClass('hidden');
     }
   });
 

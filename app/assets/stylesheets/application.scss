@@ -64,6 +64,23 @@ body {
 	overflow-y: auto;
 }
 
+#sidebar-image-holder {
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 6px;
+	position: relative;
+
+	img {
+		margin: auto;
+		position: absolute;
+		top: -9999px;
+		bottom: -9999px;
+		left: -9999px;
+		right: -9999px;
+	}
+}
+
 .user-details-table td {
 	padding: 5px;
 	font-size: 110%;
@@ -85,6 +102,10 @@ body {
 	border-radius: 10px;
 	border: 2px solid;
 	padding: 2px;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
 }
 
 .dismiss-cross-link {
@@ -170,7 +191,7 @@ a.pull-right.navbar-brand {
 }
 
 #sidebar {
-	padding: 20px 0 0 0;
+	padding: 15px 0 0 0;
 	width: 250px;
 	position: fixed;
 	background-color: $plain-background;
@@ -188,7 +209,8 @@ a.pull-right.navbar-brand {
 	}
 
 	#user-info-card {
-		padding: 0 25px 25px 25px;
+		min-height: 100px;
+		padding: 0 25px;
 		border-bottom: 1px solid #ddd;
 	}
 }
