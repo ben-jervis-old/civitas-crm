@@ -32,9 +32,7 @@
 	<div class="row padded-row">
 		<%= will_paginate @messages %>
 		<div class="list-group">
-			<div class="col-md-12 list-group">
-				<%= render(@messages) || 'No Entries Found' %>
-			</div>
+			<%= render(@messages) || 'No Entries Found' %>
 		</div>
 		<%= will_paginate @messages %>
 	</div>

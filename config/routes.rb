@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :messages do
     post    '/forward', 		to: 'messages#forward', 		as: 'forward'
     post    '/reply', 		to: 'messages#reply', 		as: 'reply'
+    post    '/unread', 		to: 'messages#unread', 		as: 'unread'
+    post    '/read', 		to: 'messages#read', 		as: 'read'
   end
 
   resources :groups do

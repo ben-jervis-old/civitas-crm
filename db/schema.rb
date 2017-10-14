@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009021139) do
+ActiveRecord::Schema.define(version: 20171014044730) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20171009021139) do
     t.boolean  "sent",        default: false
     t.integer  "sender_id"
     t.integer  "receiver_id"
+    t.boolean  "read",        default: false
   end
 
   create_table "notifications", force: :cascade do |t|

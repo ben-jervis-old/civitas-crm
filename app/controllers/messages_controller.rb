@@ -12,7 +12,6 @@ class MessagesController < ApplicationController
                     .where(sent: true)
                     .order(created_at: :desc)
                     .paginate(:page => params[:page], :per_page => 30)
-    
     @place = 'sent'
   end
   
@@ -112,7 +111,9 @@ class MessagesController < ApplicationController
     elsif params[:submit] == "Save as Draft"
       @message.update_attributes(message_params)
       @message.updated_at = Time.now
-      @recipient = User.find(params[:recipients][:user_id].first[1..-1])
+      if params.has_key?(:recipients) then
+        @recipient = User.find(params[:recipients][:user_id].first[1..-1])
+      end
       @message.receiver = @recipient
       if @message.save
   			flash[:success] = "Message updated successfully"
@@ -129,6 +130,10 @@ class MessagesController < ApplicationController
       @messages = current_user.received_messages
                   .order(created_at: :desc)
                   .paginate(:page => params[:page], :per_page => 30)
+      @message.read = true
+      if !@message.save
+        flash[:success] = "read not set to true"
+      end
       @place = 'inbox'
     elsif @message.sent
       @messages = current_user.sent_messages
@@ -205,6 +210,24 @@ class MessagesController < ApplicationController
       flash[:success] = "Message deleted successfully"
       redirect_to :back
     end
+  end
+  
+  def unread
+    @message = Message.find(params[:message_id])
+    @message.read = false
+    if !@message.save
+      flash[:success] = "read not set to true"
+    end
+    redirect_to :back
+  end
+  
+  def read
+    @message = Message.find(params[:message_id])
+    @message.read = true
+    if !@message.save
+      flash[:success] = "read not set to true"
+    end
+    redirect_to :back
   end
 
   private

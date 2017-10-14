@@ -1,5 +1,17 @@
-<div class="list-group-item" data-groupname="<%= message.title %>">
+
+<div class="list-group-item <%=  if (!message.read and @place == "inbox")then "list-group-item-warning" end  %>" data-groupname="<%= message.title %>">
+  
   <% if @place == 'inbox' %>
+    
+    <% if !message.read %>
+      <%= link_to message_read_path(message), class: "text-left btn btn-default pull-right", method: :post do %>
+      	<i class="glyphicons glyphicons-message-forward"></i>unread
+      <% end %>
+    <% else %>
+      <%= link_to message_unread_path(message), class: "text-left btn btn-default pull-right", method: :post do %>
+      	<i class="glyphicons glyphicons-message-forward"></i>read
+      <% end %>
+    <% end %>
     <%= link_to message do %>
       <h4><%= truncate(message.title, length: 45) %></h4>
       <p><%= time_ago_in_words(message.updated_at) %> from <%= message.sender.name %></p>
