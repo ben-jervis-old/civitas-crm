@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916021958) do
+ActiveRecord::Schema.define(version: 20171009092507) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -57,16 +57,6 @@ ActiveRecord::Schema.define(version: 20170916021958) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.datetime "sent_at"
-    t.boolean  "sent"
-    t.integer  "recipients_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -148,7 +138,7 @@ ActiveRecord::Schema.define(version: 20170916021958) do
     t.datetime "reset_sent_at"
     t.integer  "home_number"
     t.integer  "work_number"
-    t.integer  "received_id"
+    t.string   "image"
   end
 
 end

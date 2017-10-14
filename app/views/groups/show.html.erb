@@ -76,7 +76,7 @@
 	          </div>
 	          <div class="col-md-8 col-md-offset-2">
 	            <div class="input-group">
-	              <input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
+	              <input type="text" name="user-search" value="" class="form-control search-bar scroll" placeholder="Search">
 	              <span class="input-group-btn">
 	                <button class="btn btn-default">
 	                  <i class="fa fa-search"></i>
@@ -96,7 +96,7 @@
 	              </div>
 	            <% else %>
 	              <% @all_users.each do |usr| %>
-	                <div class="list-group-item" data-username='<%= usr.name %>'>
+	                <div class="list-group-item" data-searchterm='<%= usr.name %>'>
 	                  <%= link_to group_assign_user_path(@group.id, usr.id), method: :post do %>
 	                    <%= usr.name %> <i class="fa fa-plus pull-right large-icon"></i>
 	                  <% end %>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :users do
   	get 		:privacy, to: 'users#edit_privacy'
 		patch 	:privacy, to: 'users#update_privacy'
+		patch 		:photo,		to: 'users#update_photo'
   end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

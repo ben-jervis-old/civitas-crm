@@ -13,6 +13,8 @@ class User < ApplicationRecord
 
 	has_secure_password
 
+	mount_uploader :image, ImageUploader
+
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 	validates :first_name, 	presence: true, length: { maximum: 50 }

@@ -38,6 +38,44 @@ doc_ready = function () {
     };
   };
 
+  // Set dimensions of user picture
+  var img = $('#sidebar-image-holder img')[0];
+  if(img.height > img.width) {
+    img.style.width = '100%';
+  }
+  else {
+    img.style.height = '100%';
+  }
+
+  $('#user-detail-modal').on('show.bs.modal', function(e) {
+    nameLabel = $('#user-name-label')[0];
+    image_tag = $('#user-picture-tag')[0];
+    refLink = e.relatedTarget;
+    nameLabel.innerText = $(refLink).data('username');
+
+    picturePath = $(refLink).data('picture');
+    if(picturePath != "empty") {
+      image_tag.src = picturePath;
+    }
+    else {
+      image_tag.src = '/assets/usericon-002c909ea7fc826da5866a8e0ed8811ab574d2dd31ba4ae9ff79dc25e6571ce6.png';
+    }
+  });
+
+  $('#user_image').on('change', function(e) {
+    var that = this;
+
+    if(that.value != '') {
+      filepath = that.value.split('\\');
+      filename = filepath[filepath.length - 1];
+
+      label = $(this).siblings('label')[0];
+      label.innerText = filename;
+
+      $('#user-new-picture-submit').removeClass('hidden');
+    }
+  });
+
   // Trigger various Bootstrap elements
   $('[data-toggle="tooltip"]').tooltip();
 	$('[data-toggle="popover"]').popover();
@@ -95,56 +133,27 @@ doc_ready = function () {
 
 	$('.read-more-link').on('click', addReadMoreListener);
 
-	$('#groups-search-bar').keyup(function() {
-		var search_string = $(this)[0].value;
-		var filter_string = search_string.toUpperCase();
-		var group_list = $('[data-groupname]');
-
-		for(i = 0; i < group_list.length; i++) {
-			group_name = group_list[i].dataset.groupname;
-			if(group_name.toUpperCase().indexOf(filter_string) > -1) {
-				group_list[i].classList.remove('hidden-item');
-			}
-			else {
-				group_list[i].classList.add('hidden-item');
-			}
-		}
-
-		console.log($('[data-groupname]:not(.hidden-item)'));
-
-		if($('[data-groupname]:not(.hidden-item)').length == 0) {
-			console.log('Tested');
-			console.log($('#list-empty-msg'));
-			$('#list-empty-msg')[0].classList = 'list-group-item';
-		}
-		else {
-			console.log('Not Tested');
-			$('#list-empty-msg')[0].classList = 'list-group-item hidden-item';
-		}
-	});
-
-
-	$('#username-search-bar').keyup(debounce(function(e) {
+	$('.search-bar').keyup(debounce(function(e) {
     // If enter was pressed, navigate to first result
     if(e.which == 13) {
-      window.location.href = $('[data-username]:not(.hidden-item)')[0].children[0].children[0].href;
+      window.location.href = $('[data-searchterm]:not(.hidden-item)')[0].children[0].children[0].href;
     }
     else {
       var search_string = $(this)[0].value;
   		var filter_string = search_string.toUpperCase();
-  		var user_list = $('[data-username]');
+  		var item_list = $('[data-searchterm]');
 
-  		for(i = 0; i < user_list.length; i++) {
-  			user_name = user_list[i].dataset.username;
-  			if(user_name.toUpperCase().indexOf(filter_string) > -1) {
-  				user_list[i].classList.remove('hidden-item');
+  		for(i = 0; i < item_list.length; i++) {
+  			item_name = item_list[i].dataset.searchterm;
+  			if(item_name.toUpperCase().indexOf(filter_string) > -1) {
+  				item_list[i].classList.remove('hidden-item');
   			}
   			else {
-  				user_list[i].classList.add('hidden-item');
+  				item_list[i].classList.add('hidden-item');
   			}
   		}
 
-  		if($('[data-username]:not(.hidden-item)').length == 0) {
+  		if($('[data-searchterm]:not(.hidden-item)').length == 0) {
   			$('#list-empty-msg')[0].classList = 'list-group-item text-center';
   		}
   		else {
@@ -250,7 +259,7 @@ doc_ready = function () {
 		}
 	});
 
-	$('.search-bar').focus(function() {
+	$('.search-bar.scroll').focus(function() {
 		if($(window).width() < 768) {
 			$('html, body').animate({
 		    scrollTop: $(this).offset().top - 80

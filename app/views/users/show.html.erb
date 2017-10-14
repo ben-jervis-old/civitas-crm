@@ -10,8 +10,20 @@
 </ol>
 
 <div class="row">
-	<div class="col-md-2">
-    <%= image_tag 'usericon.png', class: 'img-responsive img-xs-center', width: 150, height: 150 %>
+	<div class="col-md-3">
+		<% image_path = @user.image.thumb.url || 'usericon.png' %>
+    <%= image_tag image_path, class: 'img-responsive img-xs-center', id: 'user-display-picture' %>
+    <% if current_user.is_staff? || current_user.id == @user.id %>
+  		<%= form_for @user, url: user_photo_path(@user), html: { multipart: true } do |f| %>
+  			<div class="form-group text-center">
+  				<%= f.label :image, 'Choose a new picture', class: 'btn btn-default' %>
+          <%= f.submit 'Save Picture', class: 'btn btn-primary hidden', id: 'user-new-picture-submit' %>
+  				<%= f.file_field :image, class: 'form-control hidden' %>
+  			</div>
+  			<div class="form-group text-center">
+  			</div>
+  		<% end %>
+    <% end %>
   </div>
 
   <div class="col-md-5">
@@ -93,7 +105,7 @@
   </div>
 
 	<% if current_user.is_staff? %>
-	  <div class="col-md-5">
+	  <div class="col-md-4">
 	    <div class="row">
 	      <div class="col-md-12">
 	        <h4>Notes:</h4>

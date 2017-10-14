@@ -22,3 +22,6 @@
 
 #Ignore Rubymine files
 .idea/*
+
+# Ignore picture uploads
+/public/uploads

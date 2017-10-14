@@ -52,6 +52,19 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def update_photo
+		@user = User.find(params[:user_id])
+
+		@user.image = params[:user][:image]
+		if @user.save
+			flash[:success] = 'Photo successfully updated'
+		else
+			flash[:danger] = 'There was an error uploading your photo'
+		end
+
+		redirect_to @user
+	end
+
 	def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
@@ -136,7 +149,8 @@ class UsersController < ApplicationController
 																		:occupation,
 																		:password,
 																		:password_confirmation,
-																		:level )
+																		:level,
+																		:image )
     end
 
 		def user_signup_params

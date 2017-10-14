@@ -20,7 +20,7 @@
 
 	<div class="col-md-6">
 		<div class="input-group">
-			<input type="text" id='username-search-bar' name="user-search" value="" class="form-control search-bar" placeholder="Search">
+			<input type="search" name="user-search" value="" class="form-control search-bar scroll" placeholder="Search">
 			<span class="input-group-btn">
 				<button class="btn btn-default">
 					<%= fa_icon 'search' %>
@@ -50,4 +50,21 @@
 			</div>
 		</ul>
 	</div>
+</div>
+
+<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="user-name-label">New message</h4>
+      </div>
+      <div class="modal-body">
+        <%= image_tag 'usericon.png', class: 'img-responsive center-block img-rounded', id: 'user-picture-tag' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
