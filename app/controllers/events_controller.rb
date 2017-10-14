@@ -11,12 +11,24 @@ class EventsController < ApplicationController
   def new
 		@event = Event.new
 		@cancel_path = events_path
+
+    @title_options_list = ["Select a Service", "8:00am Service", "9:30am Service", "7:00pm Service"]
+    @selected_option_title = "Select a Service"
+
+    @selected_option_type = "Select a Type"
+    @type_options_list = ["Select a Type", "Service", "Other"];
   end
 
 	def edit
 		@event = Event.find(params[:id])
 		@cancel_path = event_path(@event)
 		@event.event_time = @event.event_date.in_time_zone('Sydney')
+
+    @title_options_list = ["Select a Service", "8:00am Service", "9:30am Service", "7:00pm Service"]
+    @selected_option_title = @title_options_list.include? @event.title ? @event.title : "Select a Service"
+
+    @selected_option_type = @event.event_type == "Service" ? "Service" : "Other"
+    @type_options_list = ["Select a Type", "Service", "Other"];
 	end
 
   def create
@@ -86,8 +98,10 @@ class EventsController < ApplicationController
 	private
 
 		def event_params
-			new_date = Time.parse(params[:event][:event_time] + " " + params[:event][:event_date])
-			params[:event][:event_date] = new_date
+      unless (params[:event][:event_date]).blank? || (params[:event][:event_time]).blank?
+        new_date = Time.parse(params[:event][:event_time] + " " + params[:event][:event_date])
+	      params[:event][:event_date] = new_date
+      end
 			params.require(:event).permit(:title, :event_date, :location, :repeat, :event_type)
 		end
 end

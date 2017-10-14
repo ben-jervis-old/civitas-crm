@@ -92,6 +92,32 @@ doc_ready = function () {
   	}
   });
 
+  $('select#event_event_type, input#event_event_type').change(function(e) {
+    select_box = e.target;
+    console.log(select_box);
+    if(select_box.value.toUpperCase() == 'SERVICE') {
+      $('input#event_title').addClass('hidden');
+      $('select#event_title').removeClass('hidden');
+      $('input#event_event_type').addClass('hidden');
+      $('select#event_event_type').removeClass('hidden');
+
+      ($('select#event_event_type')[0]).value = "Service";
+      ($('input#event_event_type')[0]).value = "";
+    }
+    else {
+      $('input#event_title').removeClass('hidden');
+      $('select#event_title').addClass('hidden');
+      $('input#event_event_type').removeClass('hidden');
+      $('select#event_event_type').addClass('hidden');
+
+      $('input#event_event_type').focus();
+      current_select_value = ($('select#event_title')[0]).value;
+      if(current_select_value != "Select a Service") {
+        ($('input#event_title')[0]).value = current_select_value;
+      }
+    }
+  });
+
 	$('#attendance-users-panel').on('shown.bs.collapse', function() {
 		$('#attendance-users-link').text("Hide the full list.");
 	});
