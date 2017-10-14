@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :get_user,          	only: [:edit, :show, :update, :update_password, :edit_privacy, :update_privacy]
 	skip_before_action :require_login, 	only: [:signup, :signup_create]
 	before_action :check_staff,					only: [:new, :destroy, :create]
+  before_action :check_permission,    only: [:edit, :update]
 
 	def index
 		if current_user.is_staff?
@@ -167,4 +168,11 @@ class UsersController < ApplicationController
 				redirect_to users_path
 			end
 		end
+
+    def check_permission
+      unless current_user == @user || current_user.is_staff?
+        flash[:warning] = "You don't have access to that action"
+        redirect_to users_path
+      end
+    end
 end
