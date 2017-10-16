@@ -107,12 +107,6 @@ class MessagesController < ApplicationController
     
   def edit
     @message = Message.find(params[:id])
-    @place = 'draft'
-    @messages = current_user.sent_messages
-                .where(sent: false)
-                .order(created_at: :desc)
-                .paginate(:page => params[:page], :per_page => 30)
-    
 		@cancel_path = message_path(@message.id)
     @users = User.all
     @groups = Group.all
@@ -120,26 +114,25 @@ class MessagesController < ApplicationController
   
   def forward
     @message = Message.find(params[:message_id])
-    text = "<br><blockquote>"+
-                        "To: "+@message.receiver.name+"<br>"+
-                        "From: "+@message.sender.name+"<br>"+
+    text = "<br><br><blockquote>To: "
+    if !@message.receiver.nil? then text = text+@message.receiver.name else text = text+"No recipient" end
+    text = text+"<br>From: "+@message.sender.name+"<br>"+
                         @message.content+"</blockquote>"
     @new_message = current_user.sent_messages.create(title: "Fwd: "+@message.title,
                         content: text,
                         sender: current_user,
                         sent: false)
     if @new_message.save
-      flash[:success] = "New message"
       redirect_to :action => "edit", :id => @new_message.id
     else
-      flash[:success] = "Message deleted successfully"
+      flash[:error] = "Error: Message not created"
       redirect_to :back
     end
   end
   
   def reply
     @message = Message.find(params[:message_id])
-    text = "<br><blockquote>To: "
+    text = "<br><br><blockquote>To: "
     if !@message.receiver.nil? then text = text+@message.receiver.name else text = text+"No recipient" end
     text = text+"<br>From: "+@message.sender.name+"<br>"+
                         @message.content+"</blockquote>"
@@ -149,10 +142,9 @@ class MessagesController < ApplicationController
                         receiver: @message.sender,
                         sent: false)
     if @new_message.save
-      flash[:success] = "New message"
       redirect_to :action => "edit", :id => @new_message.id
     else
-      flash[:success] = "Message deleted successfully"
+      flash[:error] = "Error: Message not created"
       redirect_to :back
     end
   end

@@ -1,5 +1,22 @@
+<div class="row btn-group">
+  <%= link_to message_reply_path(mess), class: "text-left btn btn-default", method: :post do %>
+  	<i class="fa fa-reply"></i>  Reply
+  <% end %>
+  <%= link_to message_forward_path(mess), class: "text-left btn btn-default", method: :post do %>
+  	<i class="fa fa-share"></i>  Forward
+  <% end %>
+  <% if !mess.read %>
+    <%= link_to message_read_path(mess), class: "text-left btn btn-default", method: :post do %>
+    	<i class="fa fa-envelope"></i>
+    <% end %>
+  <% else %>
+    <%= link_to message_unread_path(mess), class: "text-left btn btn-default", method: :post do %>
+    	<i class="fa fa-envelope-open"></i>
+    <% end %>
+  <% end %>
+</div>
 
-<div class="col-md-12">
+<div class="row">
   <table class="">
     <tr>
       <td><strong>From: </strong></td>
@@ -7,38 +24,17 @@
     </tr>
     <tr>
       <td><strong>To: </strong></td>
-      <td><%= mess.receiver.name %></td>
+      <td><%= if mess.receiver then mess.receiver.name else "<i>No recipient</i>".html_safe end %></td>
     </tr>
     <tr>
       <td><strong>Subject: </strong></td>
       <td><%= mess.title %></td>
     </tr>
   </table>
-  <!--<b>From</b>-->
-  <!--<i><%= mess.sender.name %> </i>-->
-  <!--<br>-->
-  <!--<b>To</b>-->
-  <!--<% if mess.receiver %>-->
-  <!--  <i><%= mess.receiver.name %> </i>-->
-  <!--<% else %>-->
-  <!--  <i> None </i>-->
-  <!--<% end %>-->
-  <!--<br>-->
-  <!--<b>Title</b>-->
-  <!--<i> <%= mess.title %> </i>-->
   <hr>
   <p>
       <%= mess.content.html_safe %>
   </p>
+  
 </div>
 
-<% if mess.sent %>
-  <div class="col-md pull-right">
-    <%= link_to message_reply_path(@message), class: "text-left btn btn-default", method: :post do %>
-    	<i class="fa fa-reply"></i>  Reply
-    <% end %>
-    <%= link_to message_forward_path(@message), class: "text-left btn btn-default", method: :post do %>
-    	<i class="fa fa-share"></i>  Forward
-    <% end %>
-  </div>
-<% end %>
