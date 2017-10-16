@@ -1,19 +1,31 @@
 
 <div class="col-md-12">
-  <b>From</b>
-  <i><%= mess.sender.name %> </i>
-  <br>
-  <b>To</b>
-  <% if mess.receiver %>
-    <i><%= mess.receiver.name %> </i>
-  <% else %>
-    <i> None </i>
-  <% end %>
-  <br>
-  <b>Title</b>
-  <i> <%= mess.title %> </i>
-  <br>
-  <i> <%= mess.read %> </i>
+  <table class="">
+    <tr>
+      <td><strong>From: </strong></td>
+      <td><%= mess.sender.name %></td>
+    </tr>
+    <tr>
+      <td><strong>To: </strong></td>
+      <td><%= mess.receiver.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Subject: </strong></td>
+      <td><%= mess.title %></td>
+    </tr>
+  </table>
+  <!--<b>From</b>-->
+  <!--<i><%= mess.sender.name %> </i>-->
+  <!--<br>-->
+  <!--<b>To</b>-->
+  <!--<% if mess.receiver %>-->
+  <!--  <i><%= mess.receiver.name %> </i>-->
+  <!--<% else %>-->
+  <!--  <i> None </i>-->
+  <!--<% end %>-->
+  <!--<br>-->
+  <!--<b>Title</b>-->
+  <!--<i> <%= mess.title %> </i>-->
   <hr>
   <p>
       <%= mess.content.html_safe %>
@@ -22,12 +34,11 @@
 
 <% if mess.sent %>
   <div class="col-md pull-right">
-    <%= link_to message_forward_path(@message), class: "text-left btn btn-default", method: :post do %>
-    	<i class="glyphicons glyphicons-message-forward"></i>  Forward
-    <% end %>
     <%= link_to message_reply_path(@message), class: "text-left btn btn-default", method: :post do %>
-    	<i class="glyphicons glyphicons-message-forward"></i>  Reply
+    	<i class="fa fa-reply"></i>  Reply
     <% end %>
-    <span class="glyphicons glyphicons-message-forward"></span>
+    <%= link_to message_forward_path(@message), class: "text-left btn btn-default", method: :post do %>
+    	<i class="fa fa-share"></i>  Forward
+    <% end %>
   </div>
 <% end %>

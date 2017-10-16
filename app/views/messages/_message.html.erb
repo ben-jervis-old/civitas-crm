@@ -1,30 +1,15 @@
-
 <div class="list-group-item <%=  if (!message.read and @place == "inbox")then "list-group-item-warning" end  %>" data-groupname="<%= message.title %>">
-  
-  <% if @place == 'inbox' %>
-    
-    <% if !message.read %>
-      <%= link_to message_read_path(message), class: "text-left btn btn-default pull-right", method: :post do %>
-      	<i class="glyphicons glyphicons-message-forward"></i>unread
-      <% end %>
-    <% else %>
-      <%= link_to message_unread_path(message), class: "text-left btn btn-default pull-right", method: :post do %>
-      	<i class="glyphicons glyphicons-message-forward"></i>read
-      <% end %>
+  <% if !message.read %>
+    <%= link_to message_read_path(message), class: "text-left btn btn-default pull-right", method: :post do %>
+    	<i class="fa fa-envelope"></i>
     <% end %>
-    <%= link_to message do %>
-      <h4><%= truncate(message.title, length: 45) %></h4>
-      <p><%= time_ago_in_words(message.updated_at) %> from <%= message.sender.name %></p>
+  <% else %>
+    <%= link_to message_unread_path(message), class: "text-left btn btn-default pull-right", method: :post do %>
+    	<i class="fa fa-envelope-open"></i>
     <% end %>
-  <% elsif @place == 'draft' %>
-    <%= link_to edit_message_path(message) do %>
-      <h4><%= truncate(message.title, length: 45) %></h4>
-      <p>Created <%= time_ago_in_words(message.created_at) %> ago. Last Updated <%= time_ago_in_words(message.updated_at) %></p>
-    <% end %>
-  <% elsif @place == 'sent' %>
-    <%= link_to message do %>
-      <h4><%= truncate(message.title, length: 45) %></h4>
-      <p><%= time_ago_in_words(message.updated_at) %> | <%= message.updated_at %></p>
-    <% end %>
+  <% end %>
+  <%= link_to message do %>
+    <h4><%= truncate(message.title, length: 45) %></h4>
+    <p><%= time_ago_in_words(message.updated_at) %> from <%= message.sender.name %></p>
   <% end %>
 </div>

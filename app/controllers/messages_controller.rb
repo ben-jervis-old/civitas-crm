@@ -36,92 +36,37 @@ class MessagesController < ApplicationController
     @groups = Group.all
   end
   
-  def update
-    @message = Message.find(params[:id])
-    if params[:submit] == "Send Message" && params.has_key?(:recipients)
-      @message.sent = true
-      params[:recipients][:user_id].each  do |id|
-        if id[0] == "U"
-          id = id[1..-1]
-          @recipient = User.find(id)
-          @recipient.received_messages.create(title: @message.title,
-                        content: @message.content,
-                        sender: @message.sender,
-                        receiver: @recipient,
-                        sent: true)
-          MessageMailer.new_message(@recipient.received_messages.last).deliver_now
-        elsif id[0] == "G"
-          id = id[1..-1]
-          @group = Group.find(id)
-          @group.memberships.each do |mem|
-            @recipient = User.find(mem.user_id)
-            @recipient.received_messages.create(title: @message.title,
-                        content: @message.content,
-                        sender: @message.sender,
-                        receiver: @recipient,
-                        sent: true)
-          end
-        end
-      end
-      @message.delete
-      redirect_to action: 'sent_messages'
-    elsif params[:submit] == "Save as Draft"
-      @message.update_attributes(message_params)
-      @message.updated_at = Time.now
-      @recipient = User.find(params[:recipients][:user_id].first[1..-1])
-      @message.receiver = @recipient
-      if @message.save
-  			flash[:success] = "Message updated successfully"
-      else
-        flash[:success] = "Message not updated try again"
-      end
-      redirect_to :action => "edit", :id => @message.id
-    end
-  end
-  
   def create
     @message = current_user.sent_messages.create(message_params)
-    if params[:submit] == "Send Message" && params.has_key?(:recipients)
-      @message.sent = true
-      params[:recipients][:user_id].each  do |id|
-        if id[0] == "U"
-          id = id[1..-1]
-          @recipient = User.find(id)
-          @recipient.received_messages.create(title: @message.title,
-                        content: @message.content,
-                        sender: @message.sender,
-                        receiver: @recipient,
-                        sent: true)
-          MessageMailer.new_message(@recipient.received_messages.last).deliver_now
-        elsif id[0] == "G"
-          id = id[1..-1]
-          @group = Group.find(id)
-          @group.memberships.each do |mem|
-            @recipient = User.find(mem.user_id)
-            @recipient.received_messages.create(title: @message.title,
-                        content: @message.content,
-                        sender: @message.sender,
-                        receiver: @recipient,
-                        sent: true)
-          end
+
+    message = current_user.sent_messages.create(message_params)
+	  message.sent = true
+    params[:recipients][:user_id].each  do |id|
+      if id[0] == "U"
+        id = id[1..-1]
+        @recipient = User.find(id)
+        @recipient.received_messages.create(title: message.title,
+                      content: message.content,
+                      sender: message.sender,
+                      receiver: @recipient,
+                      sent: true)
+        MessageMailer.new_message(@recipient.received_messages.last).deliver_now
+      elsif id[0] == "G"
+        id = id[1..-1]
+        @group = Group.find(id)
+        @group.memberships.each do |mem|
+          @recipient = User.find(mem.user_id)
+          @recipient.received_messages.create(title: message.title,
+                      content: message.content,
+                      sender: message.sender,
+                      receiver: @recipient,
+                      sent: true)
         end
       end
-      @message.delete
-      redirect_to action: 'sent_messages'
-    elsif params[:submit] == "Save as Draft"
-      @message.update_attributes(message_params)
-      @message.updated_at = Time.now
-      if params.has_key?(:recipients) then
-        @recipient = User.find(params[:recipients][:user_id].first[1..-1])
-      end
-      @message.receiver = @recipient
-      if @message.save
-  			flash[:success] = "Message updated successfully"
-      else
-        flash[:success] = "Message not updated try again"
-      end
-      redirect_to :action => "edit", :id => @message.id
     end
+    message.delete
+    redirect_to action: 'sent_messages'
+    
 	end
 
   def show
@@ -218,7 +163,7 @@ class MessagesController < ApplicationController
     if !@message.save
       flash[:success] = "read not set to true"
     end
-    redirect_to :back
+    redirect_to messages_path
   end
   
   def read
@@ -227,7 +172,7 @@ class MessagesController < ApplicationController
     if !@message.save
       flash[:success] = "read not set to true"
     end
-    redirect_to :back
+    redirect_to messages_path
   end
 
   private
