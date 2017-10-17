@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   
   def index
     @messages = current_user.received_messages
+                    .where(receiver_delete: false)
                     .order(created_at: :desc)
                     .paginate(:page => params[:page], :per_page => 30)
     @place = 'inbox'
@@ -9,36 +10,19 @@ class MessagesController < ApplicationController
   
   def sent_messages
     @messages = current_user.sent_messages
-                    .where(sent: true)
+                    .where(sender_delete: false)
                     .order(created_at: :desc)
                     .paginate(:page => params[:page], :per_page => 30)
     @place = 'sent'
   end
-  
-  def draft_messages
-    @messages = current_user.sent_messages
-                    .where(sent: false)
-                    .order(created_at: :desc)
-                    .paginate(:page => params[:page], :per_page => 30)
-    
-    @place = 'draft'
-  end
 
   def new
     @message = Message.new
-    @messages = current_user.sent_messages
-                    .where(sent: false)
-                    .order(created_at: :desc)
-                    .paginate(:page => params[:page], :per_page => 30)
-    
-    @place = 'draft'
     @users = User.all
     @groups = Group.all
   end
   
   def create
-    @message = current_user.sent_messages.create(message_params)
-
     message = current_user.sent_messages.create(message_params)
 	  message.sent = true
     params[:recipients][:user_id].each  do |id|
@@ -67,6 +51,37 @@ class MessagesController < ApplicationController
     message.delete
     redirect_to action: 'sent_messages'
     
+	end
+	
+	def update
+    message = Message.find(params[:id])
+    
+	  message.sent = true
+    params[:recipients][:user_id].each  do |id|
+      if id[0] == "U"
+        id = id[1..-1]
+        recipient = User.find(id)
+        recipient.received_messages.create(title: message.title,
+                      content: message.content,
+                      sender: message.sender,
+                      receiver: recipient,
+                      sent: true)
+        MessageMailer.new_message(recipient.received_messages.last).deliver_now
+      elsif id[0] == "G"
+        id = id[1..-1]
+        group = Group.find(id)
+        group.memberships.each do |mem|
+          recipient = User.find(mem.user_id)
+          recipient.received_messages.create(title: message.title,
+                      content: message.content,
+                      sender: message.sender,
+                      receiver: recipient,
+                      sent: true)
+        end
+      end
+    end
+    message.delete
+    redirect_to action: 'sent_messages'
 	end
 
   def show
@@ -97,12 +112,31 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = Message.find(params[:id])
-    if @message.delete
+    if current_user == @message.receiver
+      @message.receiver_delete = true
+    end
+    if current_user == @message.sender
+      @message.sender_delete = true
+    end
+    if @message.sender_delete and @message.receiver_delete 
+      if @message.delete
   			flash[:success] = "Message deleted successfully"
       else
         flash[:success] = "Message could not be deleted try again"
       end
-      redirect_to '/draft_messages'
+    else
+      if @message.save
+  			flash[:success] = "Message deleted successfully"
+      else
+        flash[:success] = "Message could not be deleted try again"
+      end
+    end
+    if current_user == @message.receiver
+      redirect_to messages_path
+    else
+      redirect_to sent_messages_path
+    end
+    
   end
     
   def edit

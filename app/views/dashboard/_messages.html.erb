@@ -8,11 +8,15 @@
 				</div>
 			</div>
 		<% else %>
-			<% @unread_messages.each do |msg| %>
+			<% @unread_messages.each do |message| %>
 				<div class="list-group-item">
-					<div class="notification-body">
-
-					</div>
+					<b><%= truncate(message.sender.name, length: 45) %></b>
+			    <div class="pull-right">
+			     <i> <%= time_ago_in_words(message.updated_at).gsub('about ','') %> ago</i>
+			    </div>
+			    <br>
+			    <%= truncate(message.title, length: 45) %>
+					<p><%= link_to 'Show me', message %></p>
 				</div>
 			<% end %>
 		<% end %>

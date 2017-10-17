@@ -1,6 +1,12 @@
 <div class="list-group-item <%=  if (!message.read and @place == "inbox")then "list-group-item-warning" end  %>" data-groupname="<%= message.title %>">
   <%= link_to message do %>
-    <h4><%= truncate(message.title, length: 45) %></h4>
-    <p><%= time_ago_in_words(message.updated_at) %> from <%= message.sender.name %></p>
+    <b><%= truncate(message.sender.name, length: 45) %></b>
+    <div class="pull-right">
+     <i> <%= time_ago_in_words(message.updated_at).gsub('about ','') %> ago</i>
+    </div>
+    <br>
+    <%= truncate(message.title, length: 45) %>
+    <br>
+    <i> <%= truncate(strip_tags(message.content), length: 45) %></i>
   <% end %>
 </div>
