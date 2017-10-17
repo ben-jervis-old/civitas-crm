@@ -1,14 +1,34 @@
 <div class="row btn-group">
-  <%= link_to message_reply_path(mess), class: "text-left btn btn-default", method: :post do %>
-  	<i class="fa fa-reply"></i>  Reply
+  <%= link_to message_reply_path(mess), class: "text-left btn btn-default", method: :post,
+    data: {
+									toggle: 'tooltip',
+									placement: 'top',
+									title: 'Reply'
+								} do %>
+  	<i class="fa fa-reply"></i>
   <% end %>
-  <%= link_to message_forward_path(mess), class: "text-left btn btn-default", method: :post do %>
-  	<i class="fa fa-share"></i>  Forward
+  <%= link_to message_forward_path(mess), class: "text-left btn btn-default", method: :post, 
+    data: {
+									toggle: 'tooltip',
+									placement: 'top',
+									title: 'Forward'
+								} do %>
+  	<i class="fa fa-share"></i>
   <% end %>
-  <%= link_to @message, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
+  <%= link_to @message, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" ,
+    data: {
+									toggle: 'tooltip',
+									placement: 'top',
+									title: 'Delete'
+								} do %>
   	<i class="fa fa-trash"></i>
   <% end %>
-  <%= link_to message_unread_path(mess), class: "text-left btn btn-default", method: :post do %>
+  <%= link_to message_unread_path(mess), class: "text-left btn btn-default", method: :post,
+    data: {
+									toggle: 'tooltip',
+									placement: 'top',
+									title: 'Mark as unread'
+								} do %>
   	<i class="fa fa-envelope-open"></i>
   <% end %>
 </div>
