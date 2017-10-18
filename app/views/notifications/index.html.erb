@@ -1,0 +1,63 @@
+<% provide(:title, "Notifications") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Notifications History</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li class='active'>Notifications</li>
+</ol>
+
+<div class="row">
+
+	<div class="col-md-12">
+		<h2>Your Notifications</h2>
+		<div class="row">
+			<div class="col-xs-3">
+				<h3>Unread</h3>
+			</div>
+			<div class="col-xs-9">
+				<%= will_paginate  @unread_notifications, class: 'pull-right' %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<%= render  @unread_notifications %>
+			</div>
+		</div>
+		<%= will_paginate  @unread_notifications, class: 'pull-right' %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-xs-3">
+				<h3>Read</h3>
+			</div>
+			<div class="col-xs-9">
+				<%= will_paginate  @read_notifications, class: 'pull-right' %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<%= render  @read_notifications %>
+			</div>
+		</div>
+		<%= will_paginate  @read_notifications, class: 'pull-right' %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+  	<h2>Other Staff</h2>
+  	<% @staff_unread.each do |staff| %>
+	  	<div class="row">
+	  		<div class="col-md-12">
+	  			<h3><%= staff[:name] %></h3>
+	  			<%= render staff[:notifs] %>
+	  		</div>
+	  	</div>
+  	<% end %>
+  </div>
+</div>

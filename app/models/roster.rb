@@ -1,5 +1,5 @@
 class Roster < ApplicationRecord
-	has_many :tasks
+	has_many :tasks, dependent: :destroy
 	has_many :users, -> { distinct }, through: :tasks
 
 	validates :title, presence: true

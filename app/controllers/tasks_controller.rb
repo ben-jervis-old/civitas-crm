@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
 	before_action :set_task_and_check_roster, only: [:show, :edit, :update, :destroy]
+	before_action :check_staff, except: [:show, :accept]
 
 	def new
 		@roster = Roster.find(params[:roster_id])
@@ -51,7 +52,9 @@ class TasksController < ApplicationController
 		user = User.find(params[:user_id])
 		@task.users << user
 		flash[:success] = "#{user.name} assigned to this task"
-		user.notifications.create(title: "New Task", content:"You have been assigned to the task #{@task.title}", resolve_link: roster_task_path(@task.roster.id, @task.id))
+		user.notifications.create(title: "New Task",
+															content:"You have been assigned to the \"#{@task.title}\" task in the \"#{@task.roster.title}\" roster.",
+															resolve_link: roster_task_path(@task.roster.id, @task.id))
 		redirect_to roster_task_path(@task.roster, @task)
 	end
 
@@ -60,8 +63,10 @@ class TasksController < ApplicationController
 		user = User.find(params[:user_id])
 		@task.users.delete user
 		flash[:success] = "#{user.name} removed from this task"
-		redirect_to roster_task_path(@task.roster, @task)
-		#TODO Create a notification for user
+		user.notifications.create(title: 'Removed from Task',
+															content: "You no longer need to complete the \"#{@task.title}\" task in the \"#{@task.roster.title}\" roster.",
+															resolve_link: roster_task_path(@task.roster.id, @task.id))
+		redirect_to roster_task_path(@task.roster.id, @task.id)
 	end
 
 	def accept
@@ -88,6 +93,13 @@ class TasksController < ApplicationController
 	end
 
 	private
+
+		def check_staff
+			if !current_user.is_staff?
+				flash[:warning] = "You don't have access to that action"
+				redirect_to rosters_path
+			end
+		end
 
 		def task_params
 			params.require(:task).permit(:title, :due, :location, :notes)

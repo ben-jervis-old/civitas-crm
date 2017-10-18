@@ -1,0 +1,16 @@
+<% provide(:title, "Update Event") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Update event details</h1>
+</div>
+<ol class="breadcrumb">
+	<li><%= link_to "Events", events_path %></li>
+	<li><%= link_to @event.title, @event %></li>
+	<li>Edit Details</li>
+</ol>
+
+
+<div class="row">
+  <div class="col-md-8">
+    <%= render 'form' %>
+  </div>
+</div>

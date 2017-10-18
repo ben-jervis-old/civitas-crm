@@ -1,8 +1,23 @@
-<ul id="action-menu" class="list-group">
-	<li class="list-group-item"><a href="/">Home</a></li>
-	<li class="list-group-item"><a href="#MyAccount">Settings</a></li>
-	<li class="list-group-item"><%= link_to 'Log Out', logout_path, method: :delete %></li>
-</ul>
+<% if logged_in? %>
+	<ul id="action-menu" class="list-group">
+		<li class="list-group-item">
+			<%= link_to root_path do %>
+				<%= fa_icon 'home', class: 'large-icon pull-right' %> Home
+			<% end %>
+		</li>
+		<li class="list-group-item">
+			<%= link_to user_path(current_user.id) do %>
+				<%= fa_icon 'user', class: 'large-icon pull-right' %> My Account
+			<% end %>
+		</li>
+		<li class="list-group-item">
+			<%= link_to logout_path, method: :delete do %>
+				<%= fa_icon 'sign-out', class: 'pull-right large-icon' %> Log Out
+			<% end %>
+		</li>
+	</ul>
+<% end %>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -13,7 +28,7 @@
 		</div>
 		<% if logged_in? %>
 			<div class="pull-right action-icon-holder">
-				<%= link_to root_path, class: '', 'data-toggle' => 'popover', 'data-placement' => 'bottom', title: 'Notifications', 'data-content' => '<a href="#notif">These are your notifications</a>', 'data-trigger' => 'focus' do %>
+				<%= link_to notifications_path do %>
 					<i class="fa fa-bell"></i>
 					<% num_notifications = current_user.notifications.reject(&:read).size %>
 					<% if num_notifications > 0 %>
@@ -37,7 +52,7 @@
 					<i class="fa fa-sign-out"></i>
 				<% end %>
 				<a href="#" id="action-menu-button" class="visible-xs-inline">
-					<i class="fa fa-option-vertical"></i>
+					<%= fa_icon 'ellipsis-v' %>
 				</a>
 			</div>
 		<% else %>

@@ -1,15 +1,15 @@
 <% provide(:title, "Update Roster") %>
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 	<h1>Update roster details</h1>
 </div>
 <ol class="breadcrumb">
 	<li><%= link_to "Rosters", rosters_path %></li>
 	<li><%= link_to @roster.title, @roster %></li>
-	<li><%= link_to 'Edit Details', edit_roster_path(@roster) %></li>
+	<li>Edit Details</li>
 </ol>
 
 
-<div class="row bounded-row padded-row">
+<div class="row">
   <div class="col-md-8">
     <%= render 'form' %>
   </div>

@@ -1,19 +1,25 @@
 <% provide(:title, "Rosters") %>
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 	<h1>Rostering</h1>
 </div>
 
-<div class="row padded-row">
+<ol class="breadcrumb">
+	<li class="active">Rosters</li>
+</ol>
 
-	<%= link_to new_roster_path, class: "btn btn-primary btn-lg btn-block visible-xs-block" do %>
-		<i class="glyphicon glyphicon-plus"></i> New Roster
-	<% end %>
+<% if current_user.is_staff? %>
+	<div class="row padded-row">
 
-	<%= link_to new_roster_path, class: "btn btn-primary pull-right hidden-xs" do %>
-		<i class="glyphicon glyphicon-plus"></i> New Roster
-	<% end %>
+		<%= link_to new_roster_path, class: "btn btn-primary btn-lg btn-block visible-xs-block" do %>
+			<%= fa_icon 'plus' %> New Roster
+		<% end %>
 
-</div>
+		<%= link_to new_roster_path, class: "btn btn-primary pull-right hidden-xs" do %>
+			<%= fa_icon 'plus' %> New Roster
+		<% end %>
+
+	</div>
+<% end %>
 
 <div class="row padded-row">
 	<ul class="list-group">

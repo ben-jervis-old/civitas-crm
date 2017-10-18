@@ -1,9 +1,14 @@
 <div id="sidebar" class="hidden-xs">
 	<div id="user-info-card">
-		<%= image_tag 'usericon.png', class: 'pull-right', width: 50, height: 50 %>
+		<% image_path = current_user.image.url || 'usericon.png' %>
+		<div id="sidebar-image-holder" class='pull-right'>
+			<%= link_to current_user do %>
+				<%= image_tag image_path, class: 'img-rounded' %>
+			<% end %>
+		</div>
 		<div >
 			<h4><%= link_to current_user.name, current_user %></h4>
-			<%= link_to 'My Account', '#MySettings' %>
+			<%= link_to 'My Account', current_user %>
 		</div>
 	</div>
 	<ul class="list-group sidebar-list">
@@ -31,7 +36,7 @@
 
 		<%= render 'partials/sidebar_link',
 					title: 'Attendance',
-					link_path: '#Attendance',
+					link_path: events_path,
 					icon: 'check' %>
 
 		<%= render 'partials/sidebar_link',
@@ -41,7 +46,7 @@
 
 		<%= render 'partials/sidebar_link',
 		 			title: 'Notifications',
-					link_path: '#Notifications',
+					link_path: notifications_path,
 					icon: 'bell' %>
 
 	</ul>

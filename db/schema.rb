@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016075606) do
+ActiveRecord::Schema.define(version: 20171009092507) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20171016075606) do
     t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.text     "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_attendances_on_event_id"
+    t.index ["user_id"], name: "index_attendances_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "title"
     t.datetime "event_date"
@@ -29,6 +39,7 @@ ActiveRecord::Schema.define(version: 20171016075606) do
     t.integer  "repeat",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "event_type"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -81,6 +92,23 @@ ActiveRecord::Schema.define(version: 20171016075606) do
     t.index ["user_id"], name: "index_notifications_users_on_user_id"
   end
 
+  create_table "privacy_settings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "presence",        default: true
+    t.boolean  "mobile_number",   default: true
+    t.boolean  "address",         default: true
+    t.boolean  "email",           default: true
+    t.boolean  "dob",             default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "user_created_at", default: true
+    t.boolean  "home_number",     default: true
+    t.boolean  "work_number",     default: true
+    t.boolean  "main_service",    default: true
+    t.boolean  "occupation",      default: false
+    t.index ["user_id"], name: "index_privacy_settings_on_user_id"
+  end
+
   create_table "rosters", force: :cascade do |t|
     t.string   "title"
     t.date     "start_date"
@@ -103,7 +131,7 @@ ActiveRecord::Schema.define(version: 20171016075606) do
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone_number"
+    t.integer  "mobile_number"
     t.string   "address"
     t.string   "email"
     t.date     "dob"
@@ -122,6 +150,9 @@ ActiveRecord::Schema.define(version: 20171016075606) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer  "home_number"
+    t.integer  "work_number"
+    t.string   "image"
   end
 
 end

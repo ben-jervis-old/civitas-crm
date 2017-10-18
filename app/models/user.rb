@@ -4,15 +4,20 @@ class User < ApplicationRecord
 	has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
 	has_many :received_messages, class_name: "Message", foreign_key: "receiver_id"
 
-	has_many :memberships
+	has_many :memberships, dependent: :destroy
 	has_many :groups, -> { distinct }, through: :memberships
 	has_and_belongs_to_many :contacts
-	has_many :assignments
+	has_many :assignments, dependent: :destroy
 	has_many :tasks, -> { distinct },	through: :assignments
 	has_many :rosters, through: :tasks
+	has_many :attendances, dependent: :destroy
+	has_many :events, -> { distinct }, through: :attendances
 	has_and_belongs_to_many :notifications
-	
+	has_one :privacy_setting, dependent: :destroy
+
 	has_secure_password
+
+	mount_uploader :image, ImageUploader
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -27,6 +32,7 @@ class User < ApplicationRecord
 	before_save :check_birthdate
 	before_save { self.email = email.downcase }
 	before_create :create_activation_digest
+	after_create :create_privacy_setting
 
 	def to_i
 		self.id
@@ -54,6 +60,10 @@ class User < ApplicationRecord
 
 	def visitor?
 		self.level == "visitor"
+	end
+
+	def is_staff?
+		%w(staff leader trusted).include?(self.level)
 	end
 
 	def admin_of

@@ -1,6 +1,6 @@
 <% provide(:title, 'Register') %>
 <div id="login-page-wrapper">
-  <div class="page-header">
+  <div class="page-header <%= 'tall-margin' unless flash.empty? %>">
     <h1>Sign Up</h1>
   </div>
   <%= form_for @user, url: { action: :signup_create } do |f| %>

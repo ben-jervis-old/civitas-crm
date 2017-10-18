@@ -20,7 +20,7 @@
 	</div>
 	<div class="row padded-row">
 		<h4>
-			Tasks <%= link_to 'Add new', new_roster_task_path(@roster), class: 'pull-right small' %>
+			Tasks <%= link_to 'Add new', new_roster_task_path(@roster), class: 'pull-right small' if current_user.is_staff? %>
 		</h4>
 		<div class="panel panel-default">
 			<table class="table">
@@ -29,7 +29,7 @@
 						<tr>
 					  	<td><%= link_to tsk.title, roster_task_path(@roster, tsk) %></td>
 							<td><%= users_string tsk.users %></td>
-							<td>Due: <%= tsk.due.localtime.strftime("%d/%m/%Y") %></td>
+							<td>Due: <%= tsk.due.in_time_zone('Sydney').strftime("%d/%m/%Y") %></td>
 						</tr>
 				  <% end %>
 				<% else %>
@@ -56,7 +56,9 @@
 			</table>
 		</div>
 	</div>
-	<div class="row padded-row">
-		<%= link_to 'Edit Roster', edit_roster_path(@roster), class: 'btn btn-default pull-right' %>
-	</div>
+	<% if current_user.is_staff? %>
+		<div class="row padded-row">
+			<%= link_to 'Edit Roster', edit_roster_path(@roster), class: 'btn btn-default pull-right' %>
+		</div>
+	<% end %>
 </div>

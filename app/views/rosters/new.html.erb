@@ -1,6 +1,6 @@
 <% provide(:title, "New Roster") %>
 
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 	<h1>New Roster</h1>
 </div>
 <ol class="breadcrumb">
@@ -9,7 +9,7 @@
 </ol>
 
 
-<div class="row bounded-row padded-row">
+<div class="row">
   <div class="col-md-8">
     <%= render 'form' %>
   </div>

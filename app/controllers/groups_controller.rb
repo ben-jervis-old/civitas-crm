@@ -1,7 +1,10 @@
 class GroupsController < ApplicationController
+
+	before_action :check_staff, except: [:index, :show]
+
   def show
     @group = Group.find(params[:id])
-    # @users = User.all
+    @authorised_user = current_user.is_staff? || current_user.admin_of?(@group.id)
     @all_users =  User.all
 											.sort_by{ |usr| [usr.last_name, usr.first_name] }
 											.reject{ |usr| @group.user_ids.include? usr.id }
@@ -18,7 +21,7 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all
+    @groups = Group.all.order(:name)
   end
 
   def members
@@ -87,4 +90,12 @@ class GroupsController < ApplicationController
     def group_params
       params.require(:group).permit(:name,:group_type,:description)
     end
+
+		def check_staff
+			group = Group.find(params[:id] || params[:group_id]) if (params[:id] || params[:group_id])
+			if !(current_user.is_staff? || (group && current_user.admin_of?(group)))
+				flash[:warning] = "You don't have access to that action"
+				redirect_to group ? group_path(group.id) : groups_path
+			end
+		end
 end

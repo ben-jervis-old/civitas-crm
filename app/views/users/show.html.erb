@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
   <h1><%= @user.name %></h1>
 </div>
 
@@ -10,38 +10,99 @@
 </ol>
 
 <div class="row">
-	<div class="col-md-2">
-    <%= image_tag 'usericon.png', class: 'img-responsive img-xs-center', width: 150, height: 150 %>
+	<div class="col-md-3">
+		<% image_path = @user.image.thumb.url || 'usericon.png' %>
+    <%= image_tag image_path, class: 'img-responsive img-xs-center', id: 'user-display-picture' %>
+    <% if current_user.is_staff? || current_user.id == @user.id %>
+  		<%= form_for @user, url: user_photo_path(@user), html: { multipart: true } do |f| %>
+  			<div class="form-group text-center">
+  				<%= f.label :image, 'Choose a new picture', class: 'btn btn-default' %>
+          <%= f.submit 'Save Picture', class: 'btn btn-primary hidden', id: 'user-new-picture-submit' %>
+  				<%= f.file_field :image, class: 'form-control hidden' %>
+  			</div>
+  			<div class="form-group text-center">
+  			</div>
+  		<% end %>
+    <% end %>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-5">
     <table class='user-details-table'>
+			<% if show_allowed @user, :email %>
+	      <tr>
+          <td><%= privacy_indicator @user, :email %></td>
+					<td>Email Address:</td>
+	        <td><%= mail_to @user.email %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :mobile_number %>
+	      <tr>
+          <td><%= privacy_indicator @user, :mobile_number %></td>
+					<td>Mobile Number:</td>
+	        <td><%= if @user.mobile_number == 0 || @user.mobile_number.blank? then content_tag(:em, "Not provided") else number_link(@user.mobile_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :home_number %>
+	      <tr>
+          <td><%= privacy_indicator @user, :home_number %></td>
+					<td>Home Number:</td>
+	        <td><%= if @user.home_number == 0 || @user.home_number.blank? then content_tag(:em, "Not provided") else number_link(@user.home_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :work_number %>
+	      <tr>
+          <td><%= privacy_indicator @user, :work_number %></td>
+					<td>Work Number:</td>
+	        <td><%= if @user.work_number == 0 || @user.work_number.blank? then content_tag(:em, "Not provided") else number_link(@user.work_number) end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :address %>
+	      <tr>
+          <td><%= privacy_indicator @user, :address %></td>
+					<td>Address:</td>
+	        <% if @user.address.blank? %>
+	          <td><em>Not provided</em></td>
+	        <% else %>
+	          <td>
+	            <%= @user.address %>
+	            <%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
+	    					<%= fa_icon 'map-marker', class: 'large-icon' %>
+	    				<% end %>
+	          </td>
+	        <% end %>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :dob %>
+	      <tr>
+          <td><%= privacy_indicator @user, :dob %></td>
+	        <td>Date of Birth:</td>
+	        <td><%= if @user.dob.nil? then content_tag(:em, "Not provided") else @user.dob.strftime("%d/%m/%Y") end %></td>
+	      </tr>
+			<% end %>
+
+			<% if show_allowed @user, :user_created_at %>
+				<tr>
+          <td><%= privacy_indicator @user, :user_created_at %></td>
+					<td>Member Since:</td>
+					<td><%= @user.created_at.strftime("%d/%m/%Y") %></td>
+				</tr>
+			<% end %>
+
+			<% if show_allowed @user, :main_service %>
+				<tr>
+          <td><%= privacy_indicator @user, :main_service %></td>
+					<td>Main Service:</td>
+					<td><%= if @user.main_service.nil? then content_tag(:em, "Not provided") else @user.main_service end %></td>
+				</tr>
+			<% end %>
+
       <tr>
-        <td>Email Address:</td>
-        <td><%= mail_to @user.email %></td>
-      </tr>
-      <tr>
-        <td>Phone Number:</td>
-        <td><%= if @user.phone_number == 0 || @user.phone_number.blank? then content_tag(:em, "Not provided") else number_link(@user.phone_number) end %></td>
-      </tr>
-      <tr>
-        <td>Address:</td>
-        <% if @user.address.blank? %>
-          <td><em>Not provided</em></td>
-        <% else %>
-          <td>
-            <%= @user.address %>
-            <%= link_to @address_link, target: :_blank, rel: 'noopener noreferrer' do %>
-    					<i class="fa fa-map-marker" aria-hidden="true"></i>
-    				<% end %>
-          </td>
-        <% end %>
-      </tr>
-      <tr>
-        <td>Date of Birth:</td>
-        <td><%= if @user.dob.nil? then content_tag(:em, "Not provided") else @user.dob.strftime("%d/%m/%Y") end %></td>
-      </tr>
-      <tr>
+        <td><%= privacy_indicator @user, :level %></td>
         <td>Access Level: </td>
         <td><%= @user.level.capitalize %></td>
       </tr>
@@ -52,20 +113,22 @@
 
   </div>
 
-  <div class="col-md-6">
-    <div class="row">
-      <div class="col-md-12">
-        <h4>Notes:</h4>
-        <p><%= if @user.notes.blank? then content_tag(:em, "No notes recorded") else @user.notes end %></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <h4>Special Requirements:</h4>
-        <p><%= if @user.special_needs.blank? then content_tag(:em, "No requirements recorded") else @user.special_needs end %></p>
-      </div>
-    </div>
-  </div>
+	<% if current_user.is_staff? %>
+	  <div class="col-md-4">
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h4>Notes:</h4>
+	        <p><%= if @user.notes.blank? then content_tag(:em, "No notes recorded") else @user.notes end %></p>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <div class="col-md-12">
+	        <h4>Special Requirements:</h4>
+	        <p><%= if @user.special_needs.blank? then content_tag(:em, "No requirements recorded") else @user.special_needs end %></p>
+	      </div>
+	    </div>
+	  </div>
+	<% end %>
 </div>
 
 <br>
@@ -116,12 +179,40 @@
 <div class="row">
 	<div class="col-md-8">
     <div class="hidden-xs">
-      <%= link_to 'Update details', edit_user_path, class: 'btn btn-default' %>
-      <%= link_to 'Change Password', '#', class: 'btn btn-default' if @user.id == current_user.id %>
+
+			<% if current_user.is_staff? || current_user.id == @user.id %>
+	      <%= link_to edit_user_path, class: 'btn btn-default' do %>
+					<%= fa_icon 'pencil' %> Update details
+				<% end %>
+
+				<%= link_to user_privacy_path(@user.id), class:'btn btn-default' do %>
+					<%= fa_icon 'cogs' %> Privacy Settings
+				<% end %>
+			<% end %>
+
+			<% if @user.id == current_user.id %>
+	      <%= link_to '#', class: 'btn btn-default' do %>
+					<%= fa_icon 'unlock-alt' %> Change Password
+				<% end %>
+			<% end %>
+
     </div>
     <div class="visible-xs-block btn-group-vertical">
-      <%= link_to 'Update details', edit_user_path, class: 'btn btn-default btn-block' %>
-      <%= link_to 'Change Password', '#', class: 'btn btn-default btn-block' if @user.id == current_user.id %>
+			<% if current_user.is_staff? || current_user.id == @user.id %>
+	      <%= link_to edit_user_path, class: 'btn btn-default' do %>
+					<%= fa_icon 'pencil' %> Update details
+				<% end %>
+
+				<%= link_to user_privacy_path(@user.id), class:'btn btn-default' do %>
+					<%= fa_icon 'cogs' %> Privacy Settings
+				<% end %>
+			<% end %>
+
+			<% if @user.id == current_user.id %>
+	      <%= link_to '#', class: 'btn btn-default' do %>
+					<%= fa_icon 'unlock-alt' %> Change Password
+				<% end %>
+			<% end %>
     </div>
 	</div>
 </div>

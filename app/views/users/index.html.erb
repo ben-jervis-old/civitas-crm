@@ -1,5 +1,5 @@
 <% provide(:title, "Members") %>
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 	<h1>Member Database</h1>
 </div>
 
@@ -10,29 +10,33 @@
 <div class="row bounded-row">
 
 	<!-- Button for mobile -->
-	<div class="col-md-1 visible-sm-block visible-xs-block padded-row">
-		<%= link_to new_user_path, class: "btn btn-primary btn-lg btn-block visible-xs-block visible-sm-block" do %>
-			<i class="glyphicon glyphicon-plus"></i> New Member
-		<% end %>
-	</div>
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 visible-sm-block visible-xs-block padded-row">
+			<%= link_to new_user_path, class: "btn btn-primary btn-lg btn-block visible-xs-block visible-sm-block" do %>
+				<%= fa_icon 'plus' %> New Member
+			<% end %>
+		</div>
+	<% end %>
 
 	<div class="col-md-6">
 		<div class="input-group">
-			<input type="text" id='username-search-bar' name="user-search" value="" class="form-control" placeholder="Search">
+			<input type="search" name="user-search" value="" class="form-control search-bar scroll" placeholder="Search">
 			<span class="input-group-btn">
 				<button class="btn btn-default">
-					<i class="fa fa-search"></i>
+					<%= fa_icon 'search' %>
 				</button>
 			</span>
 		</div>
 	</div>
 
 	<!-- Button for desktop -->
-	<div class="col-md-1 col-md-offset-5 hidden-sm hidden-xs">
-		<%= link_to new_user_path, class: "btn btn-primary pull-right" do %>
-			<i class="glyphicon glyphicon-plus"></i> New Member
-		<% end %>
-	</div>
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 col-md-offset-5 hidden-sm hidden-xs">
+			<%= link_to new_user_path, class: "btn btn-primary pull-right" do %>
+				<%= fa_icon 'plus' %> New Member
+			<% end %>
+		</div>
+	<% end %>
 
 </div>
 
@@ -44,19 +48,23 @@
 			<div class="list-group-item col-md-12 text-center hidden-item" id="list-empty-msg">
 				<h4><em>No users found</em></h4>
 			</div>
-
-			<!-- Render some test users to pad the list -->
-			<% (1..150).each do |num| %>
-			<% rand_str = (0...8).map { (65 + rand(26)).chr }.join %>
-					<div class="list-group-item col-md-4" data-username='<%= rand_str %>' data-type='user-list-item'>
-						<h4>
-							<%= link_to "Test User #{num} > #{rand_str}", '#', class: 'name' %>
-							<%= link_to '#Show', class: 'picture-sym' do %>
-								<i class="glyphicon glyphicon-picture pull-right"></i>
-							<% end %>
-						</h4>
-					</div>
-			<% end %>
 		</ul>
 	</div>
+</div>
+
+<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="user-name-label">New message</h4>
+      </div>
+      <div class="modal-body">
+        <%= image_tag 'usericon.png', class: 'img-responsive center-block img-rounded', id: 'user-picture-tag' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

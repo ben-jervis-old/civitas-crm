@@ -5,7 +5,6 @@ class AccountSetupsController < ApplicationController
   before_action :valid_user,        only: [:edit, :update]
 
   def edit
-    @hide_sidebar = true
   end
 
   def update
@@ -16,7 +15,7 @@ class AccountSetupsController < ApplicationController
 			@user.activate if !@user.activated?
       log_in @user
 			@user.update_attribute(:reset_digest, nil)
-      flash[:success] = "Password has been reset."
+      flash[:success] = "Password created successfully."
       redirect_to @user
     end
 	end

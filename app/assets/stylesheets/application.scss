@@ -31,7 +31,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-.hidden-item {
+.hidden-item, .hidden-filter {
 	display: none;
 }
 
@@ -62,9 +62,34 @@ body {
 	display: none;
 }
 
+.icon-column {
+	width: 20px;
+}
+
+.item-pad-left {
+	margin-left: 15px;
+}
+
 .scrollable-list-group {
-	max-height: 600px;
+	max-height: 450px;
 	overflow-y: auto;
+}
+
+#sidebar-image-holder {
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 6px;
+	position: relative;
+
+	img {
+		margin: auto;
+		position: absolute;
+		top: -9999px;
+		bottom: -9999px;
+		left: -9999px;
+		right: -9999px;
+	}
 }
 
 .user-details-table td {
@@ -83,8 +108,39 @@ body {
 	border-color: #eea236;
 }
 
-a.dismiss-cross-link {
-	color: #777777;
+#user-display-picture {
+	margin: 0 auto 10px auto;
+	border-radius: 10px;
+	border: 2px solid;
+	padding: 2px;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+.dismiss-cross-link {
+		color: #777777;
+		position: absolute;
+		right: 15px;
+		top: 10px;
+		.fa {
+			font-size: 23px;
+		}
+		&:hover {
+			color: #565656;
+		}
+}
+
+.unpadded-checkboxes {
+	display: flex;
+	flex-wrap: wrap;
+	.checkbox {
+		margin: 0;
+		label {
+			width: 100%;
+		}
+	}
 }
 
 a.pull-right.navbar-brand {
@@ -139,14 +195,14 @@ a.pull-right.navbar-brand {
 	margin-top: 10px;
 }
 
-#flash-holder {
+#flash-holder.regular-flash {
 	position: absolute;
-	left: 280px;
-	right: 30px;
+	left: 40px;
+	right: 40px;
 }
 
 #sidebar {
-	padding: 20px 0 0 0;
+	padding: 15px 0 0 0;
 	width: 250px;
 	position: fixed;
 	background-color: $plain-background;
@@ -164,7 +220,8 @@ a.pull-right.navbar-brand {
 	}
 
 	#user-info-card {
-		padding: 0 25px 25px 25px;
+		min-height: 100px;
+		padding: 0 25px;
 		border-bottom: 1px solid #ddd;
 	}
 }
@@ -186,6 +243,7 @@ a.pull-right.navbar-brand {
 	padding-left: 10px;
 	padding-top: 6px;
 	padding-right: 10px;
+	padding-bottom: 30px;
 }
 
 #main-body-div {
@@ -341,10 +399,10 @@ li.active small {
 }
 
 #action-menu {
-	position: absolute;
+	position: fixed;
 	display: none;
-	top: 50px;
-	right: 45px;
+	top: 60px;
+	right: 10px;
 	z-index: 2000;
 	width: 200px;
 	a {
@@ -388,6 +446,11 @@ label.checkbox.inline {
 
 	#main-body-div {
 		margin-bottom: 0;
+	}
+
+	#flash-holder.regular-flash {
+		left: 280px;
+		right: 30px;
 	}
 
 	.card-holder {

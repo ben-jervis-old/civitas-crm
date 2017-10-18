@@ -1,6 +1,6 @@
 <% provide(:title, "Create Password") %>
 <div id="login-page-wrapper">
-  <div class="page-header">
+  <div class="page-header <%= 'tall-margin' unless flash.empty? %>">
     <h1>Create a Password</h1>
   </div>
   <%= form_for(@user, url: account_setup_path(params[:id])) do |f| %>

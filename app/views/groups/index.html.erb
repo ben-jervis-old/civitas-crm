@@ -1,4 +1,4 @@
-<div class="page-header">
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
 	<h1>Group Database</h1>
 </div>
 
@@ -7,33 +7,41 @@
 </ol>
 
 <div class="row bounded-row">
-	<div class="col-md-1 visible-xs-block">
-		<%= link_to new_group_path, class: 'btn btn-primary btn-block' do %>
-			<i class="glyphicon glyphicon-plus"></i> New Group
-		<% end %>
-		<br>
-	</div>
+
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 visible-xs-block">
+			<%= link_to new_group_path, class: 'btn btn-primary btn-block' do %>
+				<%= fa_icon 'plus' %> New Group
+			<% end %>
+			<br>
+		</div>
+	<% end %>
+
 	<div class="col-md-4">
 		<div class="input-group">
-			<input type="text" id="groups-search-bar" name="groups-search" value="" class="form-control" placeholder="Search">
+			<input type="text" name="groups-search" value="" class="form-control search-bar scroll" placeholder="Search">
 			<span class="input-group-btn">
 				<button class="btn btn-default">
-					<i class="glyphicon glyphicon-search"></i>
+					<%= fa_icon 'search' %>
 				</button>
 			</span>
 		</div>
 	</div>
-	<div class="col-md-1 col-md-offset-7 hidden-xs">
-		<%= link_to new_group_path, class: "btn btn-primary pull-right" do %>
-			<i class="glyphicon glyphicon-plus"></i> New Group
-		<% end %>
-	</div>
+
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 col-md-offset-7 hidden-xs">
+			<%= link_to new_group_path, class: "btn btn-primary pull-right" do %>
+				<%= fa_icon 'plus' %> New Group
+			<% end %>
+		</div>
+	<% end %>
+
 </div>
 
 <div class="row padded-row">
 	<div class="list-group">
 		<% @groups.each do |group| %>
-			<div class="list-group-item col-md-6" data-groupname="<%= group.name %>">
+			<div class="list-group-item col-md-6" data-searchterm="<%= group.name %>">
 			  <%= link_to group do %>
 			    <h4><%= group.name %>
 			      <span class="label label-default pull-right"><%= pluralize(group.users.count, 'Member') %></span>
@@ -41,5 +49,8 @@
 			  <% end %>
 			</div>
 		<% end %>
+		<div class="list-group-item col-md-12 text-center hidden-item" id="list-empty-msg">
+      <h4><em>No groups found</em></h4>
+    </div> 
 	</div>
 </div>

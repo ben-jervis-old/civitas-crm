@@ -5,13 +5,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-## Gemfile for Rails 3+, Sinatra, and Merb
-gem 'will_paginate', '~> 3.1.0'
-
 # Rich text editor used for contacts
 gem 'trix'
-
 gem 'select2-rails'
+
+#Used for creating pages in notifications history
+gem 'will_paginate',           '3.1.5'
+gem 'bootstrap-will_paginate', '1.0.0'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
@@ -43,8 +45,6 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 
 gem 'active_link_to'
-
-gem 'bootstrap-datepicker-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

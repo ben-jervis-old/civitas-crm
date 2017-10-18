@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-	has_many :assignments
+	has_many :assignments, dependent: :destroy
 	has_many :users, -> { distinct }, through: :assignments
 	belongs_to :roster
 
