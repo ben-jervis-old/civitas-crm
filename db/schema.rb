@@ -81,18 +81,6 @@ ActiveRecord::Schema.define(version: 20171016075606) do
     t.index ["user_id"], name: "index_notifications_users_on_user_id"
   end
 
-  create_table "receivers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "recipients", force: :cascade do |t|
-    t.integer  "manager_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["manager_id"], name: "index_recipients_on_manager_id"
-  end
-
   create_table "rosters", force: :cascade do |t|
     t.string   "title"
     t.date     "start_date"
@@ -100,11 +88,6 @@ ActiveRecord::Schema.define(version: 20171016075606) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "description"
-  end
-
-  create_table "senders", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -139,7 +122,6 @@ ActiveRecord::Schema.define(version: 20171016075606) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.integer  "receiver_id"
   end
 
 end

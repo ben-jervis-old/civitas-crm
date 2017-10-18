@@ -40,7 +40,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass'
-gem 'vuejs-rails'
 gem 'font-awesome-rails'
 
 gem 'active_link_to'

@@ -1,61 +1,37 @@
-<div class="row btn-group">
-  <%= link_to message_reply_path(mess), class: "text-left btn btn-default", method: :post,
-    data: {
-									toggle: 'tooltip',
-									placement: 'top',
-									title: 'Reply'
-								} do %>
-  	<i class="fa fa-reply"></i>
-  <% end %>
-  <%= link_to message_forward_path(mess), class: "text-left btn btn-default", method: :post, 
-    data: {
-									toggle: 'tooltip',
-									placement: 'top',
-									title: 'Forward'
-								} do %>
-  	<i class="fa fa-share"></i>
-  <% end %>
-  <%= link_to @message, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" ,
-    data: {
-									toggle: 'tooltip',
-									placement: 'top',
-									title: 'Delete'
-								} do %>
-  	<i class="fa fa-trash"></i>
-  <% end %>
-  <%= link_to message_unread_path(mess), class: "text-left btn btn-default", method: :post,
-    data: {
-									toggle: 'tooltip',
-									placement: 'top',
-									title: 'Mark as unread'
-								} do %>
-  	<i class="fa fa-envelope-open"></i>
-  <% end %>
-</div>
-
-<div class="row">
-  <table class="">
+<div class="panel panel-default">
+  <table class="table">
     <tr>
       <td><strong>From: </strong></td>
       <td><%= mess.sender.name %></td>
       <td><strong>Time sent: </strong></td>
-      <td><%= mess.updated_at %></td>
+      <td><%= mess.sent_at %></td>
     </tr>
     <tr>
       <td><strong>To: </strong></td>
-      <td><%= if mess.receiver then mess.receiver.name else "<i>No recipient</i>".html_safe end %></td>
+      <td colspan=3><%= if mess.receiver then mess.receiver.name else "<i>No recipient</i>".html_safe end %></td>
     </tr>
-  </table>
-  <table class="">
     <tr>
       <td><strong>Subject: </strong></td>
       <td><%= mess.title %></td>
     </tr>
+    <tr>
+      <td colspan=4>
+        <%= mess.content.html_safe %>
+      </td>
+    </tr>
   </table>
-  <hr>
-  <p>
-      <%= mess.content.html_safe %>
-  </p>
-  
 </div>
-
+<div class="btn-group pull-right">
+  <%= link_to message_reply_path(mess), class: "btn btn-default", method: :post do %>
+    <%= fa_icon 'reply' %> Reply
+  <% end %>
+  <%= link_to message_forward_path(mess), class: "btn btn-default", method: :post do %>
+    <%= fa_icon 'share' %> Forward
+  <% end %>
+  <%= link_to @message, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
+    <%= fa_icon 'trash' %> Delete
+  <% end %>
+  <%= link_to message_unread_path(mess), class: "btn btn-default", method: :post do %>
+    <%= fa_icon 'envelope-open' %> Mark Unread
+  <% end %>
+</div>

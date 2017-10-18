@@ -1,202 +1,148 @@
 class MessagesController < ApplicationController
-  
+
   def index
-    @messages = current_user.received_messages
-                    .where(receiver_delete: false)
-                    .order(created_at: :desc)
-                    .paginate(:page => params[:page], :per_page => 30)
-    @place = 'inbox'
-  end
-  
-  def sent_messages
-    @messages = current_user.sent_messages
-                    .where(sender_delete: false)
-                    .order(created_at: :desc)
-                    .paginate(:page => params[:page], :per_page => 30)
-    @place = 'sent'
+    @inbox_messages = current_user.received_messages
+                                  .where(receiver_delete: false)
+                                  .order(created_at: :desc)
+                                  .paginate(:page => params[:page], per_page: 30)
+    @sent_messages = current_user.sent_messages
+                                 .where(sender_delete: false)
+                                 .order(created_at: :desc)
+                                 .paginate(:page => params[:page], per_page: 30)
+    @sent_active = false
   end
 
   def new
     @message = Message.new
-    @users = User.all
+    @users = User.where.not(id: current_user.id)
     @groups = Group.all
   end
-  
+
   def create
-    message = current_user.sent_messages.create(message_params)
-	  message.sent = true
-    params[:recipients][:user_id].each  do |id|
-      if id[0] == "U"
-        id = id[1..-1]
-        @recipient = User.find(id)
-        @recipient.received_messages.create(title: message.title,
-                      content: message.content,
-                      sender: message.sender,
-                      receiver: @recipient,
-                      sent: true)
-        MessageMailer.new_message(@recipient.received_messages.last).deliver_now
-      elsif id[0] == "G"
-        id = id[1..-1]
-        @group = Group.find(id)
-        @group.memberships.each do |mem|
-          @recipient = User.find(mem.user_id)
-          @recipient.received_messages.create(title: message.title,
-                      content: message.content,
-                      sender: message.sender,
-                      receiver: @recipient,
-                      sent: true)
-        end
+    user_list = (params[:recipients]).select{ |id| id.include? 'U'}
+                                     .map{ |id| id.tr('U', '').to_i }
+    group_list = (params[:recipients]).select{ |id| id.include? 'G'}
+                                      .map{ |id| id.tr('G', '').to_i }
+                                      .map{ |id| Group.find(id).users.collect(&:id) }
+
+    send_list = [user_list, group_list].flatten.uniq
+
+	  send_list.each  do |id|
+      new_msg = Message.new(title:        params[:message][:title],
+                            content:      params[:message][:content],
+                            sender_id:    current_user.id,
+                            receiver_id:  id,
+                            sent:         true,
+                            sent_at:      Time.zone.now )
+      if new_msg.save
+        MessageMailer.new_message(new_msg).deliver_now
       end
     end
-    message.delete
-    redirect_to action: 'sent_messages'
-    
-	end
-	
-	def update
-    message = Message.find(params[:id])
-    
-	  message.sent = true
-    params[:recipients][:user_id].each  do |id|
-      if id[0] == "U"
-        id = id[1..-1]
-        recipient = User.find(id)
-        recipient.received_messages.create(title: message.title,
-                      content: message.content,
-                      sender: message.sender,
-                      receiver: recipient,
-                      sent: true)
-        MessageMailer.new_message(recipient.received_messages.last).deliver_now
-      elsif id[0] == "G"
-        id = id[1..-1]
-        group = Group.find(id)
-        group.memberships.each do |mem|
-          recipient = User.find(mem.user_id)
-          recipient.received_messages.create(title: message.title,
-                      content: message.content,
-                      sender: message.sender,
-                      receiver: recipient,
-                      sent: true)
-        end
-      end
-    end
-    message.delete
-    redirect_to action: 'sent_messages'
-	end
+    redirect_to messages_path
+  end
 
   def show
     @message = Message.find(params[:id])
-    if @message.receiver == current_user
-      @messages = current_user.received_messages
-                  .order(created_at: :desc)
-                  .paginate(:page => params[:page], :per_page => 30)
-      @message.read = true
-      if !@message.save
-        flash[:success] = "read not set to true"
-      end
-      @place = 'inbox'
-    elsif @message.sent
-      @messages = current_user.sent_messages
-                  .where(sent: true)
-                  .order(created_at: :desc)
-                  .paginate(:page => params[:page], :per_page => 30)
-      @place = 'sent'
-    else
-      @messages = current_user.sent_messages
-                    .where(sent: false)
-                    .order(created_at: :desc)
-                    .paginate(:page => params[:page], :per_page => 30)
-      @place = 'draft'
-    end
+    @message.update_attribute(:read, true) if @message.receiver_id == current_user.id
+
+    @inbox_messages = current_user.received_messages
+                                  .where(receiver_delete: false)
+                                  .order(created_at: :desc)
+                                  .paginate(:page => params[:page], per_page: 30)
+    @sent_messages = current_user.sent_messages
+                                 .where(sender_delete: false)
+                                 .order(created_at: :desc)
+                                 .paginate(:page => params[:page], per_page: 30)
+
+    @sent_active = @message.sender_id == current_user.id
   end
 
   def destroy
     @message = Message.find(params[:id])
-    if current_user == @message.receiver
-      @message.receiver_delete = true
-    end
-    if current_user == @message.sender
-      @message.sender_delete = true
-    end
-    if @message.sender_delete and @message.receiver_delete 
-      if @message.delete
-  			flash[:success] = "Message deleted successfully"
-      else
-        flash[:success] = "Message could not be deleted try again"
-      end
+
+    @message.receiver_delete ||= current_user.id == @message.receiver_id
+
+    @message.sender_delete ||= current_user.id == @message.sender_id
+
+    if @message.sender_delete && @message.receiver_delete
+      success = !!@message.delete
     else
-      if @message.save
-  			flash[:success] = "Message deleted successfully"
-      else
-        flash[:success] = "Message could not be deleted try again"
-      end
+      success = !!@message.save
     end
-    if current_user == @message.receiver
-      redirect_to messages_path
+
+    if success
+      flash[:success] = "Message deleted successfully"
     else
-      redirect_to sent_messages_path
+      flash[:success] = "Message could not be deleted try again"
     end
-    
+
+    redirect_to messages_path
   end
-    
-  def edit
-    @message = Message.find(params[:id])
-		@cancel_path = message_path(@message.id)
-    @users = User.all
-    @groups = Group.all
-  end
-  
+
   def forward
-    @message = Message.find(params[:message_id])
-    text = "<br><br><blockquote>To: "
-    if !@message.receiver.nil? then text = text+@message.receiver.name else text = text+"No recipient" end
-    text = text+"<br>From: "+@message.sender.name+"<br>"+
-                        @message.content+"</blockquote>"
-    @new_message = current_user.sent_messages.create(title: "Fwd: "+@message.title,
-                        content: text,
-                        sender: current_user,
-                        sent: false)
-    if @new_message.save
-      redirect_to :action => "edit", :id => @new_message.id
-    else
-      flash[:error] = "Error: Message not created"
-      redirect_to :back
-    end
+    @original_message = Message.find(params[:message_id])
+    new_content = """
+    <br>
+    <br>
+    <blockquote>
+      <p>To: #{@original_message.receiver.name}</p>
+      <p>From: #{@original_message.sender.name}</p>
+      <p>Date: #{@original_message.sent_at}</p>
+      <div>#{@original_message.content}</div>
+    </blockquote>
+    """
+
+    @message = Message.new( title: "Fw: #{@original_message.title}",
+                            content: new_content,
+                            sender_id: current_user.id,
+                            sent: false)
+    @users = User.where.not(id: current_user.id)
+    @groups = Group.all
+    render 'new'
   end
-  
+
   def reply
-    @message = Message.find(params[:message_id])
-    text = "<br><br><blockquote>To: "
-    if !@message.receiver.nil? then text = text+@message.receiver.name else text = text+"No recipient" end
-    text = text+"<br>From: "+@message.sender.name+"<br>"+
-                        @message.content+"</blockquote>"
-    @new_message = current_user.sent_messages.create(title: "Re: "+@message.title,
-                        content: text,
-                        sender: current_user,
-                        receiver: @message.sender,
-                        sent: false)
-    if @new_message.save
-      redirect_to :action => "edit", :id => @new_message.id
+    @original_message = Message.find(params[:message_id])
+    new_content = """
+    <br>
+    <br>
+    <blockquote>
+      <p>To: #{@original_message.receiver.name}</p>
+      <p>From: #{@original_message.sender.name}</p>
+      <p>Date: #{@original_message.sent_at}</p>
+      <div>#{@original_message.content}</div>
+    </blockquote>
+    """
+
+    @message = Message.new( title: "Re: #{@original_message.title}",
+                            content: new_content,
+                            sender_id: current_user.id,
+                            receiver_id: @original_message.sender_id,
+                            sent: false)
+    if @message.valid?
+      @users = User.where.not(id: current_user.id)
+      @groups = Group.all
+      render 'new'
     else
-      flash[:error] = "Error: Message not created"
+      flash[:error] = "Reply was not able to be created"
       redirect_to :back
     end
   end
-  
+
   def unread
     @message = Message.find(params[:message_id])
     @message.read = false
     if !@message.save
-      flash[:success] = "read not set to true"
+      flash[:warning] = "Unable to update status"
     end
     redirect_to messages_path
   end
-  
+
   def read
     @message = Message.find(params[:message_id])
     @message.read = true
     if !@message.save
-      flash[:success] = "read not set to true"
+      flash[:warning] = "Unable to update status"
     end
     redirect_to messages_path
   end

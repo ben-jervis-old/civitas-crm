@@ -14,21 +14,25 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-datepicker
-//= require vue
+//= require select2
+//= require trix
 //= require_tree .
 //= stub 'tasks'
-//= require trix
-//= require select2
+
 
 
 var doc_ready;
 doc_ready = function () {
-	
+
   $('.js-recipients-multiple').select2({
     placeholder: "Choose Recipients",
     allowClear: true
   });
+
+	$('ul.nav-tabs a').click(function(e) {
+		e.preventDefault();
+		$(this).tab('show');
+	});
 
   // Debounce function to limit excessive cycles
   function debounce(func, wait, immediate) {
