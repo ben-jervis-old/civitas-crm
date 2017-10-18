@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :account_setups,      only: [:edit, :update]
 
-  match '/sent_messages' => 'messages#sent_messages', :via => :get,   as: 'sent_messages'
-  
   resources :messages do
     post    '/forward', 		  to: 'messages#forward', 		  as: 'forward'
     post    '/reply', 		    to: 'messages#reply', 		    as: 'reply'
