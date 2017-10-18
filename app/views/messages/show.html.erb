@@ -1,0 +1,29 @@
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Inbox</h1>
+</div>
+
+<%= render 'head' %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="tab-content">
+      <div class="tab-pane <%= 'active' unless @sent_active %>" id="inbox">
+        <%= will_paginate @inbox_messages %>
+         <ul class="list-group">
+           <%= render(@inbox_messages) || 'No messages in your inbox' %>
+         </ul>
+      	<%= will_paginate @inbox_messages %>
+      </div>
+      <div class="tab-pane  <%= 'active' if @sent_active %>" id="sent">
+        <%= will_paginate @sent_messages %>
+         <ul class="list-group">
+           <%= render(@sent_messages) || 'No sent messages' %>
+         </ul>
+      	<%= will_paginate @sent_messages %>
+      </div>
+    </div>
+	</div>
+
+  <div class="col-md-8">
+  	<%= render  "content", mess: @message %>
+  </div>
+</div>

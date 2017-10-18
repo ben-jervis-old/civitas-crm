@@ -5,6 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Rich text editor used for contacts
+gem 'trix'
+gem 'select2-rails'
+
 #Used for creating pages in notifications history
 gem 'will_paginate',           '3.1.5'
 gem 'bootstrap-will_paginate', '1.0.0'
@@ -38,7 +42,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass'
-gem 'vuejs-rails'
 gem 'font-awesome-rails'
 
 gem 'active_link_to'

@@ -31,12 +31,19 @@ Rails.application.routes.draw do
   end
   resources :account_setups,      only: [:edit, :update]
 
+  resources :messages do
+    post    '/forward', 		  to: 'messages#forward', 		  as: 'forward'
+    post    '/reply', 		    to: 'messages#reply', 		    as: 'reply'
+    post    '/unread', 		    to: 'messages#unread', 		    as: 'unread'
+    post    '/read', 		      to: 'messages#read', 		      as: 'read'
+  end
+
   resources :groups do
 		get     '/members', 								to: 'groups#members', 							as: 'members'
     post    '/assign/:user_id', 				to: 'groups#assign', 								as: 'assign_user'
     delete  '/unassign/:user_id', 			to: 'groups#unassign', 							as: 'unassign_user'
-    post    '/make_administrator', 		to: 'groups#make_administrator', 		as: 'make_administrator'
-    post    '/remove_administrator', 	to: 'groups#remove_administrator', 	as: 'remove_administrator'
+    post    '/make_administrator', 		  to: 'groups#make_administrator', 		as: 'make_administrator'
+    post    '/remove_administrator', 	  to: 'groups#remove_administrator', 	as: 'remove_administrator'
   end
 
 	root 'dashboard#index'

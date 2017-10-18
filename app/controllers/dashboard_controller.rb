@@ -6,6 +6,6 @@ class DashboardController < ApplicationController
 
 		@outstanding_tasks = current_user.tasks.where('due >= ?', Date.today)
 
-		@unread_messages = []
+		@unread_messages = current_user.received_messages.reject(&:read)
   end
 end

@@ -1,0 +1,21 @@
+<h1>civitasCRM</h1>
+<p>
+  Hi <%= @message.receiver.name %>,
+</p>
+
+<p>
+  You have received a message on civitasCRM. 
+</p>
+
+<Quote>
+  <h2>
+    To: 
+    <%= @message.receiver.name %>
+    From:
+    <%= @message.sender.name %>
+  </h2>
+  <p>
+    <%= @message.content %>
+  </p>
+</Quote>
+

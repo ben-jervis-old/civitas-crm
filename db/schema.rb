@@ -59,6 +59,20 @@ ActiveRecord::Schema.define(version: 20171009092507) do
     t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.datetime "sent_at"
+    t.boolean  "sent",            default: false
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.boolean  "read",            default: false
+    t.boolean  "sender_delete",   default: false
+    t.boolean  "receiver_delete", default: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string   "title"
     t.text     "content"

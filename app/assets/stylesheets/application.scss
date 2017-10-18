@@ -12,6 +12,8 @@
  *
  *= require_tree .
  *= require font-awesome
+ *= require select2
+ *= require trix
  *= require_self
  */
 
@@ -49,6 +51,15 @@ body {
 	&.fa-square-o {
 		padding-right: 2.6px;
 	}
+}
+
+.tab-pane .list-group-item:first-child {
+	border-top: none;
+	border-radius: 0;
+}
+
+.hidden-item {
+	display: none;
 }
 
 .icon-column {
@@ -295,6 +306,18 @@ a>li.sidebar-list-item.active {
 }
 
 .list-group.sidebar-list a.active {
+	color: white;
+}
+
+li.active > a {
+	// background-color: #337ab7;
+	color: white;
+	&:hover {
+		color: white;
+	}
+}
+
+li.active small {
 	color: white;
 }
 
