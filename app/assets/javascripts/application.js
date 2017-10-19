@@ -52,13 +52,14 @@ doc_ready = function () {
   };
 
   // Set dimensions of user picture
-  var img = $('#sidebar-image-holder img')[0];
-  if(img.height > img.width) {
-    img.style.width = '100%';
-  }
-  else {
-    img.style.height = '100%';
-  }
+  $('.thumbnail-image-holder img').each(function() {
+    if(this.height > this.width) {
+      this.style.width = '100%';
+    }
+    else {
+      this.style.height = '100%';
+    }
+  });  
 
   $('#user-detail-modal').on('show.bs.modal', function(e) {
     nameLabel = $('#user-name-label')[0];

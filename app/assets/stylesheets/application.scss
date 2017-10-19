@@ -36,9 +36,7 @@ body {
 }
 
 .padded-row {
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-bottom: 20px;
+	padding-bottom: 15px;
 }
 
 .double-padded-row {
@@ -51,11 +49,6 @@ body {
 	&.fa-square-o {
 		padding-right: 2.6px;
 	}
-}
-
-.tab-pane .list-group-item:first-child {
-	border-top: none;
-	border-radius: 0;
 }
 
 .hidden-item {
@@ -75,7 +68,7 @@ body {
 	overflow-y: auto;
 }
 
-#sidebar-image-holder {
+.thumbnail-image-holder {
 	width: 80px;
 	height: 80px;
 	overflow: hidden;
@@ -97,9 +90,15 @@ body {
 	font-size: 110%;
 }
 
-.notifications-badge {
+.messages-badge {
 	position: absolute;
 	right: 55px;
+	background-color: #ce2f42;
+}
+
+.notifications-badge {
+	position: absolute;
+	right: 75px;
 	background-color: #ce2f42;
 }
 
@@ -440,7 +439,17 @@ label.checkbox.inline {
 		padding-left: 260px;
 	}
 
+	.tab-pane .list-group-item:first-child {
+		border-top: none;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+
 	.notifications-badge {
+		right: 133px;
+	}
+
+	.messages-badge {
 		right: 90px;
 	}
 

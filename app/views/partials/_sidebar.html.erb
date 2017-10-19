@@ -1,7 +1,7 @@
 <div id="sidebar" class="hidden-xs">
 	<div id="user-info-card">
 		<% image_path = current_user.image.url || 'usericon.png' %>
-		<div id="sidebar-image-holder" class='pull-right'>
+		<div id="sidebar-image-holder" class='pull-right thumbnail-image-holder'>
 			<%= link_to current_user do %>
 				<%= image_tag image_path, class: 'img-rounded' %>
 			<% end %>

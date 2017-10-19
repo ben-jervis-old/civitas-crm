@@ -4,11 +4,11 @@ class MessagesController < ApplicationController
     @inbox_messages = current_user.received_messages
                                   .where(receiver_delete: false)
                                   .order(created_at: :desc)
-                                  .paginate(:page => params[:page], per_page: 30)
+                                  .paginate(:page => params[:page], per_page: 15)
     @sent_messages = current_user.sent_messages
                                  .where(sender_delete: false)
                                  .order(created_at: :desc)
-                                 .paginate(:page => params[:page], per_page: 30)
+                                 .paginate(:page => params[:page], per_page: 15)
     @sent_active = false
   end
 
@@ -48,13 +48,15 @@ class MessagesController < ApplicationController
     @inbox_messages = current_user.received_messages
                                   .where(receiver_delete: false)
                                   .order(created_at: :desc)
-                                  .paginate(:page => params[:page], per_page: 30)
+                                  .paginate(:page => params[:page], per_page: 15)
     @sent_messages = current_user.sent_messages
                                  .where(sender_delete: false)
                                  .order(created_at: :desc)
-                                 .paginate(:page => params[:page], per_page: 30)
+                                 .paginate(:page => params[:page], per_page: 15)
 
     @sent_active = @message.sender_id == current_user.id
+    @from_to = @sent_active ? 'To' : 'From'
+    @display_user = @sent_active ? @message.receiver : @message.sender
   end
 
   def destroy

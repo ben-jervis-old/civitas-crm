@@ -29,22 +29,22 @@
 		<% if logged_in? %>
 			<div class="pull-right action-icon-holder">
 				<%= link_to notifications_path do %>
-					<i class="fa fa-bell"></i>
-					<% num_notifications = current_user.notifications.reject(&:read).size %>
+					<%= fa_icon 'bell' %>
+					<% num_notifications = current_user.notifications.reject(&:read).length %>
 					<% if num_notifications > 0 %>
 						<span class="badge notifications-badge"><%= num_notifications %></span>
 					<% end %>
 				<% end %>
-				
-				
-				<%= link_to messages_path, class: '' do %>
-					<i class="fa fa-envelope"></i>
-					<% num_messages = current_user.received_messages.reject(&:read).size %>
+
+
+				<%= link_to messages_path do %>
+					<%= fa_icon 'envelope' %>
+					<% num_messages = current_user.received_messages.reject(&:read).length %>
 					<% if num_messages > 0 %>
-						<span class="badge notifications-badge"><%= num_messages %></span>
+						<span class="badge messages-badge"><%= num_messages %></span>
 					<% end %>
 				<% end %>
-				
+
 				<a href="#MyAccount" class="hidden-xs" data-toggle="tooltip" data-placement="bottom" title="Settings">
 					<i class="fa fa-cog"></i>
 				</a>

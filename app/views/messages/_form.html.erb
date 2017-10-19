@@ -19,7 +19,7 @@
   </div>
 
 	<div class="form-group">
-		<input id="message_content_trix_input_message" type="hidden" name="message[content]">
+		<input id="message_content_trix_input_message" type="hidden" name="message[content]" value="<%= @message.content %>">
 		<trix-editor input="message_content_trix_input_message" class="trix-content"></trix-editor>
 	</div>
 
