@@ -30,8 +30,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :test
-  # host = 'localhost:3000'
-  host = 'civitas-crm-bjervis.c9users.io'
+  host = 'localhost:3000'
+  # host = 'civitas-crm-bjervis.c9users.io'
   config.action_mailer.default_url_options = { host: host, protocol: 'https' }
   config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
 

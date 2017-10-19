@@ -4,18 +4,18 @@
 </p>
 
 <p>
-  You have received a message on civitasCRM. 
+  You have received a message on civitasCRM.
 </p>
 
-<Quote>
+<blockquote>
   <h2>
-    To: 
-    <%= @message.receiver.name %>
-    From:
-    <%= @message.sender.name %>
+    From: <%= @message.sender.name %>
   </h2>
-  <p>
-    <%= @message.content %>
-  </p>
-</Quote>
+  <div>
+    <%= @message.content.html_safe %>
+  </div>
+</blockquote>
 
+<p>
+  To reply to this message, log in to your account on civitasCRM, or <%= link_to 'click here', message_url(@message) %>.
+</p>
