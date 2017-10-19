@@ -45,8 +45,8 @@
         </h4>
         <div class="panel panel-default">
           <div class="list-group scrollable-list-group">
-            <% if @group.users.size > 0 %>
-              <% @group.users.each do |usr| %>
+            <% if @members.size > 0 %>
+              <% @members.each do |usr| %>
                 <div class="list-group-item">
                   <%= usr.name %>
 

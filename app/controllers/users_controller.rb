@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 
 	def index
 		if current_user.is_staff?
-			@users = User.all.order(:last_name)
+			@users = User.all.order(:last_name).order(:first_name)
 		else
-			@users = User.all.order(:last_name).select{ |usr| usr.privacy_setting.presence || usr.id == current_user.id }
+			@users = User.all.order(:last_name).order(:first_name).select{ |usr| usr.privacy_setting.presence || usr.id == current_user.id }
 		end
 	end
 

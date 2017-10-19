@@ -6,8 +6,10 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @authorised_user = current_user.is_staff? || current_user.admin_of?(@group.id)
     @all_users =  User.all
-											.sort_by{ |usr| [usr.last_name, usr.first_name] }
+											.order(:last_name)
+											.order(:first_name)
 											.reject{ |usr| @group.user_ids.include? usr.id }
+		@members = @group.users.order(:last_name).order(:first_name)
   end
 
   def new
