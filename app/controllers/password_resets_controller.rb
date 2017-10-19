@@ -7,6 +7,7 @@ class PasswordResetsController < ApplicationController
   before_action :check_expiration,  only: [:edit, :update]
 
   def new
+    log_out if logged_in?
   end
 
   def edit
