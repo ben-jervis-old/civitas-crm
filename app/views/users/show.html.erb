@@ -191,7 +191,7 @@
 			<% end %>
 
 			<% if @user.id == current_user.id %>
-	      <%= link_to '#', class: 'btn btn-default' do %>
+	      <%= link_to user_password_path(@user.id), class: 'btn btn-default' do %>
 					<%= fa_icon 'unlock-alt' %> Change Password
 				<% end %>
 			<% end %>
@@ -209,7 +209,7 @@
 			<% end %>
 
 			<% if @user.id == current_user.id %>
-	      <%= link_to '#', class: 'btn btn-default' do %>
+	      <%= link_to user_password_path(@user.id), class: 'btn btn-default' do %>
 					<%= fa_icon 'unlock-alt' %> Change Password
 				<% end %>
 			<% end %>

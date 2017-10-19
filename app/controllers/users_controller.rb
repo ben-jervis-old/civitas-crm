@@ -43,16 +43,6 @@ class UsersController < ApplicationController
     end
 	end
 
-	def update_password
-		if @user.update_attributes(password_params_only)
-			flash[:success] = "Your password has been updated"
-			#TODO email password update notification
-			redirect_to @user
-		else
-			render 'update_password'
-		end
-	end
-
 	def update_photo
 		@user = User.find(params[:user_id])
 
@@ -123,11 +113,35 @@ class UsersController < ApplicationController
 		end
 	end
 
+  def password
+    @user = User.find(params[:user_id])
+  end
+
+  def update_password
+    @user = User.find(params[:user_id])
+    if @user.authenticate(params[:user][:old_password])
+      if @user.update_attributes(password_params)
+        flash[:success] = 'Password updated successfully'
+        @user.send_password_update_email
+        redirect_to @user
+      else
+        render 'password'
+      end
+    else
+      @user.errors.add(:old_password, :bad_password, message: 'is incorrect')
+      render 'password'
+    end
+  end
+
 	private
 
-	def privacy_params
-		params.require(:privacy_setting).permit(:presence, :mobile_number, :work_number, :home_number, :address, :email, :dob, :user_created_at)
-	end
+  	def privacy_params
+  		params.require(:privacy_setting).permit(:presence, :mobile_number, :work_number, :home_number, :address, :email, :dob, :user_created_at)
+  	end
+
+    def password_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
 
 		def get_user
 			@user = User.find(params[:id] || params[:user_id])

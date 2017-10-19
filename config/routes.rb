@@ -18,9 +18,11 @@ Rails.application.routes.draw do
 	post '/tasks/:task_id/accept/:user_id', to: 'tasks#accept', as: 'accept_task'
 
   resources :users do
-  	get 		:privacy, to: 'users#edit_privacy'
-		patch 	:privacy, to: 'users#update_privacy'
-		patch 		:photo,		to: 'users#update_photo'
+  	get    :privacy,   to: 'users#edit_privacy'
+		patch  :privacy,   to: 'users#update_privacy'
+		patch  :photo,	   to: 'users#update_photo'
+    get    :password
+    patch  :password,  to: 'users#update_password'
   end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
