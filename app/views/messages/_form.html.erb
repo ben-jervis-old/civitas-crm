@@ -4,12 +4,17 @@
     <%= f.label 'To' %>
 
     <select class="js-recipients-multiple form-control" name="recipients[]" id="message_user_id" multiple="multiple">
-        <% @users.each do |user| %>
+			<optgroup label="Users" hidden>
+				<% @users.each do |user| %>
           <option value="U<%= user.id %>" <%= 'selected' if @message.receiver_id == user.id %>><%= user.name %></option>
         <% end %>
-        <% @groups.each do |grp| %>
+			</optgroup>
+      <optgroup label="Groups">
+				<% @groups.each do |grp| %>
           <option value="G<%= grp.id %>"><%= grp.name %></option>
         <% end %>
+      </optgroup>
+
     </select>
   </div>
 

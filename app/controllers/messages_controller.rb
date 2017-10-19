@@ -14,8 +14,8 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
-    @users = User.where.not(id: current_user.id)
-    @groups = Group.all
+    @users = User.where.not(id: current_user.id).order(last_name: :asc)
+    @groups = Group.all.order(name: :asc)
   end
 
   def create

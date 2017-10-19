@@ -75,7 +75,7 @@ class GroupsController < ApplicationController
 		user = User.find(params[:format])
 		@group.make_admin(user)
 		user.notifications.create(title: "Group Leader", content: "You are now a group leader for the #{@group.name} group", resolve_link: group_path(@group.id))
-		redirect_to group_members_path(@group)
+		redirect_to group_path(@group)
 	end
 
 	def remove_administrator
@@ -83,7 +83,7 @@ class GroupsController < ApplicationController
 		user = User.find(params[:format])
 		@group.remove_admin(user)
 		user.notifications.create(title: "Group Leader", content: "You are no longer a group leader for the #{@group.name} group", resolve_link: group_path(@group.id))
-		redirect_to group_members_path(@group)
+		redirect_to group_path(@group)
 	end
 
   private

@@ -25,9 +25,6 @@
 			<% if @authorised_user %>
 				<div class="col-md-6 col-sm-6">
 					<div class="btn-group pull-right btn-group-icons">
-						<%= link_to group_members_path(@group), class: "text-left btn btn-default" do %>
-							<%= fa_icon 'user', class: 'large-icon' %>  Members
-						<% end %>
 						<%= link_to edit_group_path(@group), class: "text-left btn btn-default" do %>
 							<%= fa_icon 'pencil', class: 'large-icon' %>  Edit
 						<% end %>
@@ -44,19 +41,28 @@
     <div class="row">
       <div class="col-md-<%= @authorised_user ? 6 : 9 %>">
         <h4>
-          Member List <%= content_tag :small, 'Remove', class: 'pull-right' if current_user.is_staff? %>
+          Member List
         </h4>
         <div class="panel panel-default">
           <div class="list-group scrollable-list-group">
             <% if @group.users.size > 0 %>
               <% @group.users.each do |usr| %>
                 <div class="list-group-item">
-
                   <%= usr.name %>
+                  
 									<% if @authorised_user %>
 	                  <%= link_to group_unassign_user_path(@group.id, usr.id), class: 'pull-right item-pad-left', method: :delete do %>
 	                    <%= fa_icon 'trash', class: 'large-icon' %>
 	                  <% end %>
+                    <% if @group.admin?(usr) %>
+  										<%= link_to group_remove_administrator_path(@group, usr), class: 'pull-right item-pad-left', method: :post do %>
+  											<%= fa_icon 'star' %>
+  										<% end %>
+  									<% else %>
+  										<%= link_to group_make_administrator_path(@group, usr), class: 'pull-right item-pad-left', method: :post do %>
+  											<%= fa_icon 'star-o' %>
+  										<% end %>
+  									<% end %>
 									<% end %>
                   <%= content_tag(:span, 'Group Leader', class: 'badge') if @group.admin? usr %>
                 </div>
