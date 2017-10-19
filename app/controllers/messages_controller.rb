@@ -89,7 +89,7 @@ class MessagesController < ApplicationController
     <blockquote>
       <p>To: #{@original_message.receiver.name}</p>
       <p>From: #{@original_message.sender.name}</p>
-      <p>Date: #{@original_message.sent_at}</p>
+      <p>Date: #{@original_message.sent_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y")}</p>
       <div>#{@original_message.content}</div>
     </blockquote>
     """
@@ -111,7 +111,7 @@ class MessagesController < ApplicationController
     <blockquote>
       <p>To: #{@original_message.receiver.name}</p>
       <p>From: #{@original_message.sender.name}</p>
-      <p>Date: #{@original_message.sent_at}</p>
+      <p>Date: #{@original_message.sent_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y")}</p>
       <div>#{@original_message.content}</div>
     </blockquote>
     """

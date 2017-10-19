@@ -13,6 +13,8 @@ gem 'select2-rails'
 gem 'will_paginate',           '3.1.5'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem 'carrierwave'
+gem 'figaro'
+gem 'fog-aws'
 gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
