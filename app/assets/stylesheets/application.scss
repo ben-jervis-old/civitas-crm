@@ -236,6 +236,9 @@ a.pull-right.navbar-brand {
 	small {
 		display: block;
 	}
+	table {
+		z-index: 9999;
+	}
 }
 
 #content-div {
