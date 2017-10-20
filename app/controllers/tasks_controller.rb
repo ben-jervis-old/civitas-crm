@@ -18,6 +18,7 @@ class TasksController < ApplicationController
 			flash[:success] = 'Task saved successfully'
 			redirect_to @roster
 		else
+			@cancel_path = roster_path(@roster.id)
 			render :new
 		end
 	end
@@ -43,6 +44,7 @@ class TasksController < ApplicationController
 			flash[:success] = 'Task updated successfully'
 			redirect_to [@task.roster, @task]
 		else
+			@cancel_path = roster_task_path(@task.roster, @task)
 			render :edit
 		end
 	end

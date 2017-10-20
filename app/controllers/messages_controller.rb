@@ -19,26 +19,36 @@ class MessagesController < ApplicationController
   end
 
   def create
-    user_list = (params[:recipients]).select{ |id| id.include? 'U'}
-                                     .map{ |id| id.tr('U', '').to_i }
-    group_list = (params[:recipients]).select{ |id| id.include? 'G'}
-                                      .map{ |id| id.tr('G', '').to_i }
-                                      .map{ |id| Group.find(id).users.collect(&:id) }
+    if params[:recipients].nil? || params[:message][:content].blank?
+      @message = Message.new
+      @users = User.where.not(id: current_user.id).order(last_name: :asc)
+      @groups = Group.all.order(name: :asc)
 
-    send_list = [user_list, group_list].flatten.uniq
+      @message.errors.add(:receiver, 'cannot be blank') if params[:recipients].nil?
+      @message.errors.add(:content, 'cannot be blank') if params[:message][:content].blank?
+      render 'new'
+    else
+      user_list = (params[:recipients]).select{ |id| id.include? 'U'}
+                                       .map{ |id| id.tr('U', '').to_i }
+      group_list = (params[:recipients]).select{ |id| id.include? 'G'}
+                                        .map{ |id| id.tr('G', '').to_i }
+                                        .map{ |id| Group.find(id).users.collect(&:id) }
 
-	  send_list.each  do |id|
-      new_msg = Message.new(title:        params[:message][:title],
-                            content:      params[:message][:content],
-                            sender_id:    current_user.id,
-                            receiver_id:  id,
-                            sent:         true,
-                            sent_at:      Time.zone.now )
-      if new_msg.save
-        MessageMailer.new_message(new_msg).deliver_now
+      send_list = [user_list, group_list].flatten.uniq
+
+  	  send_list.each  do |id|
+        new_msg = Message.new(title:        params[:message][:title],
+                              content:      params[:message][:content],
+                              sender_id:    current_user.id,
+                              receiver_id:  id,
+                              sent:         true,
+                              sent_at:      Time.zone.now )
+        if new_msg.save
+          MessageMailer.new_message(new_msg).deliver_now
+        end
       end
+      redirect_to messages_path
     end
-    redirect_to messages_path
   end
 
   def show
