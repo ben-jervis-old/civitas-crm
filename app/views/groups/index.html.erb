@@ -46,7 +46,16 @@
 				<div class="list-group-item col-md-6" data-searchterm="<%= group.name %>">
 				  <%= link_to group do %>
 				    <h4><%= group.name %>
-				      <span class="label label-default pull-right"><%= pluralize(group.users.count, 'Member') %></span>
+							<%= content_tag :span,
+															class: 'label label-default pull-right',
+															data: {
+																toggle: 'tooltip',
+																placement: 'top',
+																title: userlist_tooltip_string(group.users.collect(&:name))
+																} do %>
+								<%= pluralize(group.users.count, 'Member') %>
+							<% end %>
+				      <!-- <span class="label label-default pull-right"><%= pluralize(group.users.count, 'Member') %></span> -->
 				    </h4>
 				  <% end %>
 				</div>
