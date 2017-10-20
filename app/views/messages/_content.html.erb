@@ -1,8 +1,12 @@
 <div class="row padded-row">
   <div class="col-md-12">
-    <h4 class='pull-left'>
+    <h4 class='pull-left hidden-xs'>
       <%= @from_to %> <%= link_to @display_user.name, @display_user %>
-      <br class="visible-xs-block"/>
+      <small>at <%= mess.sent_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y") %></small>
+    </h4>
+    <h4 class='visible-xs-block'>
+      <%= @from_to %> <%= link_to @display_user.name, @display_user %>
+      <br>
       <small>at <%= mess.sent_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y") %></small>
     </h4>
     <div class="btn-group pull-right hidden-xs">
