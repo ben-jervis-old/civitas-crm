@@ -9,20 +9,22 @@
 
 <% if current_user.is_staff? %>
 	<div class="row padded-row">
+		<div class="col-md-12">
+			<%= link_to new_roster_path, class: "btn btn-primary btn-lg btn-block visible-xs-block" do %>
+				<%= fa_icon 'plus' %> New Roster
+			<% end %>
 
-		<%= link_to new_roster_path, class: "btn btn-primary btn-lg btn-block visible-xs-block" do %>
-			<%= fa_icon 'plus' %> New Roster
-		<% end %>
-
-		<%= link_to new_roster_path, class: "btn btn-primary pull-right hidden-xs" do %>
-			<%= fa_icon 'plus' %> New Roster
-		<% end %>
-
+			<%= link_to new_roster_path, class: "btn btn-primary pull-right hidden-xs" do %>
+				<%= fa_icon 'plus' %> New Roster
+			<% end %>
+		</div>
 	</div>
 <% end %>
 
 <div class="row padded-row">
-	<ul class="list-group">
-		<%= render @rosters %>
-	</ul>
+	<div class="col-md-12">
+		<div class="list-group">
+			<%= render @rosters %>
+		</div>
+	</div>
 </div>
