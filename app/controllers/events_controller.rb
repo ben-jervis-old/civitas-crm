@@ -106,8 +106,9 @@ class EventsController < ApplicationController
 	private
 
 		def event_params
+      Time.zone = 'Sydney'
       unless (params[:event][:event_date]).blank? || (params[:event][:event_time]).blank?
-        new_date = Time.parse(params[:event][:event_time] + " " + params[:event][:event_date])
+        new_date = Time.zone.parse(params[:event][:event_time] + " " + params[:event][:event_date])
 	      params[:event][:event_date] = new_date
       end
 			params.require(:event).permit(:title, :event_date, :location, :repeat, :event_type)
