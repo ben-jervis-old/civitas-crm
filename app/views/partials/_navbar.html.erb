@@ -28,7 +28,7 @@
 		</div>
 		<% if logged_in? %>
 			<div class="pull-right action-icon-holder">
-				<%= link_to notifications_path do %>
+				<%= link_to notifications_path, data: { toggle: 'tooltip', placement: 'bottom', title: 'Notifications' } do %>
 					<%= fa_icon 'bell' %>
 					<% num_notifications = current_user.notifications.reject(&:read).length %>
 					<% if num_notifications > 0 %>
@@ -37,7 +37,7 @@
 				<% end %>
 
 
-				<%= link_to messages_path do %>
+				<%= link_to messages_path, data: { toggle: 'tooltip', placement: 'bottom', title: 'Inbox' } do %>
 					<%= fa_icon 'envelope' %>
 					<% num_messages = current_user.received_messages.reject(&:read).length %>
 					<% if num_messages > 0 %>
@@ -45,15 +45,18 @@
 					<% end %>
 				<% end %>
 
-				<a href="#MyAccount" class="hidden-xs" data-toggle="tooltip" data-placement="bottom" title="Settings">
-					<i class="fa fa-cog"></i>
-				</a>
-				<%= link_to logout_path, method: :delete, class: 'hidden-xs', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: 'Log Out' do %>
-					<i class="fa fa-sign-out"></i>
+				<%= link_to user_path(current_user), class: 'hidden-xs', data: { toggle: 'tooltip', placement: 'bottom', title: 'My Account' } do %>
+					<%= fa_icon 'cog' %>
 				<% end %>
+
+				<%= link_to logout_path, method: :delete, class: 'hidden-xs', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', title: 'Log Out' do %>
+					<%= fa_icon 'sign-out' %>
+				<% end %>
+
 				<a href="#" id="action-menu-button" class="visible-xs-inline">
 					<%= fa_icon 'ellipsis-v' %>
 				</a>
+				
 			</div>
 		<% else %>
 			<%= link_to 'About', 'http://www.civitascrm.com.au/', class: 'pull-right navbar-brand', target: '_blank', rel: 'noopener noreferrer' %>
