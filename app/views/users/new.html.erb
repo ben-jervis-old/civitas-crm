@@ -1,0 +1,15 @@
+<% provide(:title, "New Member") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Add New Member</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Members", users_path %></li>
+	<li class='active'>New</li>
+</ol>
+
+<div class="row">
+	<div class="col-md-10 col-sm-10 col-lg-8">
+		<%= render 'form', ok_button_text: 'Create Account', cancel_path: users_path %>
+	</div>
+</div>

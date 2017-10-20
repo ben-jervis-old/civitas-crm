@@ -1,0 +1,122 @@
+<% provide(:title, "Privacy Settings") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Edit Privacy</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Members", users_path %></li>
+	<li><%= link_to @user.name, user_path(@user.id) %></li>
+	<li class='active'>Privacy Settings</li>
+</ol>
+
+<div class="row">
+	<div class="col-md-8">
+		<%= form_for @user.privacy_setting, url: user_privacy_path(@user.id) do |f| %>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<strong>Item</strong>
+					<span class="pull-right"><strong>Show to</strong></span>
+				</div>
+				<div class="list-group">
+					<div class="list-group-item">
+						Presence
+						<span class="pull-right">
+							<%= f.label :presence, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :presence, true %>All Users
+							<% end %>
+							<%= f.label :presence, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :presence, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Mobile Number
+						<span class="pull-right">
+							<%= f.label :mobile_number, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :mobile_number, true %>All Users
+							<% end %>
+							<%= f.label :mobile_number, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :mobile_number, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Home Number
+						<span class="pull-right">
+							<%= f.label :home_number, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :home_number, true %>All Users
+							<% end %>
+							<%= f.label :home_number, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :home_number, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Work Number
+						<span class="pull-right">
+							<%= f.label :work_number, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :work_number, true %>All Users
+							<% end %>
+							<%= f.label :work_number, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :work_number, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Home Address
+						<span class="pull-right">
+							<%= f.label :address, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :address, true %>All Users
+							<% end %>
+							<%= f.label :address, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :address, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Email Address
+						<span class="pull-right">
+							<%= f.label :email, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :email, true %>All Users
+							<% end %>
+							<%= f.label :email, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :email, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Birthdate
+						<span class="pull-right">
+							<%= f.label :dob, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :dob, true %>All Users
+							<% end %>
+							<%= f.label :dob, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :dob, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+
+					<div class="list-group-item">
+						Member Since
+						<span class="pull-right">
+							<%= f.label :user_created_at, value: true, class: 'radio-inline' do %>
+								<%= f.radio_button :user_created_at, true %>All Users
+							<% end %>
+							<%= f.label :user_created_at, value: false, class: 'radio-inline' do %>
+								<%= f.radio_button :user_created_at, false %>Staff Only
+							<% end %>
+						</span>
+					</div>
+				</div>
+			</div>
+			<%= f.submit 'Save Settings', class: 'btn btn-primary pull-right' %>
+			<%= link_to 'Cancel', user_path(@user.id), class: 'btn btn-default' %>
+		<% end %>
+	</div>
+</div>

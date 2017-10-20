@@ -5,11 +5,21 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Rich text editor used for contacts
+gem 'trix'
+gem 'select2-rails'
+
+#Used for creating pages in notifications history
+gem 'will_paginate',           '3.1.5'
+gem 'bootstrap-will_paginate', '1.0.0'
+gem 'carrierwave'
+gem 'figaro'
+gem 'fog-aws'
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -23,6 +33,7 @@ gem 'coffee-rails', '~> 4.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# gem 'jquery-turbolinks'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -30,7 +41,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+
+gem 'bootstrap-sass'
+gem 'font-awesome-rails'
+
+gem 'active_link_to'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -39,8 +55,10 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 	gem 'factory_girl_rails'
-	gem 'rspec-rails'
-	gem 'spring-commands-rspec'
+	# gem 'rspec-rails'
+	# gem 'spring-commands-rspec'
+	# Use sqlite3 as the database for Active Record
+    gem 'sqlite3'
 end
 
 group :development do

@@ -1,0 +1,34 @@
+<% provide(:title, "Past Events") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Previous Events</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Events", events_path %></li>
+	<li class='active'>Past Events</li>
+</ol>
+
+<div class="row">
+	<div class="col-md-8">
+		<div class="list-group">
+			<% unless @past_events.empty? %>
+				<% @past_events.each do |event| %>
+					<div class="list-group-item" data-searchterm="<%= event.title %>">
+						<h4><%= link_to event.title, event %> - <%= time_string event %></h4>
+						<p>
+							<%=  "#{event.event_type}: #{event.formatted_time} #{event.formatted_date} at #{event.location}" %>.
+						</p>
+					</div>
+				<% end %>
+			<% else %>
+					<h4><em>There are no previous events.</em></h4>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<%= link_to 'Back to upcoming events', events_path %>
+	</div>
+</div>

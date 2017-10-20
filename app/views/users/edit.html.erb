@@ -1,0 +1,17 @@
+<% provide(:title, "Update Details") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Update profile</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Members", users_path %></li>
+	<li><%= link_to @user.name, @user %></li>
+	<li class='active'>Edit Details</li>
+</ol>
+
+
+<div class="row">
+  <div class="col-md-10 col-sm-10 col-lg-8">
+    <%= render 'form', ok_button_text: 'Save Changes', cancel_path: user_path(@user.id) %>
+  </div>
+</div>

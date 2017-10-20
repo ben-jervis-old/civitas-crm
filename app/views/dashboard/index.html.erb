@@ -1,0 +1,20 @@
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>St Mark's Anglican Church</h1>
+</div>
+
+<%= render 'cards' %>
+<div class="row">
+
+	<div class="col-md-4 col-sm-6">
+		<%= render 'notifications' %>
+	</div>
+
+	<div class="col-md-4 col-sm-6">
+		<%= render 'tasks' %>
+	</div>
+
+	<div class="col-md-4 col-sm-6">
+		<%= render 'messages' %>
+	</div>
+
+</div>

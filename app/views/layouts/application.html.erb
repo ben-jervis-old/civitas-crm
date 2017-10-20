@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>CivitasCRM</title>
+    <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
-
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'logo-inverse.png', type: 'image/png' %>
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'partials/navbar' %>
+    <div class="container-fluid">
+      <div class="row" id="main-body-div">
+        <%= render 'partials/sidebar' if logged_in? %>
+        <div id="<%= logged_in? ? 'content-div' : '' %>">
+          <div class="container-fluid">
+						<%= render 'partials/flash' %>
+            <%= yield %>
+		      </div>
+        </div>
+        <%= render 'partials/tabmenu' if logged_in? %>
+      </div>
+    </div>
+		<%= javascript_include_tag 'application', 'data-turbolinks-eval': false %>
+		<%= javascript_include_tag 'tasks' if params[:controller] == 'task' and params[:action] == 'show' %>
   </body>
 </html>

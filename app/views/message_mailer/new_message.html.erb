@@ -1,0 +1,21 @@
+<h1>civitasCRM</h1>
+<p>
+  Hi <%= @message.receiver.name %>,
+</p>
+
+<p>
+  You have received a message on civitasCRM.
+</p>
+
+<blockquote>
+  <h4>
+    From: <%= @message.sender.name %>
+  </h4>
+  <div>
+    <%= @message.content.html_safe %>
+  </div>
+</blockquote>
+
+<p>
+  To reply to this message, log in to your account on civitasCRM, or <%= link_to 'click here', message_url(@message) %>.
+</p>

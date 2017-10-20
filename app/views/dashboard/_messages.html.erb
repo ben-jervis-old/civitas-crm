@@ -1,0 +1,27 @@
+<h3>
+	Inbox (<%= @unread_messages.length %>)
+	<%= link_to 'View all', messages_path, class: 'pull-right small' %>
+</h3>
+<div class="panel panel-default">
+	<div class="list-group">
+		<% if @unread_messages.empty? %>
+			<div class="list-group-item">
+				<div class="notification-body">
+					<h4>No new messages</h4>
+				</div>
+			</div>
+		<% else %>
+			<% @unread_messages.each do |message| %>
+				<div class="list-group-item">
+					<b><%= truncate(message.sender.name, length: 45) %></b>
+			    <div class="pull-right">
+			     <i> <%= time_ago_in_words(message.updated_at).gsub('about ','') %> ago</i>
+			    </div>
+			    <br>
+			    <%= truncate(message.title, length: 45) %>
+					<p><%= link_to 'Show me', message %></p>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>

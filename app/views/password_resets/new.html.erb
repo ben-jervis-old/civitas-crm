@@ -1,0 +1,13 @@
+<% provide(:title, "Forgot Password") %>
+<div id="login-page-wrapper">
+  <div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+    <h1>Reset Password</h1>
+  </div>
+  <%= form_for(:password_reset, url: password_resets_path) do |f| %>
+
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-control' %>
+
+    <%= f.submit "Email me a password reset link", class: "btn-primary btn btn-lg btn-block" %>
+  <% end %>
+</div>

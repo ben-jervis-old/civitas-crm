@@ -1,0 +1,8 @@
+Hi <%= @message.receiver.name %>,
+
+You have received a message on civitasCRM. 
+
+    To: <%= @message.receiver.name %>
+    From: <%= @message.sender.name %>
+
+    <%= @message.content %>

@@ -1,0 +1,68 @@
+<% provide(:title, 'Groups') %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Group Database</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li class='active'>Groups</li>
+</ol>
+
+<div class="row bounded-row">
+
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 visible-xs-block">
+			<%= link_to new_group_path, class: 'btn btn-primary btn-block' do %>
+				<%= fa_icon 'plus' %> New Group
+			<% end %>
+			<br>
+		</div>
+	<% end %>
+
+	<div class="col-md-4">
+		<div class="input-group">
+			<input type="text" name="groups-search" value="" class="form-control search-bar scroll" placeholder="Search">
+			<span class="input-group-btn">
+				<button class="btn btn-default">
+					<%= fa_icon 'search' %>
+				</button>
+			</span>
+		</div>
+	</div>
+
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 col-md-offset-7 hidden-xs">
+			<%= link_to new_group_path, class: "btn btn-primary pull-right" do %>
+				<%= fa_icon 'plus' %> New Group
+			<% end %>
+		</div>
+	<% end %>
+
+</div>
+
+<div class="row padded-row">
+	<div class="col-md-12">
+		<div class="list-group">
+			<% @groups.each do |group| %>
+				<div class="list-group-item col-md-6" data-searchterm="<%= group.name %>">
+				  <%= link_to group do %>
+				    <h4><%= group.name %>
+							<%= content_tag :span,
+															class: 'label label-default pull-right',
+															data: {
+																toggle: 'tooltip',
+																placement: 'top',
+																title: userlist_tooltip_string(group.users.collect(&:name))
+																} do %>
+								<%= pluralize(group.users.count, 'Member') %>
+							<% end %>
+				      <!-- <span class="label label-default pull-right"><%= pluralize(group.users.count, 'Member') %></span> -->
+				    </h4>
+				  <% end %>
+				</div>
+			<% end %>
+			<div class="list-group-item col-md-12 text-center hidden-item" id="list-empty-msg">
+	      <h4><em>No groups found</em></h4>
+	    </div>
+		</div>
+	</div>
+</div>

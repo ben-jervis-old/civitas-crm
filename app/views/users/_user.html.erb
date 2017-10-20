@@ -1,0 +1,16 @@
+<div class="list-group-item col-md-4" data-searchterm="<%= user.name %>">
+	<h4>
+		<% image_path = user.image.thumb.url || 'empty' %>
+		<%= link_to user.name, user %>
+		<%= link_to '#',
+								class: 'no-follow-link',
+								data: {
+									toggle: 'modal',
+									target: '#user-detail-modal',
+									username: user.name,
+									picture: image_path
+								} do %>
+			<i class="glyphicon glyphicon-picture pull-right"></i>
+		<% end %>
+	</h4>
+</div>

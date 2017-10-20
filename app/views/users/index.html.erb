@@ -1,0 +1,70 @@
+<% provide(:title, "Members") %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>Member Database</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li class='active'>Members</li>
+</ol>
+
+<div class="row bounded-row">
+
+	<!-- Button for mobile -->
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 visible-sm-block visible-xs-block padded-row">
+			<%= link_to new_user_path, class: "btn btn-primary btn-lg btn-block visible-xs-block visible-sm-block" do %>
+				<%= fa_icon 'plus' %> New Member
+			<% end %>
+		</div>
+	<% end %>
+
+	<div class="col-md-6">
+		<div class="input-group">
+			<input type="search" name="user-search" value="" class="form-control search-bar scroll" placeholder="Search">
+			<span class="input-group-btn">
+				<button class="btn btn-default">
+					<%= fa_icon 'search' %>
+				</button>
+			</span>
+		</div>
+	</div>
+
+	<!-- Button for desktop -->
+	<% if current_user.is_staff? %>
+		<div class="col-md-1 col-md-offset-5 hidden-sm hidden-xs">
+			<%= link_to new_user_path, class: "btn btn-primary pull-right" do %>
+				<%= fa_icon 'plus' %> New Member
+			<% end %>
+		</div>
+	<% end %>
+
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<ul class="list-group">
+			<%= render @users %>
+
+			<div class="list-group-item col-md-12 text-center hidden-item" id="list-empty-msg">
+				<h4><em>No users found</em></h4>
+			</div>
+		</ul>
+	</div>
+</div>
+
+<div class="modal fade" id="user-detail-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="user-name-label">New message</h4>
+      </div>
+      <div class="modal-body">
+        <%= image_tag 'usericon.png', class: 'img-responsive center-block img-rounded', id: 'user-picture-tag' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

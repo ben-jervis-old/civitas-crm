@@ -1,0 +1,28 @@
+<%= form_for [@task.roster, @task] do |f| %>
+	<%= render 'partials/error_messages', item: @task %>
+
+	<div class="row">
+		<div class="form-group col-sm-12">
+			<%= f.label :title %>
+			<%= f.text_field :title, class: 'form-control' %>
+		</div>
+
+		<div class="form-group col-sm-6">
+			<%= f.label :due, 'Due Date' %>
+			<%= f.date_field :due, class: 'form-control' %>
+		</div>
+
+		<div class="form-group col-sm-6">
+			<%= f.label :location %>
+			<%= f.text_field :location, class: 'form-control' %>
+		</div>
+
+		<div class="form-group col-sm-12">
+			<%= f.label :notes %>
+			<%= f.text_area :notes, class: 'form-control' %>
+		</div>
+	</div>
+
+	<%= f.submit class: 'btn btn-primary pull-right' %>
+	<%= link_to 'Cancel', @cancel_path, class: 'btn btn-default' %>
+<% end %>

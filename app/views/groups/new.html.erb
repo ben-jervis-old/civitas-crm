@@ -1,0 +1,15 @@
+<% provide(:title, 'New Group') %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Create New Group </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Groups", groups_path%></li>
+	<li class='active'>New</li>
+</ol>
+
+<div class="row">
+	<div class="col-md-8">
+		<%= render 'form' %>
+	</div>
+</div>

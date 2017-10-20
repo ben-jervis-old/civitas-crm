@@ -1,0 +1,85 @@
+<% provide(:title, @event.title) %>
+
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Event: <%= @event.title %> </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Events", events_path %></li>
+	<li class='active'><%= @event.title %></li>
+</ol>
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="row">
+			<div class="col-md-12">
+				<h4><%= @event.event_type %> event</h4>
+				<p>
+					<%= "#{@event.formatted_time} on #{@event.formatted_date}, at #{@event.location}" %>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Attendees</h4>
+				<p>
+					<%= "#{pluralize(@event.users.length, 'person')} marked present at this event." %>
+				</p>
+        <p>
+					<%= "#{pluralize(@num_expected_users, 'person')} expected at this event." %>
+				</p>
+				<p>
+					<%= link_to 'Hide the full list.', '#attendance-users-panel', data: { toggle: 'collapse' }, id: "attendance-users-link" %>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<%= link_to 'Edit Event', edit_event_path(@event), class: 'btn btn-default' %>
+				<% if @event.repeat > 0 %>
+					<%= content_tag :button,
+													'Create Next',
+													class: 'btn btn-default',
+													data: {
+														html: true,
+														toggle: 'popover',
+														placement: 'top',
+														trigger: 'focus',
+														container: 'body',
+														content: "<div><p class='text-center'>This action will create a copy of this event with a date of #{@event.formatted_next}</p>
+																			#{link_to 'Confirm', next_event_path(@event), class: 'btn btn-block btn-warning'}</div>" } %>
+				<% end %>
+				<%= link_to 'Mark Attendance', attendance_event_path(@event), class: 'btn btn-success' if current_user.is_staff? %>
+			</div>
+			<div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="gap-spacer visible-xs-block"></div><div class="gap-spacer visible-xs-block"></div>
+
+	<div class="col-md-6 collapse in" id='attendance-users-panel'>
+		<div class="input-group">
+			<input type="text" id='username-search-bar' name="user-search" value="" class="form-control search-bar scroll" placeholder="Search">
+			<span class="input-group-btn">
+				<button class="btn btn-default">
+					<%= fa_icon 'search' %>
+				</button>
+			</span>
+		</div>
+		<div class="gap-spacer"></div><div class="gap-spacer"></div>
+		<div class="panel panel-default">
+			<div class="list-group scrollable-list-group">
+				<% @present_users.each do |user| %>
+					<div class="list-group-item" data-searchterm="<%= user.name %>">
+						<%= user.name %>
+					</div>
+				<% end %>
+        <div class="list-group-item col-md-12 text-center hidden-item" id="list-empty-msg">
+          <h4><em>No users found</em></h4>
+        </div>
+			</div>
+		</div>
+	</div>
+</div>

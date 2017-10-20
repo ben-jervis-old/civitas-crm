@@ -1,0 +1,53 @@
+<div id="sidebar" class="hidden-xs">
+	<div id="user-info-card">
+		<% image_path = current_user.image.thumb.url || 'usericon.png' %>
+		<div id="sidebar-image-holder" class='pull-right thumbnail-image-holder'>
+			<%= link_to current_user do %>
+				<%= image_tag image_path, class: 'img-rounded' %>
+			<% end %>
+		</div>
+		<div >
+			<h4><%= link_to current_user.name, current_user %></h4>
+			<%= link_to 'My Account', current_user %>
+		</div>
+	</div>
+	<ul class="list-group sidebar-list">
+
+		<%= render 'partials/sidebar_link',
+					title: 'Dashboard',
+					link_path: root_path,
+					icon: 'dashboard',
+					link_type: :exclusive %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Members',
+					link_path: users_path,
+					icon: 'user' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Groups',
+					link_path: '/groups',
+					icon: 'list' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Rosters',
+					link_path: rosters_path,
+					icon: 'calendar' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Attendance',
+					link_path: events_path,
+					icon: 'check' %>
+
+		<%= render 'partials/sidebar_link',
+					title: 'Contact',
+					link_path: messages_path,
+					icon: 'envelope' %>
+
+		<%= render 'partials/sidebar_link',
+		 			title: 'Notifications',
+					link_path: notifications_path,
+					icon: 'bell' %>
+
+	</ul>
+</div>

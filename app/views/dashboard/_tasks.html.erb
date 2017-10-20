@@ -1,0 +1,22 @@
+<h3>Tasks (<%= @outstanding_tasks.length %>)</h3>
+<div class="panel panel-default">
+	<div class="list-group">
+		<% if @outstanding_tasks.empty? %>
+			<div class="list-group-item">
+				<h4>You don't have any tasks at the moment</h4>
+			</div>
+		<% else %>
+			<% @outstanding_tasks.each do |task| %>
+				<div class="list-group-item">
+					<h4>
+						<%= link_to task.title, roster_task_path(task.roster, task) %> - <%= date_as_local task.due %>
+						<% unless task.assignments.where(user_id: current_user.id).first.accepted? %>
+							<span class="badge badge-warning pull-right">Not Accepted</span>
+						<% end %>
+					</h4>
+					<p><%= task.notes %></p>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>

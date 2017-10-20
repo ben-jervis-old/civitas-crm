@@ -1,0 +1,51 @@
+<div class="row padded-row">
+  <div class="col-md-12">
+    <h4 class='pull-left hidden-xs'>
+      <%= @from_to %> <%= link_to @display_user.name, @display_user %>
+      <small>at <%= mess.sent_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y") %></small>
+    </h4>
+    <h4 class='visible-xs-block'>
+      <%= @from_to %> <%= link_to @display_user.name, @display_user %>
+      <br>
+      <small>at <%= mess.sent_at.in_time_zone('Sydney').strftime("%I:%M%P %d/%m/%Y") %></small>
+    </h4>
+    <div class="btn-group pull-right hidden-xs">
+      <%= link_to message_reply_path(mess), class: "btn btn-default", method: :post do %>
+        <%= fa_icon 'reply' %> Reply
+      <% end %>
+      <%= link_to message_forward_path(mess), class: "btn btn-default", method: :post do %>
+        <%= fa_icon 'share' %> Forward
+      <% end %>
+      <%= link_to @message, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
+        <%= fa_icon 'trash' %> Delete
+      <% end %>
+      <%= link_to message_unread_path(mess), class: "btn btn-default", method: :post do %>
+        <%= fa_icon 'envelope-open' %> Mark Unread
+      <% end %>
+    </div>
+    <div class="btn-group btn-group-justified visible-xs-block">
+      <%= link_to message_reply_path(mess), class: "btn btn-default", method: :post do %>
+        <%= fa_icon 'reply' %>
+      <% end %>
+      <%= link_to message_forward_path(mess), class: "btn btn-default", method: :post do %>
+        <%= fa_icon 'share' %>
+      <% end %>
+      <%= link_to @message, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-default" do %>
+        <%= fa_icon 'trash' %>
+      <% end %>
+      <%= link_to message_unread_path(mess), class: "btn btn-default", method: :post do %>
+        <%= fa_icon 'envelope-open' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row padded-row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= mess.content.html_safe %>
+      </div>
+    </div>
+  </div>
+</div>

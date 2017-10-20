@@ -1,0 +1,64 @@
+<% provide(:title, @roster.title) %>
+
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+  <h1>Roster: <%= @roster.title %> </h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Rosters", rosters_path %></li>
+	<li class='active'><%= @roster.title %></li>
+</ol>
+
+<div class="narrow-container">
+	<div class="row padded-row">
+		<h4>
+			<%= @roster.description %>
+		</h4>
+	  <p>
+	      From <strong><%= @formatted_start_date %></strong> to <strong><%= @formatted_end_date %></strong>.
+	  </p>
+	</div>
+	<div class="row padded-row">
+		<h4>
+			Tasks <%= link_to 'Add new', new_roster_task_path(@roster), class: 'pull-right small' if current_user.is_staff? %>
+		</h4>
+		<div class="panel panel-default">
+			<table class="table">
+				<% if @roster.tasks.count > 0 %>
+					<% @roster.tasks.each do |tsk| %>
+						<tr>
+					  	<td><%= link_to tsk.title, roster_task_path(@roster, tsk) %></td>
+							<td><%= users_string tsk.users %></td>
+							<td>Due: <%= tsk.due.in_time_zone('Sydney').strftime("%d/%m/%Y") %></td>
+						</tr>
+				  <% end %>
+				<% else %>
+					<td>There are no tasks for this roster yet. <%= link_to 'Add one.', new_roster_task_path(@roster) %></td>
+				<% end %>
+			</table>
+		</div>
+	</div>
+
+	<div class="row padded-row">
+		<h4>Member List</h4>
+		<div class="panel panel-default">
+			<table class="table">
+				<% if @roster.users.uniq.count > 0 %>
+					<% @roster.users.uniq.each do |usr| %>
+						<tr>
+					  	<td><%= link_to usr.name, usr %></td>
+							<td><%= "#{pluralize(@roster.tasks.select{ |tsk| tsk.users.include? usr }.count, 'task')} in this roster" %></td>
+						</tr>
+				  <% end %>
+				<% else %>
+					<td>There are no users assigned to this roster yet. <%= link_to 'Add one.', new_roster_task_path(@roster) %></td>
+				<% end %>
+			</table>
+		</div>
+	</div>
+	<% if current_user.is_staff? %>
+		<div class="row padded-row">
+			<%= link_to 'Edit Roster', edit_roster_path(@roster), class: 'btn btn-default pull-right' %>
+		</div>
+	<% end %>
+</div>

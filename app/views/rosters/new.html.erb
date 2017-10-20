@@ -1,0 +1,16 @@
+<% provide(:title, "New Roster") %>
+
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>New Roster</h1>
+</div>
+<ol class="breadcrumb">
+	<li><%= link_to "Rosters", rosters_path %></li>
+	<li class='active'>New</li>
+</ol>
+
+
+<div class="row">
+  <div class="col-md-8">
+    <%= render 'form' %>
+  </div>
+</div>

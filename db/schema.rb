@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170524091035) do
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone_number"
+    t.integer  "mobile_number"
     t.string   "address"
     t.string   "email"
     t.date     "dob"
@@ -39,10 +39,19 @@ ActiveRecord::Schema.define(version: 20170524091035) do
     t.boolean  "privacy_consent"
     t.string   "main_service"
     t.text     "special_needs"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "occupation"
     t.text     "notes"
+    t.string   "remember_digest"
+    t.string   "activation_digest"
+    t.boolean  "activated",         default: false
+    t.datetime "activated_at"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
+    t.integer  "home_number"
+    t.integer  "work_number"
+    t.string   "image"
   end
 
 end

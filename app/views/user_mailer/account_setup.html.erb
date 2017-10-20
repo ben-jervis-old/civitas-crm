@@ -1,0 +1,19 @@
+<h1>Welcome to civitasCRM!</h1>
+
+<p>
+  As a member of St Mark's Anglican Church West Wollongong, an civitasCRM account has been created for you.
+</p>
+
+<p>
+  In order to get your account up and running, all you need to do is click the link below, and pick a new password.
+</p>
+
+<p>
+  From there, we suggest you fill in the personal details section of your account.
+</p>
+
+<%= link_to "Setup My Account", edit_account_setup_url(@user.reset_token, email: @user.email) %>
+
+<p>
+  If you weren't expecting this email, you should check with your organisation's administrative staff.
+</p>

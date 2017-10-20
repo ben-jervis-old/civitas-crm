@@ -1,0 +1,64 @@
+<%= form_for @event do |f| %>
+	<%= render 'partials/error_messages', item: @event %>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<% selected_option_title = @event.title || "Select a Service" %>
+				<%= f.label :title %>
+				<%= f.text_field :title, class: 'form-control' %>
+				<%= f.select 	:title,
+											options_for_select(@title_options_list, disabled: 'Select a Service', selected: @selected_option_title),
+											{},
+											class: 'form-control hidden' %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<%= f.label :location %>
+				<%= f.text_field :location, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<%= f.label :event_type %>
+				<%= f.select 	:event_type,
+											options_for_select(@type_options_list, selected: @selected_option_type, disabled: "Select a Type"),
+											{},
+											class: "form-control #{'hidden' if !@event.event_type.nil? && @event.event_type != 'Service'}" %>
+				<%= f.text_field :event_type, class: "form-control #{'hidden' if @event.event_type.nil? || @event.event_type == 'Service'}" %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<%= f.label :event_time %>
+				<%= f.text_field :event_time, class: 'form-control', pattern: '(([0-1]?[0-9])|(2[0-3]))(:[0-5][0-9])? ?(am|pm|AM|PM)?', title: "Format as 7:00pm, 7pm, or 19:00", value: @event.event_time ? @event.event_time.strftime("%I:%M%P") : "" %>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<%= f.label :event_date %>
+				<%= f.date_field :event_date, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<%= f.label :repeat, 'Repeat every (days)' %>
+				<%= f.number_field :repeat, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<%= f.submit 'Save', class: 'btn btn-primary pull-right' %>
+			<%= link_to 'Cancel', @cancel_path, class: 'btn btn-default' %>
+		</div>
+	</div>
+
+<% end %>

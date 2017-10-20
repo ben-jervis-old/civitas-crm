@@ -1,0 +1,16 @@
+<% provide :title, 'New Task' %>
+<div class="page-header <%= 'tall-margin' unless flash.empty? %>">
+	<h1>New Task in <%= @task.roster.title %> Roster</h1>
+</div>
+
+<ol class="breadcrumb">
+	<li><%= link_to "Rosters", rosters_path %></li>
+	<li><%= link_to @task.roster.title, @task.roster %></li>
+	<li class='active'>New Task</li>
+</ol>
+
+<div class="row">
+	<div class="col-lg-8 col-md-10 col-sm-12">
+		<%= render 'form' %>
+	</div>
+</div>

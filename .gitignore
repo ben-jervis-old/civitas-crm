@@ -19,3 +19,12 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+#Ignore Rubymine files
+.idea/*
+
+# Ignore picture uploads
+/public/uploads
+
+# Ignore application configuration
+/config/application.yml

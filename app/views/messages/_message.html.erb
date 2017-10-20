@@ -1,0 +1,16 @@
+<% unread_highlight = !message.read && message.sender_id != current_user.id %>
+<li class="list-group-item <%= active_link_to_class message_path(message.id) %> <%= "list-group-item-warning" if unread_highlight %>">
+  <%= link_to message do %>
+    <h4>
+      <% display_name = message.sender_id == current_user.id ? message.receiver.name : message.sender.name %>
+      <strong><%= truncate(display_name, length: 45) %></strong>
+      <small class="pull-right">
+       <%= time_ago_in_words(message.created_at).gsub('about ','') %> ago
+      </small>
+    </h4>
+
+    <p>
+      <%= truncate(message.title, length: 45) %>
+    </p>
+  <% end %>
+</li>
