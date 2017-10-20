@@ -1,4 +1,7 @@
-<h3>Inbox (<%= @unread_messages.length %>)</h3>
+<h3>
+	Inbox (<%= @unread_messages.length %>)
+	<%= link_to 'View all', messages_path, class: 'pull-right small' %>
+</h3>
 <div class="panel panel-default">
 	<div class="list-group">
 		<% if @unread_messages.empty? %>

@@ -1,21 +1,21 @@
 Rails.application.routes.draw do
 
   resources :events do
-		get 'past', 			on: :collection
-		get 'users', 			on: :member
-		get 'attendance', on: :member
-		get 'next', 			on: :member
-		post 'mark/:user_id', to: 'events#mark', as: 'mark_attendance'
-		post 'unmark/:user_id', to: 'events#unmark', as: 'unmark_attendance'
+		get 'past', 			       on: :collection
+		get 'users', 			       on: :member
+		get 'attendance',        on: :member
+		get 'next', 			       on: :member
+		post 'mark/:user_id',    to: 'events#mark',   as: 'mark_attendance'
+		post 'unmark/:user_id',  to: 'events#unmark', as: 'unmark_attendance'
 	end
 
   resources :rosters do
   	resources :tasks, except: :index
   end
 
-	post '/tasks/:task_id/assign/:user_id', to: 'tasks#assign', as: 'assign_task'
-	delete '/tasks/:task_id/unassign/:user_id', to: 'tasks#unassign', as: 'unassign_task'
-	post '/tasks/:task_id/accept/:user_id', to: 'tasks#accept', as: 'accept_task'
+	post   '/tasks/:task_id/assign/:user_id',    to: 'tasks#assign',   as: 'assign_task'
+	delete '/tasks/:task_id/unassign/:user_id',  to: 'tasks#unassign', as: 'unassign_task'
+	post   '/tasks/:task_id/accept/:user_id',    to: 'tasks#accept',   as: 'accept_task'
 
   resources :users do
   	get    :privacy,   to: 'users#edit_privacy'
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :notifications do
 		get 	'resolve', 		on: :member
 		get 	'unresolve', 	on: :member
-		post 	'dismiss', 		on: :member
+		get 	'dismiss', 		on: :member
   end
   resources :account_setups,      only: [:edit, :update]
 

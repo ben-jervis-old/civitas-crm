@@ -30,6 +30,12 @@ class NotificationsController < ApplicationController
 		redirect_to notifications_path
   end
 
+  def dismiss
+    notification = Notification.find(params[:id])
+    notification.read_by(current_user.id)
+		redirect_to root_path
+  end
+
   def unresolve
     notification = Notification.find(params[:id])
     notification.update_attributes(read: false, read_time: nil, user_id: nil)
