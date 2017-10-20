@@ -25,6 +25,9 @@
 				<p>
 					<%= "#{pluralize(@event.users.length, 'person')} marked present at this event." %>
 				</p>
+        <p>
+					<%= "#{pluralize(@num_expected_users, 'person')} expected at this event." %>
+				</p>
 				<p>
 					<%= link_to 'Hide the full list.', '#attendance-users-panel', data: { toggle: 'collapse' }, id: "attendance-users-link" %>
 				</p>

@@ -59,7 +59,7 @@ doc_ready = function () {
     else {
       this.style.height = '100%';
     }
-  });  
+  });
 
   $('#user-detail-modal').on('show.bs.modal', function(e) {
     nameLabel = $('#user-name-label')[0];
@@ -108,7 +108,6 @@ doc_ready = function () {
 
   $('select#event_event_type, input#event_event_type').change(function(e) {
     select_box = e.target;
-    console.log(select_box);
     if(select_box.value.toUpperCase() == 'SERVICE') {
       $('input#event_title').addClass('hidden');
       $('select#event_title').removeClass('hidden');
@@ -116,7 +115,7 @@ doc_ready = function () {
       $('select#event_event_type').removeClass('hidden');
 
       ($('select#event_event_type')[0]).value = "Service";
-      ($('input#event_event_type')[0]).value = "";
+      ($('input#event_event_type')[0]).value = "Service";
     }
     else {
       $('input#event_title').removeClass('hidden');

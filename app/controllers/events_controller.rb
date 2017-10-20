@@ -63,6 +63,7 @@ class EventsController < ApplicationController
   def show
 		@event = Event.find(params[:id])
 		@present_users = @event.users.sort_by{ |user| [user.last_name, user.first_name] }
+    @num_expected_users = User.where(main_service: @event.title).count if @event.event_type.downcase == 'service'
   end
 
 	def attendance
