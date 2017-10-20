@@ -38,6 +38,13 @@ class EventsController < ApplicationController
 			flash[:success] = 'Event created successfully';
 			redirect_to @event
 		else
+      @cancel_path = events_path
+
+      @title_options_list = ["Select a Service", "8:00am Service", "9:30am Service", "7:00pm Service"]
+      @selected_option_title = "Select a Service"
+
+      @selected_option_type = "Select a Type"
+      @type_options_list = ["Select a Type", "Service", "Other"];
 			render 'new'
 		end
   end
